@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byahe ni Bai — Mapbox Live Inspector & Test Page</title>
+
+  <!-- Official Mapbox GL JS v3 Stylesheet & JavaScript -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #070d18;
+      color: #0f172a;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating Header Control Panel */
+    .floating-panel {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      z-index: 10;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .brand-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .control-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 3px;
+    }
+    select, button {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      outline: none;
+      cursor: pointer;
+    }
+    select:focus {
+      border-color: #0284c7;
+    }
+    .btn-action {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+      transition: background 0.15s ease;
+    }
+    .btn-action:hover {
+      background: #0369a1;
+    }
+    .btn-gps {
+      background: #059669;
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+    }
+    .btn-gps:hover {
+      background: #047857;
+    }
+
+    /* Live Route Info Card */
+    .route-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+    }
+    .route-summary span.val {
+      font-size: 13px;
+      font-weight: 900;
+      color: #0284c7;
+    }
+
+    /* Floating Log Window */
+    .log-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 16px;
+      right: 16px;
+      max-width: 480px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      color: #f8fafc;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-family: monospace;
+      font-size: 11px;
+      z-index: 10;
+      max-height: 120px;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .log-panel div {
+      margin-bottom: 3px;
+    }
+    .log-panel .success { color: #34d399; }
+    .log-panel .info { color: #38bdf8; }
+    .log-panel .warn { color: #fbbf24; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Top Floating Controls -->
+  <div class="floating-panel">
+    <div class="panel-header">
+      <div class="brand-title">
+        <span>📍</span> Byahe ni Bai (Mapbox Live Inspector)
+      </div>
+      <div class="status-badge" id="statusBadge">Mapbox Ready</div>
+    </div>
+
+    <div class="controls-grid">
+      <div class="control-group">
+        <label>Origin (Gikanan)</label>
+        <select id="originSelect">
+          <option value="123.8475,9.6582" selected>Tagbilaran City Sea Port</option>
+          <option value="123.8687,9.6644">Dao Bus Terminal, Tagbilaran</option>
+          <option value="123.9575,9.9547">Tubigon Port</option>
+          <option value="124.3688,9.6508">Jagna Port</option>
+          <option value="124.1685,9.8315">Chocolate Hills, Carmen</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Destination (Padulngan)</label>
+        <select id="destSelect">
+          <option value="123.7745,9.5695" selected>Bohol-Panglao Airport (BIA)</option>
+          <option value="123.7725,9.5492">Alona Beach, Panglao</option>
+          <option value="124.1685,9.8315">Chocolate Hills, Carmen</option>
+          <option value="124.0322,9.6385">Loboc River Floating Resto</option>
+          <option value="124.4754,10.0592">Ubay Port</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+      <button class="btn-gps" id="btnGps">📍 Use Real GPS</button>
+      <button class="btn-action" id="btnToggleStyle">🌙 Switch Dark / Light</button>
+    </div>
+
+    <div class="route-summary">
+      <div>Distance: <span class="val" id="routeDistance">-- km</span></div>
+      <div>Est. Time: <span class="val" id="routeDuration" style="color:#059669;">-- min</span></div>
+      <div>Fuel @ 40km/L: <span class="val" id="routeFuel" style="color:#e11d48;">₱--</span></div>
+    </div>
+  </div>
+
+  <!-- Bottom Log Terminal -->
+  <div class="log-panel" id="logPanel">
+    <div class="info">Initializing Mapbox GL JS v3 with user token...</div>
+  </div>
+
+  <script>
+    // 1. Initialize with user's verified token
+    const MAPBOX_TOKEN = 'pk.eyJ1IjoiYXlzYWFrIiwiYSI6ImNtdnl5ajZ4NDAwaGoyeXB0ZjZhbWp2azMifQ.j0IsZDEvguXfH1diiTIkvg';
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+
+    const logPanel = document.getElementById('logPanel');
+    function log(msg, type = 'info') {
+      const el = document.createElement('div');
+      el.className = type;
+      el.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      logPanel.appendChild(el);
+      logPanel.scrollTop = logPanel.scrollHeight;
+    }
+
+    let isDark = false;
+    const styles = {
+      light: 'mapbox://styles/mapbox/streets-v12',
+      dark: 'mapbox://styles/mapbox/dark-v11'
+    };
+
+    // 2. Initialize Mapbox Map centered on Bohol
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: styles.light,
+      center: [124.14, 9.835], // [lng, lat]
+      zoom: 10,
+      attributionControl: true
+    });
+
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    let originMarker = null;
+    let destMarker = null;
+
+    function createPin(color, letter) {
+      const el = document.createElement('div');
+      el.style.cssText = `
+        background-color: ${color};
+        width: 32px;
+        height: 32px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+        border: 2px solid white;
+        color: white;
+        font-weight: 800;
+        font-size: 13px;
+        cursor: pointer;
+      `;
+      const txt = document.createElement('span');
+      txt.style.transform = 'rotate(45deg)';
+      txt.textContent = letter;
+      el.appendChild(txt);
+      return el;
+    }
+
+    // 3. Draw Road Directions via Mapbox Directions API
+    async function calculateRoute() {
+      const [originLng, originLat] = document.getElementById('originSelect').value.split(',').map(Number);
+      const [destLng, destLat] = document.getElementById('destSelect').value.split(',').map(Number);
+
+      log(`Routing: [${originLng}, ${originLat}] → [${destLng}, ${destLat}]`, 'info');
+
+      // Update Markers
+      if (originMarker) originMarker.remove();
+      if (destMarker) destMarker.remove();
+
+      originMarker = new mapboxgl.Marker({ element: createPin('#059669', 'A'), anchor: 'bottom' })
+        .setLngLat([originLng, originLat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<strong>Origin (A)</strong>'))
+        .addTo(map);
+
+      destMarker = new mapboxgl.Marker({ element: createPin('#e11d48', 'B'), anchor: 'bottom' })
+        .setLngLat([destLng, destLat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<strong>Destination (B)</strong>'))
+        .addTo(map);
+
+      try {
+        const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${originLng},${originLat};${destLng},${destLat}?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.routes && data.routes.length > 0) {
+          const route = data.routes[0];
+          const distKm = (route.distance / 1000).toFixed(1);
+          const mins = Math.round(route.duration / 60);
+          const fuelEst = Math.round((distKm / 40) * 63.85);
+
+          document.getElementById('routeDistance').textContent = `${distKm} km`;
+          document.getElementById('routeDuration').textContent = `${mins} min`;
+          document.getElementById('routeFuel').textContent = `₱${fuelEst}`;
+
+          log(`Route found: ${distKm} km, ~${mins} mins (${route.geometry.coordinates.length} waypoints)`, 'success');
+
+          const geojson = {
+            type: 'Feature',
+            properties: {},
+            geometry: route.geometry
+          };
+
+          if (map.getSource('route')) {
+            map.getSource('route').setData(geojson);
+          } else {
+            map.addSource('route', { type: 'geojson', data: geojson });
+
+            map.addLayer({
+              id: 'route-casing',
+              type: 'line',
+              source: 'route',
+              paint: {
+                'line-color': '#0f172a',
+                'line-width': 7,
+                'line-opacity': 0.4
+              }
+            });
+
+            map.addLayer({
+              id: 'route-line',
+              type: 'line',
+              source: 'route',
+              paint: {
+                'line-color': '#0284c7',
+                'line-width': 5,
+                'line-opacity': 0.95
+              }
+            });
+          }
+
+          const bounds = new mapboxgl.LngLatBounds();
+          route.geometry.coordinates.forEach(c => bounds.extend(c));
+          map.fitBounds(bounds, { padding: 50, duration: 800 });
+        }
+      } catch (err) {
+        log(`Directions error: ${err.message}`, 'warn');
+      }
+    }
+
+    map.on('load', () => {
+      log('Mapbox style loaded. Token verified and active!', 'success');
+      calculateRoute();
+    });
+
+    document.getElementById('originSelect').addEventListener('change', calculateRoute);
+    document.getElementById('destSelect').addEventListener('change', calculateRoute);
+
+    // Style Toggle
+    document.getElementById('btnToggleStyle').addEventListener('click', () => {
+      isDark = !isDark;
+      const targetStyle = isDark ? styles.dark : styles.light;
+      log(`Switching map style: ${targetStyle}`, 'info');
+      map.setStyle(targetStyle);
+      map.once('style.load', () => {
+        log('Style reloaded. Re-drawing route...', 'success');
+        calculateRoute();
+      });
+    });
+
+    // Real GPS Position Button
+    document.getElementById('btnGps').addEventListener('click', () => {
+      if (!('geolocation' in navigator)) {
+        alert('Geolocation not supported by your browser.');
+        return;
+      }
+      log('Requesting device GPS position...', 'info');
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          log(`GPS detected: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, 'success');
+
+          // Reverse geocode via Mapbox Geocoding API
+          try {
+            const res = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${MAPBOX_TOKEN}`);
+            const data = await res.json();
+            const placeName = data.features?.[0]?.place_name?.split(',').slice(0, 2).join(',') || 'My Current GPS';
+            log(`Location Name: ${placeName}`, 'success');
+
+            const opt = document.createElement('option');
+            opt.value = `${lng},${lat}`;
+            opt.textContent = `📍 ${placeName}`;
+            opt.selected = true;
+            document.getElementById('originSelect').prepend(opt);
+            calculateRoute();
+          } catch(e) {
+            log(`Reverse geocode failed: ${e.message}`, 'warn');
+          }
+        },
+        (err) => {
+          log(`GPS Error: ${err.message}`, 'warn');
+          alert('GPS Error: ' + err.message);
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    });
+
+    // Click anywhere on map to route
+    map.on('click', async (e) => {
+      const lng = e.lngLat.lng;
+      const lat = e.lngLat.lat;
+      log(`Clicked map at: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, 'info');
+
+      try {
+        const res = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${MAPBOX_TOKEN}`);
+        const data = await res.json();
+        const placeName = data.features?.[0]?.place_name?.split(',')[0] || 'Selected Map Point';
+
+        const opt = document.createElement('option');
+        opt.value = `${lng},${lat}`;
+        opt.textContent = `🎯 ${placeName}`;
+        opt.selected = true;
+        document.getElementById('destSelect').prepend(opt);
+        calculateRoute();
+      } catch (_) {}
+    });
+  </script>
+</body>
+</html>

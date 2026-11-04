@@ -1,0 +1,20 @@
+{
+  "short_name": "Byahe ni Bai",
+  "name": "Byahe ni Bai: Bohol Transport & Fuel System",
+  "description": "Bohol transport, fuel, allowance, and earnings manager for motorists and drivers",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#0a1526",
+  "theme_color": "#0a1526",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["transportation", "travel", "finance", "productivity"]
+}
