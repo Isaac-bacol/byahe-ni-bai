@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, Sparkles } from 'lucide-react';
-import { BOHOL_ADVISORIES } from '../../lib/boholData';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { useFuelPriceFeed } from '../../lib/fuelPriceSync';
 
 interface Props {
   onOpenWhatsNew: () => void;
 }
 
 export const WhatsNewBanner: React.FC<Props> = ({ onOpenWhatsNew }) => {
+  const { advisories: items } = useFuelPriceFeed();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const items = BOHOL_ADVISORIES;
   const currentItem = items[currentIndex] || items[0];
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const WhatsNewBanner: React.FC<Props> = ({ onOpenWhatsNew }) => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onClick={onOpenWhatsNew}
-      className="advisory-banner hidden md:block shrink-0 w-full bg-sky-50/90 dark:bg-slate-950/95 border-b border-sky-200/80 dark:border-sky-950/60 text-slate-900 dark:text-white py-2 px-3.5 sm:px-6 cursor-pointer select-none transition-colors hover:bg-sky-100/90 dark:hover:bg-slate-900 group"
+      className="advisory-banner hidden md:block shrink-0 w-full bg-sky-50/90 dark:bg-slate-950/95 border-b border-sky-200/80 dark:border-sky-950/60 text-slate-900 dark:text-white py-2 px-3.5 sm:px-6 cursor-pointer select-none transition-colors hover:bg-sky-100/90 dark:hover:bg-slate-900 group print:hidden"
       title="Click to view full advisory and What's New"
     >
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-3 text-xs sm:text-sm">

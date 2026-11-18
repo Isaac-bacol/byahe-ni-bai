@@ -16,10 +16,11 @@ import {
   saveToStorage,
   SEED_ALLOWANCES,
   SEED_FUEL_PURCHASES,
-  SEED_TRIPS,
+  isDemoTrip,
   SEED_VEHICLES
 } from '../lib/storage';
 import { INITIAL_FUEL_PRICES, INITIAL_FUEL_STATIONS } from '../lib/boholData';
+import { syncFuelPriceFeed } from '../lib/fuelPriceSync';
 import { getSupabaseClient, isSupabaseConfigured, generateUUID } from '../lib/supabase';
 
 interface DataContextType {
@@ -45,6 +46,7 @@ interface DataContextType {
   deleteVehicle: (id: string) => void;
   setDefaultVehicle: (id: string) => void;
   addFuelPurchase: (purchaseData: Partial<FuelPurchase>) => FuelPurchase;
+  updateFuelPurchase: (id: string, updates: Partial<FuelPurchase>) => void;
   deleteFuelPurchase: (id: string) => void;
   updateAllowance: (amount: number, period?: 'daily' | 'weekly' | 'monthly') => void;
 
@@ -79,6 +81,39 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => { saveToStorage('byahe_fuel_stations', fuelStations); }, [fuelStations]);
   useEffect(() => { saveToStorage('byahe_fuel_prices', fuelPrices); }, [fuelPrices]);
 
+  // Keep provincial benchmark prices synced weekly with https://www.fuelprice.ph
+  useEffect(() => {
+    let active = true;
+    syncFuelPriceFeed().then((feed) => {
+      if (!active || !feed.isLiveSynced) return;
+      const feedIso = `${feed.effectiveDateIso}T06:00:00Z`;
+      setFuelPrices((prev) =>
+        prev.map((record) => {
+          const isAutoFeed =
+            record.id.startsWith('bm-') ||
+            record.recorded_by === 'fuelprice.ph Weekly Feed' ||
+            record.recorded_by === 'FuelWatch PH Live Feed';
+          if (!isAutoFeed) return record;
+
+          let nextPrice = record.price_per_liter;
+          if (record.fuel_type === 'Gasoline') nextPrice = feed.gasoline.price;
+          else if (record.fuel_type === 'Diesel') nextPrice = feed.diesel.price;
+          else if (record.fuel_type === 'Premium 95') nextPrice = feed.premium95.price;
+          else if (record.fuel_type === 'Regular') nextPrice = Math.max(40, Math.round((feed.gasoline.price - 1.5) * 100) / 100);
+
+          return {
+            ...record,
+            station_name: 'FuelPrice PH (www.fuelprice.ph)',
+            price_per_liter: nextPrice,
+            date_recorded: feedIso,
+            recorded_by: 'fuelprice.ph Weekly Feed',
+          };
+        })
+      );
+    });
+    return () => { active = false; };
+  }, []);
+
   const syncWithSupabase = async () => {
     const client = getSupabaseClient();
     if (!client) {
@@ -102,7 +137,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       const { data: tripData, error: trErr } = await client.from('trips').select('*');
       if (!trErr && tripData && tripData.length > 0) {
-        setTrips(tripData);
+        setTrips(tripData.filter((t: Trip) => !isDemoTrip(t)));
       }
 
       const { data: vehData, error: vehErr } = await client.from('vehicles').select('*');
@@ -383,6 +418,30 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return newPurchase;
   };
 
+  const updateFuelPurchase = (id: string, updates: Partial<FuelPurchase>) => {
+    setFuelPurchases(prev =>
+      prev.map(p => {
+        if (p.id !== id) return p;
+        const price = updates.price_per_liter !== undefined ? Number(updates.price_per_liter) : p.price_per_liter;
+        const liters = updates.liters !== undefined ? Number(updates.liters) : p.liters;
+        const total = updates.total_cost !== undefined ? Number(updates.total_cost) : Math.round(price * liters * 100) / 100;
+        return {
+          ...p,
+          ...updates,
+          price_per_liter: price,
+          liters,
+          total_cost: total,
+        };
+      })
+    );
+    const client = getSupabaseClient();
+    if (client) {
+      client.from('fuel_purchases').update(updates).eq('id', id).then(({ error }) => {
+        if (error) console.error(error);
+      });
+    }
+  };
+
   const deleteFuelPurchase = (id: string) => {
     setFuelPurchases(prev => prev.filter(f => f.id !== id));
     const client = getSupabaseClient();
@@ -488,7 +547,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const resetDataToDemo = () => {
     resetAllStorageToDefaults();
     setVehicles(SEED_VEHICLES);
-    setTrips(SEED_TRIPS);
+    setTrips([]);
     setAllowances(SEED_ALLOWANCES);
     setFuelPurchases(SEED_FUEL_PURCHASES);
     setFuelStations(INITIAL_FUEL_STATIONS);
@@ -519,6 +578,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         deleteVehicle,
         setDefaultVehicle,
         addFuelPurchase,
+        updateFuelPurchase,
         deleteFuelPurchase,
         updateAllowance,
         addFuelStation,

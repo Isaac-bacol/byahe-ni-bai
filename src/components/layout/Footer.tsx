@@ -14,14 +14,16 @@ import {
   Check
 } from 'lucide-react';
 import { BOHOL_MUNICIPALITIES } from '../../lib/boholData';
+import { APP_VERSION, APP_REVISION_LABEL, APP_BUILD_NAME, APP_BUILD_DATE } from '../../lib/version';
 
 interface FooterProps {
   onNavigate?: (tab: string) => void;
+  onOpenTutorial?: () => void;
 }
 
 type ModalType = 'about' | 'terms' | 'privacy' | 'contact' | 'municipalities' | 'donate' | null;
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) => {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [selectedChannel, setSelectedChannel] = useState<'all' | 'gcash' | 'bpi' | 'maribank'>('all');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -33,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="glass-panel border-t border-b-0 border-x-0 rounded-none py-10 px-4 mt-12 pb-24 md:pb-10 transition-colors">
+    <footer className="glass-panel border-t border-b-0 border-x-0 rounded-none py-10 px-4 mt-12 pb-24 md:pb-10 transition-colors print:hidden">
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Centered Logo & Brand Name */}
         <div
@@ -44,12 +46,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         >
           <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-md shadow-sky-600/20 group-hover:scale-105 transition-transform bg-slate-900 border border-slate-200 dark:border-slate-700">
             <img
-              src="/logo.png?v=2"
+              src="/logo.png?v=3"
               alt="Byahe ni Bai Logo"
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex items-center space-x-1.5">
+          <div className="flex items-center space-x-2">
             <span className="text-base font-black tracking-tight text-slate-900 dark:text-white">
               Byahe ni Bai
             </span>
@@ -57,10 +59,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Bohol
             </span>
           </div>
+          {/* Prominent Version & System Badge */}
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 text-[11px] font-bold text-slate-700 dark:text-slate-300 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Version {APP_VERSION} ({APP_BUILD_NAME})</span>
+          </div>
         </div>
 
         {/* Informational Links (Matching FuelWatch PH format + Donate) */}
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-bold text-slate-700 dark:text-slate-300 mb-3">
+          {onOpenTutorial && (
+            <button
+              onClick={onOpenTutorial}
+              className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
+            >
+              How to Use
+            </button>
+          )}
           <button
             onClick={() => setActiveModal('about')}
             className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
@@ -131,8 +146,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Copyright Footnote */}
-        <div className="mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 text-[11px] text-slate-400 dark:text-slate-500 flex items-center justify-center space-x-1.5">
-          <span>© 2026 Byahe ni Bai • Daghang Salamat sa tanang mga drayber sa Bohol!</span>
+        <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 text-[11px] text-slate-400 dark:text-slate-500 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-center">
+          <span>© 2026 Byahe ni Bai • System Release {APP_REVISION_LABEL} ({APP_BUILD_DATE})</span>
+          <span className="hidden sm:inline">•</span>
+          <span>Daghang Salamat sa tanang mga drayber sa Bohol!</span>
         </div>
       </div>
 
@@ -187,9 +204,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <strong className="text-slate-900 dark:text-white font-bold">Byahe ni Bai</strong> ("My Friend's Journey") is a Boholano-first transport operating system created to empower motorcycle commuters, habal-habal operators, and tricycle TODA drivers across the province of Bohol.
                   </p>
                   <p>
-                    From Tagbilaran City to Tubigon, Panglao to Ubay, drivers can record their actual mileage, log passenger fares, track daily fuel consumption, and monitor real-time Bohol fuel prices with live integration from <strong>FuelWatch PH</strong>.
+                    From Tagbilaran City to Tubigon, Panglao to Ubay, drivers can record their actual mileage, log passenger fares, track daily fuel consumption, and monitor real-time Bohol fuel prices with weekly integration from <strong>FuelPrice PH (fuelprice.ph)</strong>.
                   </p>
-                  <div className="p-3 bg-sky-50 dark:bg-sky-950/40 rounded-2xl border border-sky-200 dark:border-sky-800/60 text-sky-900 dark:text-sky-300">
+                  <div className="p-3 bg-sky-500/10 dark:bg-sky-950/40 rounded-2xl border border-sky-500/30 text-sky-900 dark:text-sky-300">
                     <p className="font-semibold">Our Mission:</p>
                     <p className="mt-1">
                       To promote economic transparency, fuel savings, and fair commuter rates for every driver and rider in Bohol.
@@ -199,41 +216,61 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               )}
 
               {activeModal === 'terms' && (
-                <>
-                  <p>
+                <div className="space-y-2.5">
+                  <p className="text-slate-700 dark:text-slate-200 font-medium">
                     By using Byahe ni Bai, you agree to participate responsibly in our transport and fuel tracking community:
                   </p>
-                  <ul className="list-disc pl-4 space-y-1.5">
-                    <li>
-                      <strong>Accurate Data:</strong> When logging trips and fuel receipts, record authentic figures to ensure your expense and mileage reports reflect true numbers.
-                    </li>
-                    <li>
-                      <strong>Fuel Price Estimates:</strong> Live fuel prices shown via FuelWatch PH and community benchmarks are estimates. Actual pump rates at station dispensers may vary based on local barge delivery timing and station inventories.
-                    </li>
-                    <li>
-                      <strong>Safe Driving:</strong> Do not operate the app while in motion. Always pull over safely before recording trips or logging fuel purchases.
-                    </li>
-                  </ul>
-                </>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 font-black text-[10px]">01</span>
+                      <strong className="text-slate-900 dark:text-white">Accurate Data</strong>
+                    </div>
+                    <p>Record authentic mileage, passenger fares, and fuel receipts so your daily expense and trip reports stay reliable.</p>
+                  </div>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 font-black text-[10px]">02</span>
+                      <strong className="text-slate-900 dark:text-white">Fuel Price Estimates Disclaimer</strong>
+                    </div>
+                    <p>Weekly fuel prices synced from <strong>FuelPrice PH (fuelprice.ph)</strong> and community benchmarks are reference estimates. Actual station pump rates in Bohol may vary based on local barge delivery timing.</p>
+                  </div>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 font-black text-[10px]">03</span>
+                      <strong className="text-slate-900 dark:text-white">Safe Driving</strong>
+                    </div>
+                    <p>Do not operate the app while in motion. Always pull over safely before recording trips or logging fuel purchases.</p>
+                  </div>
+                </div>
               )}
 
               {activeModal === 'privacy' && (
-                <>
-                  <p>
+                <div className="space-y-2.5">
+                  <p className="text-slate-700 dark:text-slate-200 font-medium">
                     Your privacy and data sovereignty are fundamental to Byahe ni Bai:
                   </p>
-                  <ul className="list-disc pl-4 space-y-1.5">
-                    <li>
-                      <strong>Local-First Storage:</strong> Your vehicle garage, trip histories, fuel receipts, and daily fare finances are saved locally on your device or in your secure driver session.
-                    </li>
-                    <li>
-                      <strong>No Commercial Selling:</strong> We never sell personal driver information, travel routes, or contact numbers to third-party advertisers.
-                    </li>
-                    <li>
-                      <strong>Control:</strong> You can export, view, or delete your vehicle logs and trip records at any time.
-                    </li>
-                  </ul>
-                </>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">01</span>
+                      <strong className="text-slate-900 dark:text-white">Local-First Storage</strong>
+                    </div>
+                    <p>Your vehicle garage, trip histories, fuel receipts, and daily fare finances are saved locally on your device or in your secure driver session.</p>
+                  </div>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">02</span>
+                      <strong className="text-slate-900 dark:text-white">No Commercial Selling</strong>
+                    </div>
+                    <p>We never sell personal driver information, travel routes, or contact numbers to third-party advertisers.</p>
+                  </div>
+                  <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">03</span>
+                      <strong className="text-slate-900 dark:text-white">Full Data Control</strong>
+                    </div>
+                    <p>You can edit, export, or delete your vehicle logs and trip records at any time under Republic Act 10173.</p>
+                  </div>
+                </div>
               )}
 
               {activeModal === 'contact' && (

@@ -27,6 +27,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
 import type { FuelType } from '../../types';
 import { PriceComparisonView } from '../fuel/PriceComparisonView';
+import { syncFuelPriceFeed } from '../../lib/fuelPriceSync';
 
 interface Props {
   onNavigate?: (tab: string) => void;
@@ -84,24 +85,27 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
     setIsPriceModalOpen(true);
   };
 
-  const handleAutoCalibrateAllFromFuelWatch = () => {
+  const handleAutoCalibrateAllFromFuelWatch = async () => {
+    const feed = await syncFuelPriceFeed(true);
     const defaults: { fuel_type: FuelType; price_per_liter: number }[] = [
-      { fuel_type: 'Gasoline', price_per_liter: 63.85 },
-      { fuel_type: 'Diesel', price_per_liter: 58.90 },
-      { fuel_type: 'Premium 95', price_per_liter: 66.50 },
-      { fuel_type: 'Regular', price_per_liter: 62.40 },
+      { fuel_type: 'Gasoline', price_per_liter: feed.gasoline.price },
+      { fuel_type: 'Diesel', price_per_liter: feed.diesel.price },
+      { fuel_type: 'Premium 95', price_per_liter: feed.premium95.price },
+      { fuel_type: 'Regular', price_per_liter: Math.max(40, Math.round((feed.gasoline.price - 1.5) * 100) / 100) },
     ];
 
     defaults.forEach(d => {
       addOrUpdateFuelPrice({
         municipality: 'Province of Bohol',
-        station_name: 'FuelWatch PH Live Feed',
+        station_name: 'FuelPrice PH (www.fuelprice.ph)',
         fuel_type: d.fuel_type,
         price_per_liter: d.price_per_liter,
       });
     });
 
-    setCalibrateFeedback('Official Bohol benchmarks synced to FuelWatch PH live rates!');
+    setCalibrateFeedback(
+      `Official Bohol benchmarks synced to fuelprice.ph (${feed.effectiveDateDisplay})!`
+    );
     setTimeout(() => setCalibrateFeedback(null), 4000);
   };
 
@@ -116,27 +120,27 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
     const targetFuels: FuelType[] = ['Gasoline', 'Diesel', 'Premium 95', 'Regular'];
     targetFuels.forEach(ft => {
       const existing = fuelPrices.find(p => p.fuel_type === ft);
-      const base = existing ? existing.price_per_liter : (ft === 'Gasoline' ? 63.85 : ft === 'Diesel' ? 58.90 : ft === 'Premium 95' ? 66.50 : 62.40);
+      const base = existing ? existing.price_per_liter : (ft === 'Gasoline' ? 72.29 : ft === 'Diesel' ? 90.54 : ft === 'Premium 95' ? 73.91 : 70.80);
       const increase = hikes[ft] || 0;
       addOrUpdateFuelPrice({
         municipality: 'Province of Bohol',
-        station_name: 'FuelWatch PH (Post-Tuesday Advisory)',
+        station_name: 'FuelPrice PH (Post-Tuesday Advisory)',
         fuel_type: ft,
         price_per_liter: Math.round((base + increase) * 100) / 100,
       });
     });
 
-    setCalibrateFeedback('Applied upcoming Tuesday projected hike (+₱1.80 Gas, +₱2.20 Diesel)!');
+    setCalibrateFeedback('Applied Tuesday benchmark adjustment (+₱1.80 Gas, +₱2.20 Diesel)!');
     setTimeout(() => setCalibrateFeedback(null), 4000);
   };
 
   const handleQuickAdjust = (fuel: FuelType, delta: number) => {
     const existing = fuelPrices.find(p => p.fuel_type === fuel);
-    const base = existing ? existing.price_per_liter : (fuel === 'Gasoline' ? 63.85 : fuel === 'Diesel' ? 58.90 : fuel === 'Premium 95' ? 66.50 : 62.40);
+    const base = existing ? existing.price_per_liter : (fuel === 'Gasoline' ? 72.29 : fuel === 'Diesel' ? 90.54 : fuel === 'Premium 95' ? 73.91 : 70.80);
     const newPrice = Math.round((base + delta) * 100) / 100;
     addOrUpdateFuelPrice({
       municipality: 'Province of Bohol',
-      station_name: 'FuelWatch PH Live Feed',
+      station_name: 'FuelPrice PH (www.fuelprice.ph)',
       fuel_type: fuel,
       price_per_liter: newPrice,
     });
@@ -148,7 +152,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
     e.preventDefault();
     addOrUpdateFuelPrice({
       municipality: 'Province of Bohol',
-      station_name: 'FuelWatch PH Live Feed',
+      station_name: 'FuelPrice PH (www.fuelprice.ph)',
       fuel_type: priceFuelType,
       price_per_liter: Number(priceValue),
     });
@@ -256,7 +260,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               ₱{fuelPrices.find(p => p.fuel_type === 'Gasoline')?.price_per_liter.toFixed(2) || '63.85'}
             </div>
             <span className="text-[10px] text-cyan-200/70 mt-1">
-              Ref: fuelwatchph.com
+              Ref: www.fuelprice.ph
             </span>
           </div>
         </div>
@@ -522,7 +526,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-                Official benchmark prices for Bohol's 48 municipalities, referenced from live crowdsourced station rates on <strong>FuelWatch PH (fuelwatchph.com)</strong>. Calibrating benchmarks here automatically updates trip calculators, TODA boundary accounting, and driver fill-up estimators.
+                Official benchmark prices for Bohol's 48 municipalities, referenced from live station rates on <strong>FuelPrice PH (www.fuelprice.ph)</strong>. Calibrating benchmarks here automatically updates trip calculators, TODA boundary accounting, and driver fill-up estimators.
               </p>
             </div>
 
@@ -536,12 +540,12 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
               <a
-                href="https://fuelwatchph.com"
+                href="https://www.fuelprice.ph"
                 target="_blank"
                 rel="noreferrer"
                 className="px-3.5 py-2 rounded-xl glass-btn text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center space-x-1 transition-colors"
               >
-                <span>fuelwatchph.com</span>
+                <span>www.fuelprice.ph</span>
                 <ExternalLink className="w-3 h-3 text-slate-400" />
               </a>
             </div>
@@ -897,12 +901,12 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                   FuelWatch PH Bohol Averages:
                 </span>
                 <a
-                  href="https://fuelwatchph.com"
+                  href="https://www.fuelprice.ph"
                   target="_blank"
                   rel="noreferrer"
                   className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:underline flex items-center space-x-0.5"
                 >
-                  <span>Verify on fuelwatchph.com</span>
+                  <span>Verify on fuelprice.ph</span>
                   <ExternalLink className="w-2.5 h-2.5" />
                 </a>
               </div>

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DataProvider } from './context/DataContext';
 import { Navbar } from './components/layout/Navbar';
 import { BottomNav } from './components/layout/BottomNav';
 import { DashboardView } from './components/dashboard/DashboardView';
 import { TripManager } from './components/trips/TripManager';
-import { AddTripModal } from './components/trips/AddTripModal';
+import { TripPlanner } from './components/trips/TripPlanner';
 import { VehicleManager } from './components/vehicles/VehicleManager';
 import { FuelManager } from './components/fuel/FuelManager';
 import { FinanceManager } from './components/finance/FinanceManager';
@@ -21,9 +21,10 @@ import { PriceComparisonView } from './components/fuel/PriceComparisonView';
 import { Footer } from './components/layout/Footer';
 import { DataPrivacyTermsModal } from './components/auth/DataPrivacyTermsModal';
 import { EditProfileModal } from './components/auth/EditProfileModal';
+import { TutorialModal } from './components/common/TutorialModal';
 
 export const AmbientGlassBackground: React.FC = () => (
-  <div className="glass-ambient-container pointer-events-none select-none" aria-hidden="true">
+  <div className="glass-ambient-container pointer-events-none select-none print:hidden" aria-hidden="true">
     <div className="glass-orb-1" />
     <div className="glass-orb-2" />
     <div className="glass-orb-3" />
@@ -37,6 +38,25 @@ const AppContent: React.FC = () => {
   const [isSupabaseConfigOpen, setIsSupabaseConfigOpen] = useState<boolean>(false);
   const [isWhatsNewOpen, setIsWhatsNewOpen] = useState<boolean>(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(false);
+
+  // Show simple tutorial once for first-time users after terms are accepted
+  useEffect(() => {
+    if (!isAuthenticated || !currentUser || currentUser.role === 'admin' || !currentUser.terms_accepted_at) {
+      return;
+    }
+    const key = `byahe_tutorial_seen_${currentUser.id}`;
+    if (!localStorage.getItem(key)) {
+      setIsTutorialOpen(true);
+    }
+  }, [isAuthenticated, currentUser]);
+
+  const handleCloseTutorial = () => {
+    if (currentUser) {
+      localStorage.setItem(`byahe_tutorial_seen_${currentUser.id}`, '1');
+    }
+    setIsTutorialOpen(false);
+  };
 
   // 1. Unauthenticated: Clean public landing page
   if (!isAuthenticated || !currentUser) {
@@ -69,7 +89,7 @@ const AppContent: React.FC = () => {
             <AdminDashboard onNavigate={setActiveTab} />
           </main>
 
-          <footer className="py-6 text-center text-xs text-slate-500 border-t border-slate-200/80 dark:border-slate-800/80">
+          <footer className="py-6 text-center text-xs text-slate-500 border-t border-slate-200/80 dark:border-slate-800/80 print:hidden">
             <span>Byahe ni Bai Administrator Console • Provincial Transport Benchmark Calibration</span>
           </footer>
         </div>
@@ -112,13 +132,14 @@ const AppContent: React.FC = () => {
           onOpenSupabaseConfig={() => setIsSupabaseConfigOpen(true)}
           onOpenWhatsNew={() => setIsWhatsNewOpen(true)}
           onOpenEditProfile={() => setIsEditProfileOpen(true)}
+          onOpenTutorial={() => setIsTutorialOpen(true)}
         />
 
         {/* What's New & Upcoming Tuesday Advisories Banner */}
         <WhatsNewBanner onOpenWhatsNew={() => setIsWhatsNewOpen(true)} />
 
         {/* Main Container */}
-        <main className="app-main flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 pt-3 sm:pt-5 pb-24 md:pb-8">
+        <main className="app-main flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 pt-3 sm:pt-5 pb-24 md:pb-8 print:p-0 print:pb-0">
           {safeTab === 'dashboard' && (
             <DashboardView
               onOpenAddTrip={() => setIsAddTripOpen(true)}
@@ -167,7 +188,7 @@ const AppContent: React.FC = () => {
           )}
 
           {/* Footer - Scrolls smoothly with content */}
-          <Footer onNavigate={setActiveTab} />
+          <Footer onNavigate={setActiveTab} onOpenTutorial={() => setIsTutorialOpen(true)} />
         </main>
 
         {/* Mobile Bottom Navigation Bar */}
@@ -191,7 +212,14 @@ const AppContent: React.FC = () => {
           onNavigateTab={setActiveTab}
         />
 
-        <AddTripModal
+        <TutorialModal
+          isOpen={isTutorialOpen}
+          onClose={handleCloseTutorial}
+          onNavigateTab={setActiveTab}
+          onOpenAddTrip={() => setIsAddTripOpen(true)}
+        />
+
+        <TripPlanner
           isOpen={isAddTripOpen}
           onClose={() => setIsAddTripOpen(false)}
         />

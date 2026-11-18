@@ -28,7 +28,7 @@ export const AdminNavbar: React.FC<Props> = ({
         {/* Brand & Admin Badge */}
         <div className="flex items-center space-x-3 shrink-0">
           <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-cyan-900/20 bg-slate-900 dark:bg-slate-950 shrink-0 border border-slate-200/60 dark:border-slate-800/80">
-            <img src="/logo.png?v=2" alt="Byahe ni Bai" className="w-full h-full object-cover" />
+            <img src="/logo.png?v=3" alt="Byahe ni Bai" className="w-full h-full object-cover" />
           </div>
           <div className="shrink-0">
             <div className="flex items-center space-x-2 whitespace-nowrap">
@@ -36,7 +36,7 @@ export const AdminNavbar: React.FC<Props> = ({
                 Byahe ni Bai
               </span>
               <span className="text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full bg-cyan-500/15 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-400/30 backdrop-blur-xs">
-                ADMIN CONSOLE
+                ADMIN CONSOLE v2.5.0
               </span>
             </div>
             <p className="text-[10px] text-cyan-600 dark:text-cyan-400 font-medium hidden sm:block whitespace-nowrap">

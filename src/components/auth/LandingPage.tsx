@@ -230,7 +230,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-sky-600/20 bg-slate-900 shrink-0 border border-slate-200/50 dark:border-slate-700/50">
-              <img src="/logo.png?v=2" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center space-x-1.5">

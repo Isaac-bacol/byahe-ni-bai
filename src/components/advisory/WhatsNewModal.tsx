@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, ArrowRight, Sparkles, AlertCircle, CheckCircle2, TrendingUp, Calculator, ShieldAlert } from 'lucide-react';
-import { BOHOL_ADVISORIES } from '../../lib/boholData';
+import { X, ArrowRight, ExternalLink, RotateCcw } from 'lucide-react';
+import { useFuelPriceFeed } from '../../lib/fuelPriceSync';
 
 interface Props {
   isOpen: boolean;
@@ -9,6 +9,8 @@ interface Props {
 }
 
 export const WhatsNewModal: React.FC<Props> = ({ isOpen, onClose, onNavigateTab }) => {
+  const { advisories, isSyncing, refreshFeed } = useFuelPriceFeed();
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -43,22 +45,32 @@ export const WhatsNewModal: React.FC<Props> = ({ isOpen, onClose, onNavigateTab 
               What's New
             </h2>
             <span className="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-700 dark:text-sky-300 text-[10px] font-bold border border-sky-400/30 backdrop-blur-xs">
-              Bohol Transport
+              Bohol Transport v2.5.0
             </span>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-white/15 dark:hover:bg-white/10 transition-colors cursor-pointer"
-            title="Close"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center space-x-1">
+            <button
+              onClick={() => refreshFeed()}
+              disabled={isSyncing}
+              className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-white/15 dark:hover:bg-white/10 transition-colors cursor-pointer disabled:opacity-50"
+              title="Sync weekly update from fuelprice.ph"
+            >
+              <RotateCcw className={`w-4 h-4 ${isSyncing ? 'animate-spin' : ''}`} />
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-white/15 dark:hover:bg-white/10 transition-colors cursor-pointer"
+              title="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Scrollable Advisory List */}
         <div className="flex-1 overflow-y-auto px-5 sm:px-6 py-4 space-y-4">
-          {BOHOL_ADVISORIES.map((item) => (
+          {advisories.map((item) => (
             <div
               key={item.id}
               className={`p-4 sm:p-5 rounded-2xl border transition-all ${
@@ -68,7 +80,7 @@ export const WhatsNewModal: React.FC<Props> = ({ isOpen, onClose, onNavigateTab 
               }`}
             >
               {/* Top metadata row */}
-              <div className="flex items-center space-x-2.5 mb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 {item.type === 'alert' ? (
                   <span className="px-2 py-0.5 rounded-sm bg-rose-500/20 text-rose-700 dark:text-rose-300 font-black text-[10px] uppercase tracking-wider border border-rose-500/30">
                     {item.badgeText}
@@ -93,19 +105,35 @@ export const WhatsNewModal: React.FC<Props> = ({ isOpen, onClose, onNavigateTab 
                 {item.content}
               </div>
 
-              {/* Optional Call to Action Button */}
-              {item.actionLabel && onNavigateTab && (
-                <div className="mt-3.5 pt-3 border-t border-slate-200/50 dark:border-slate-700/50 flex justify-end">
-                  <button
-                    onClick={() => {
-                      if (item.actionTab) onNavigateTab(item.actionTab);
-                      onClose();
-                    }}
-                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white text-xs font-bold shadow-xs shadow-emerald-900/20 transition-all active:scale-95 cursor-pointer"
-                  >
-                    <span>{item.actionLabel}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+              {/* Optional Call to Action & Source Link */}
+              {(item.actionLabel || item.sourceUrl) && (
+                <div className="mt-3.5 pt-3 border-t border-slate-200/50 dark:border-slate-700/50 flex flex-wrap items-center justify-between gap-2">
+                  {item.sourceUrl ? (
+                    <a
+                      href={item.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline"
+                    >
+                      <span>{item.sourceLabel || 'fuelprice.ph'}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    <span />
+                  )}
+
+                  {item.actionLabel && onNavigateTab && (
+                    <button
+                      onClick={() => {
+                        if (item.actionTab) onNavigateTab(item.actionTab);
+                        onClose();
+                      }}
+                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white text-xs font-bold shadow-xs shadow-emerald-900/20 transition-all active:scale-95 cursor-pointer"
+                    >
+                      <span>{item.actionLabel}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -113,13 +141,21 @@ export const WhatsNewModal: React.FC<Props> = ({ isOpen, onClose, onNavigateTab 
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 glass-panel-subtle border-t border-slate-200/50 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
-          <span className="text-[11px]">
-            Live Bohol pump monitoring via FuelWatch PH
+        <div className="px-6 py-3 glass-panel-subtle border-t border-slate-200/50 dark:border-slate-800/60 flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 shrink-0">
+          <span className="text-[11px] truncate">
+            Live weekly reference via{' '}
+            <a
+              href="https://www.fuelprice.ph"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-sky-600 dark:text-sky-400 hover:underline"
+            >
+              fuelprice.ph
+            </a>
           </span>
           <button
             onClick={onClose}
-            className="px-3.5 py-1.5 rounded-xl glass-btn text-slate-800 dark:text-slate-200 font-bold transition-colors cursor-pointer text-xs"
+            className="px-3.5 py-1.5 rounded-xl glass-btn text-slate-800 dark:text-slate-200 font-bold transition-colors cursor-pointer text-xs shrink-0"
           >
             Close
           </button>

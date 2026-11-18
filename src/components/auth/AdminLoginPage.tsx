@@ -85,7 +85,7 @@ export const AdminLoginPage: React.FC = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-cyan-900/30 bg-slate-950 shrink-0 border border-cyan-500/30">
-              <img src="/logo.png?v=2" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center space-x-2">

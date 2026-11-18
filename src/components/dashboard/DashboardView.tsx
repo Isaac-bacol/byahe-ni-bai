@@ -3,7 +3,6 @@ import {
   PlusCircle,
   TrendingUp,
   AlertTriangle,
-  Sparkles,
   Car,
   Bell,
   Sun,
@@ -20,8 +19,10 @@ import {
 } from 'lucide-react';
 import { Flaticon } from '../common/Flaticon';
 import { ThemeToggleIcon } from '../common/ThemeToggleIcon';
+import { FuelCareTipsCard } from '../common/FuelCareTipsCard';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
+import { useFuelPriceFeed } from '../../lib/fuelPriceSync';
 import type { Trip } from '../../types';
 
 interface Props {
@@ -39,6 +40,7 @@ export const DashboardView: React.FC<Props> = ({
 }) => {
   const { currentUser, userType, isDarkMode, toggleTheme, logout } = useAuth();
   const { financialSummary, userTrips, fuelPrices, fuelStations, defaultVehicle, addTrip } = useData();
+  const { feed } = useFuelPriceFeed();
 
   if (!currentUser) return null;
 
@@ -93,9 +95,9 @@ export const DashboardView: React.FC<Props> = ({
   // Recent 3 trips
   const recentTrips = userTrips.slice(0, 3);
 
-  // Latest Tagbilaran fuel prices
-  const latestGasPrice = fuelPrices.find(p => p.fuel_type === 'Gasoline')?.price_per_liter || 63.85;
-  const latestDieselPrice = fuelPrices.find(p => p.fuel_type === 'Diesel')?.price_per_liter || 58.40;
+  // Latest Tagbilaran / fuelprice.ph benchmark fuel prices
+  const latestGasPrice = fuelPrices.find(p => p.fuel_type === 'Gasoline')?.price_per_liter || feed.gasoline.price;
+  const latestDieselPrice = fuelPrices.find(p => p.fuel_type === 'Diesel')?.price_per_liter || feed.diesel.price;
 
   // Find lowest price station dynamically in Bohol
   const lowestStation = useMemo(() => {
@@ -245,7 +247,7 @@ export const DashboardView: React.FC<Props> = ({
           m3: {
             label: 'Benchmark',
             value: `₱${latestGasPrice.toFixed(2)}`,
-            pillText: 'FuelWatch PH',
+            pillText: 'fuelprice.ph',
             pillClass: 'bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border-cyan-300/40 dark:border-cyan-800/60',
             targetTab: 'compare',
           },
@@ -307,9 +309,9 @@ export const DashboardView: React.FC<Props> = ({
           {/* Logo squircle */}
           <div
             onClick={() => onNavigate('dashboard')}
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl overflow-hidden bg-slate-900 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-sm shrink-0 flex items-center justify-center p-1.5 cursor-pointer active:scale-95 transition-transform"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl overflow-hidden bg-slate-900 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-sm shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
           >
-            <img src="/logo.png?v=2" alt="Byahe ni Bai" className="w-full h-full object-contain" />
+            <img src="/logo.png?v=3" alt="Byahe ni Bai" className="w-full h-full object-cover" />
           </div>
 
           <div className="min-w-0">
@@ -600,7 +602,7 @@ export const DashboardView: React.FC<Props> = ({
           </span>
         </button>
 
-        {/* Action 3: FuelWatch Station Price Comparison */}
+        {/* Action 3: FuelPrice PH Station Price Comparison */}
         <button
           onClick={() => onNavigate('compare')}
           className="flex flex-col items-center justify-center py-2.5 px-1 sm:px-2 sm:py-3.5 rounded-2xl glass-panel-interactive hover:border-amber-500/50 shadow-xs active:scale-95 cursor-pointer group transition-all"
@@ -609,7 +611,7 @@ export const DashboardView: React.FC<Props> = ({
             <Compass className="w-5 h-5" />
           </div>
           <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 dark:text-slate-300 mt-1.5 text-center leading-tight tracking-tight">
-            FuelWatch
+            FuelPrice
           </span>
           <span className="text-[8px] sm:text-[9px] text-slate-400 leading-none mt-0.5">
             Live Pumps
@@ -852,12 +854,12 @@ export const DashboardView: React.FC<Props> = ({
             <div className="min-w-0">
               <div className="flex items-center space-x-1.5">
                 <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
-                  Bohol FuelWatch PH Live
+                  Bohol FuelPrice PH Live
                 </h4>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                Real-time pump price monitoring across Bohol
+                Weekly pump price monitoring via fuelprice.ph
               </p>
             </div>
           </div>
@@ -1034,6 +1036,12 @@ export const DashboardView: React.FC<Props> = ({
           </div>
         )}
       </div>
+
+      {/* 8. Fuel Saving, Vehicle Optimization & Check-Up Tips */}
+      <FuelCareTipsCard
+        vehicle={defaultVehicle}
+        onOpenGarage={() => onNavigate('vehicles')}
+      />
     </div>
   );
 };

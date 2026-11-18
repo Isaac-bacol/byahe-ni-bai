@@ -277,7 +277,7 @@ export const AndroidSimulator: React.FC<Props> = ({
                 <div className="absolute inset-0 z-50 bg-black/80 backdrop-blur-md p-4 flex flex-col justify-center items-center">
                   <div className="w-full max-w-xs bg-slate-900 rounded-3xl p-5 border border-slate-800 text-center shadow-2xl">
                     <div className="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-cyan-600 to-emerald-500 p-2 flex items-center justify-center mb-3">
-                      <img src="/logo.png" alt="Byahe ni Bai" className="w-full h-full object-contain" />
+                      <img src="/logo.png?v=3" alt="Byahe ni Bai" className="w-full h-full object-contain" />
                     </div>
                     <h4 className="text-sm font-extrabold text-white">Byahe ni Bai</h4>
                     <p className="text-xs text-slate-400 mt-1">Bohol Transport & Fuel System Active</p>

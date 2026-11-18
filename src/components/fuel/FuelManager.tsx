@@ -5,13 +5,17 @@ import {
   Trash2,
   CheckCircle2,
   Receipt,
-  ArrowLeft
+  ArrowLeft,
+  Camera,
+  Sparkles,
+  Pencil,
 } from 'lucide-react';
 import { Flaticon } from '../common/Flaticon';
 import { useData } from '../../context/DataContext';
-import type { FuelType } from '../../types';
+import type { FuelType, FuelPurchase } from '../../types';
 import { BOHOL_MUNICIPALITIES } from '../../lib/boholData';
 import { PriceComparisonView } from './PriceComparisonView';
+import { ReceiptScannerModal } from './ReceiptScannerModal';
 
 interface Props {
   initialTab?: 'compare' | 'purchases';
@@ -23,6 +27,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
   const {
     userFuelPurchases,
     addFuelPurchase,
+    updateFuelPurchase,
     deleteFuelPurchase
   } = useData();
 
@@ -30,8 +35,10 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
     initialTab === 'purchases' ? 'purchases' : 'compare'
   );
 
-  // Add purchase modal state
+  // Add / Edit purchase modal state
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+  const [editingPurchase, setEditingPurchase] = useState<FuelPurchase | null>(null);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [stationName, setStationName] = useState('Petron Tagbilaran North');
   const [locationMuni, setLocationMuni] = useState('Tagbilaran City');
   const [purchaseFuelType, setPurchaseFuelType] = useState<FuelType>('Gasoline');
@@ -44,21 +51,62 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
   // Auto-calculate Total Fuel Cost = Price per Liter × Liters
   const totalCost = Math.round(pricePerLiter * liters * 100) / 100;
 
-  const handleCreatePurchase = (e: React.FormEvent) => {
+  const handleOpenAddModal = () => {
+    setEditingPurchase(null);
+    setStationName('Petron Tagbilaran North');
+    setLocationMuni('Tagbilaran City');
+    setPurchaseFuelType('Gasoline');
+    setPricePerLiter(63.85);
+    setLiters(3.0);
+    setPurchaseDate(new Date().toISOString().slice(0, 10));
+    setOdometer(undefined);
+    setNotes('');
+    setIsPurchaseModalOpen(true);
+  };
+
+  const handleOpenEditModal = (purchase: FuelPurchase) => {
+    setEditingPurchase(purchase);
+    setStationName(purchase.station_name);
+    setLocationMuni(purchase.municipality);
+    setPurchaseFuelType(purchase.fuel_type);
+    setPricePerLiter(purchase.price_per_liter);
+    setLiters(purchase.liters);
+    setPurchaseDate(purchase.date ? purchase.date.slice(0, 10) : new Date().toISOString().slice(0, 10));
+    setOdometer(purchase.odometer_km);
+    setNotes(purchase.notes || '');
+    setIsPurchaseModalOpen(true);
+  };
+
+  const handleSavePurchase = (e: React.FormEvent) => {
     e.preventDefault();
-    addFuelPurchase({
-      station_name: stationName,
-      municipality: locationMuni,
-      fuel_type: purchaseFuelType,
-      price_per_liter: Number(pricePerLiter),
-      liters: Number(liters),
-      total_cost: totalCost,
-      date: new Date(purchaseDate).toISOString(),
-      odometer_km: odometer,
-      notes,
-    });
+    if (editingPurchase) {
+      updateFuelPurchase(editingPurchase.id, {
+        station_name: stationName,
+        municipality: locationMuni,
+        fuel_type: purchaseFuelType,
+        price_per_liter: Number(pricePerLiter),
+        liters: Number(liters),
+        total_cost: totalCost,
+        date: new Date(purchaseDate).toISOString(),
+        odometer_km: odometer,
+        notes,
+      });
+    } else {
+      addFuelPurchase({
+        station_name: stationName,
+        municipality: locationMuni,
+        fuel_type: purchaseFuelType,
+        price_per_liter: Number(pricePerLiter),
+        liters: Number(liters),
+        total_cost: totalCost,
+        date: new Date(purchaseDate).toISOString(),
+        odometer_km: odometer,
+        notes,
+      });
+    }
 
     setIsPurchaseModalOpen(false);
+    setEditingPurchase(null);
     setNotes('');
     setOdometer(undefined);
   };
@@ -93,13 +141,24 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
             </div>
           </div>
 
-          <button
-            onClick={() => setIsPurchaseModalOpen(true)}
-            className="flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 transition-all cursor-pointer self-start sm:self-auto"
-          >
-            <Flaticon name="add" className="w-4 h-4" />
-            <span>RECORD PURCHASE</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            <button
+              onClick={() => setIsScannerOpen(true)}
+              className="flex items-center justify-center space-x-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 active:scale-95 text-xs font-black shadow-xs transition-all cursor-pointer backdrop-blur-xs"
+              title="Snap or upload physical Petron / gas receipt"
+            >
+              <Camera className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>SCAN RECEIPT (OCR)</span>
+            </button>
+
+            <button
+              onClick={handleOpenAddModal}
+              className="flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 transition-all cursor-pointer"
+            >
+              <Flaticon name="add" className="w-4 h-4" />
+              <span>MANUAL LOG</span>
+            </button>
+          </div>
         </div>
 
         {/* Function Switcher Tabs */}
@@ -150,8 +209,23 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
               </div>
               <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">No Fuel Purchases Recorded</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
-                Keep track of every liter and peso spent at Bohol gas stations. Tap "RECORD PURCHASE" above to log your receipt.
+                Keep track of every liter and peso spent at Bohol gas stations. Scan your receipt or log manually.
               </p>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                <button
+                  onClick={() => setIsScannerOpen(true)}
+                  className="px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center space-x-1.5 cursor-pointer active:scale-95 transition-all"
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>Scan Petron / Gas Receipt</span>
+                </button>
+                <button
+                  onClick={() => setIsPurchaseModalOpen(true)}
+                  className="px-4 py-2 rounded-xl glass-btn text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                >
+                  Enter Manually
+                </button>
+              </div>
             </div>
           ) : (
             <div className="space-y-3">
@@ -209,14 +283,26 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                     </div>
                   )}
 
-                  <div className="mt-3 pt-2 border-t border-white/10 dark:border-white/10 flex justify-end">
+                  <div className="mt-3 pt-2 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-end space-x-3">
                     <button
+                      type="button"
+                      onClick={() => handleOpenEditModal(purchase)}
+                      className="text-xs font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 flex items-center space-x-1 cursor-pointer transition-colors"
+                      title="Edit fuel purchase details"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                      <span>Edit</span>
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={() => {
                         if (confirm('Delete this fuel purchase log?')) {
                           deleteFuelPurchase(purchase.id);
                         }
                       }}
-                      className="text-xs text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 flex items-center space-x-1 cursor-pointer transition-colors"
+                      className="text-xs font-bold text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 flex items-center space-x-1 cursor-pointer transition-colors"
+                      title="Delete fuel purchase record"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       <span>Delete</span>
@@ -241,19 +327,47 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                   <Fuel className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-800 dark:text-slate-100">ADD FUEL PURCHASE</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">Record actual gas refuel receipt</p>
+                  <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 uppercase">
+                    {editingPurchase ? 'Edit Fuel Purchase' : 'Add Fuel Purchase'}
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    {editingPurchase ? 'Update your gas refuel receipt details' : 'Record actual gas refuel receipt'}
+                  </p>
                 </div>
               </div>
               <button
-                onClick={() => setIsPurchaseModalOpen(false)}
+                onClick={() => {
+                  setIsPurchaseModalOpen(false);
+                  setEditingPurchase(null);
+                }}
                 className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 font-bold text-sm cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleCreatePurchase} className="space-y-3">
+            {!editingPurchase && (
+              <div className="p-3 rounded-2xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Camera className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                    Have a printed receipt?
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsPurchaseModalOpen(false);
+                    setIsScannerOpen(true);
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-extrabold text-[11px] border border-emerald-500/30 cursor-pointer transition-all active:scale-95"
+                >
+                  Scan Receipt Photo
+                </button>
+              </div>
+            )}
+
+            <form onSubmit={handleSavePurchase} className="space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Gas Station</label>
                 <input
@@ -381,7 +495,10 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
               <div className="pt-2 flex justify-end space-x-2">
                 <button
                   type="button"
-                  onClick={() => setIsPurchaseModalOpen(false)}
+                  onClick={() => {
+                    setIsPurchaseModalOpen(false);
+                    setEditingPurchase(null);
+                  }}
                   className="px-4 py-2 rounded-xl glass-btn text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
                 >
                   Cancel
@@ -391,13 +508,22 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                   className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 cursor-pointer flex items-center space-x-1.5 transition-all"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Save Purchase</span>
+                  <span>{editingPurchase ? 'Update Purchase' : 'Save Purchase'}</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* RECEIPT OCR SCANNER MODAL (Petron, Shell, Caltex, etc.)       */}
+      {/* ------------------------------------------------------------- */}
+      <ReceiptScannerModal
+        isOpen={isScannerOpen}
+        onClose={() => setIsScannerOpen(false)}
+        onSavePurchase={(purchase) => addFuelPurchase(purchase)}
+      />
     </div>
   );
 };

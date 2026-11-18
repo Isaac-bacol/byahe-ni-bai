@@ -10,11 +10,16 @@ import {
   Wallet,
   CheckCircle2,
   DollarSign,
-  ArrowLeft
+  ArrowLeft,
+  FileSpreadsheet,
+  FileText,
+  X
 } from 'lucide-react';
 import { Flaticon } from '../common/Flaticon';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
+import { buildBrandedReportXlsx } from '../../lib/xlsxExport';
+import { exportReportToPdf } from '../../lib/pdfReportExport';
 
 interface Props {
   onBack?: () => void;
@@ -27,6 +32,9 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
   if (!currentUser) return null;
 
   const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');
+  const [isExportingExcel, setIsExportingExcel] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
 
   // Filter trips and purchases by selected period
   const filteredData = useMemo(() => {
@@ -90,29 +98,141 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
     }).format(val);
   };
 
-  // CSV Export
+  const periodLabel =
+    period === 'daily'
+      ? 'Daily Summary Report'
+      : period === 'weekly'
+        ? 'Weekly Consolidated Report'
+        : 'Monthly Performance Report';
+
+  const csvCell = (val: string | number) => `"${String(val ?? '').replace(/"/g, '""')}"`;
+
+  // Plain CSV Export (text-only format; includes branded Byahe ni Bai header metadata)
   const handleExportCSV = () => {
+    const generatedAt = new Date().toLocaleDateString('en-PH');
+    const brandRows = [
+      [csvCell('BYAHE NI BAI — BOHOL TRANSPORT REPORT')],
+      [
+        csvCell(periodLabel),
+        csvCell(`Driver: ${currentUser.name}`),
+        csvCell(`Role: ${currentUser.user_type.replace('_', ' ').toUpperCase()}`),
+        csvCell(`LGU: ${currentUser.municipality}, Bohol`),
+        csvCell(`Generated: ${generatedAt}`),
+      ],
+      [],
+    ];
+
     const headers = ['Date', 'Origin', 'Destination', 'Distance (km)', 'Vehicle', 'Purpose', 'Fuel (PHP)', 'Fare (PHP)', 'Net (PHP)'];
     const rows = filteredData.trips.map(t => [
-      t.date,
-      `"${t.origin}"`,
-      `"${t.destination}"`,
-      t.distance_km,
-      `"${t.vehicle_name || ''}"`,
-      `"${t.purpose}"`,
+      csvCell(t.date),
+      csvCell(t.origin),
+      csvCell(t.destination),
+      t.distance_km || 0,
+      csvCell(t.vehicle_name || ''),
+      csvCell(t.purpose || ''),
       t.fuel_cost || 0,
       t.fare || 0,
       t.net_amount || 0,
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
+    const csvString =
+      '\uFEFF' +
+      [...brandRows, headers.map(csvCell), ...rows]
+        .map(row => row.join(','))
+        .join('\n');
+
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Byahe_ni_Bai_Report_${period}_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.href = url;
+    link.download = `Byahe_ni_Bai_Report_${period}_${new Date().toISOString().slice(0, 10)}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Branded Excel (.xlsx) Export with embedded Byahe ni Bai logo image
+  const handleExportExcelWithLogo = async () => {
+    try {
+      setIsExportingExcel(true);
+      let logoBytes: Uint8Array | null = null;
+      try {
+        const res = await fetch('/logo.png?v=3');
+        if (res.ok) {
+          logoBytes = new Uint8Array(await res.arrayBuffer());
+        }
+      } catch {
+        logoBytes = null;
+      }
+
+      const xlsxBytes = buildBrandedReportXlsx({
+        periodLabel,
+        accountName: currentUser.name,
+        roleLabel: currentUser.user_type.replace('_', ' ').toUpperCase(),
+        municipality: currentUser.municipality || 'Tagbilaran City',
+        generatedAt: new Date().toLocaleDateString('en-PH'),
+        tripCount: filteredData.tripCount,
+        distanceKm: filteredData.distanceKm,
+        fuelCost: filteredData.fuelCost,
+        fares: filteredData.fares,
+        netEarnings: userType === 'motorist' ? financialSummary.allowanceRemaining : filteredData.netEarnings,
+        trips: filteredData.trips.map(t => ({
+          date: t.date,
+          origin: t.origin,
+          destination: t.destination,
+          distance_km: Number(t.distance_km) || 0,
+          vehicle_name: t.vehicle_name || '',
+          purpose: t.purpose || '',
+          fuel_cost: Number(t.fuel_cost) || 0,
+          fare: Number(t.fare) || 0,
+          net_amount: Number(t.net_amount) || 0,
+        })),
+        logoBytes,
+      });
+
+      const bufferCopy = new Uint8Array(xlsxBytes);
+      const blob = new Blob([bufferCopy.buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `Byahe_ni_Bai_Report_${period}_${new Date().toISOString().slice(0, 10)}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } finally {
+      setIsExportingExcel(false);
+    }
+  };
+
+  const handleExportPdf = async () => {
+    try {
+      setIsExportingPdf(true);
+      await exportReportToPdf({
+        periodLabel,
+        period,
+        user: currentUser,
+        tripCount: filteredData.tripCount,
+        distanceKm: filteredData.distanceKm,
+        fuelCost: filteredData.fuelCost,
+        allowanceBudget: financialSummary.allowanceBudget,
+        allowanceRemaining: financialSummary.allowanceRemaining,
+        fares: filteredData.fares,
+        totalExpenses: filteredData.totalExpenses,
+        netEarnings: filteredData.netEarnings,
+        avgFuelPerTrip: filteredData.avgFuelPerTrip,
+        avgDistance: filteredData.tripCount > 0 ? filteredData.distanceKm / filteredData.tripCount : 0,
+        fuelEfficiency: 38.5,
+        trips: filteredData.trips,
+      });
+    } catch (err) {
+      console.error('Failed to export PDF report:', err);
+    } finally {
+      setIsExportingPdf(false);
+    }
   };
 
   const handlePrint = () => {
@@ -146,15 +266,34 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
 
         <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
           <button
+            onClick={handleExportPdf}
+            disabled={isExportingPdf}
+            title="Download PDF document (.pdf) with embedded logo & tables"
+            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60"
+          >
+            <FileText className="w-4 h-4" />
+            <span>{isExportingPdf ? 'Exporting PDF...' : 'Export PDF'}</span>
+          </button>
+          <button
+            onClick={handleExportExcelWithLogo}
+            disabled={isExportingExcel}
+            title="Download Excel (.xlsx) with embedded Byahe ni Bai logo"
+            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>{isExportingExcel ? 'Exporting...' : 'Export Excel (Logo)'}</span>
+          </button>
+          <button
             onClick={handleExportCSV}
+            title="Download plain CSV spreadsheet"
             className="px-3.5 py-2 rounded-xl glass-btn text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shrink-0"
           >
             <Download className="w-4 h-4" />
             <span>Export CSV</span>
           </button>
           <button
-            onClick={handlePrint}
-            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 cursor-pointer shrink-0"
+            onClick={() => setIsPrintModalOpen(true)}
+            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 cursor-pointer shrink-0 active:scale-95"
           >
             <Printer className="w-4 h-4" />
             <span>Print Report</span>
@@ -201,19 +340,22 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
       {/* Printable Report Document Card */}
       <div className="glass-panel rounded-3xl p-6 space-y-6 print:border-none print:shadow-none">
         {/* Printable Official Header */}
-        <div className="flex justify-between items-start border-b border-slate-200/60 dark:border-slate-800/60 pb-4">
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-sky-600 dark:text-sky-400">
-              BOHOL TRANSPORT EXPENSE TRACKER
-            </span>
-            <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 uppercase">
-              {period === 'daily' && 'Daily Summary Report'}
-              {period === 'weekly' && 'Weekly Consolidated Report'}
-              {period === 'monthly' && 'Monthly Performance Report'}
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Account: {currentUser.name} ({currentUser.user_type.replace('_', ' ').toUpperCase()}) • {currentUser.municipality}, Bohol
-            </p>
+        <div className="flex flex-wrap justify-between items-start gap-3 border-b border-slate-200/60 dark:border-slate-800/60 pb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 rounded-2xl overflow-hidden bg-slate-900 border border-white/30 dark:border-white/10 shadow-sm shrink-0">
+              <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-sky-600 dark:text-sky-400">
+                BYAHE NI BAI • BOHOL TRANSPORT TRACKER (v2.5.0)
+              </span>
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 uppercase">
+                {periodLabel}
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Account: {currentUser.name} ({currentUser.user_type.replace('_', ' ').toUpperCase()}) • {currentUser.municipality}, Bohol
+              </p>
+            </div>
           </div>
           <div className="text-right text-xs font-mono text-slate-400 dark:text-slate-500">
             <span>Generated: {new Date().toLocaleDateString('en-PH')}</span>
@@ -318,6 +460,102 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
           </div>
         </div>
       </div>
+
+      {/* Print & PDF Format Selection Modal */}
+      {isPrintModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-md animate-in fade-in duration-150 print:hidden"
+          onClick={() => setIsPrintModalOpen(false)}
+        >
+          <div
+            className="glass-modal w-full max-w-md rounded-3xl p-5 shadow-2xl space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/60 pb-3">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-9 h-9 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                  <Printer className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-slate-900 dark:text-white">
+                    Print or Download PDF
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                    {periodLabel}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsPrintModalOpen(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-600 dark:text-slate-300">
+              Select your preferred output format for this Bohol transport summary report:
+            </p>
+
+            <div className="space-y-2.5">
+              {/* Option 1: PDF Document */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPrintModalOpen(false);
+                  handleExportPdf();
+                }}
+                disabled={isExportingPdf}
+                className="w-full p-3.5 rounded-2xl glass-panel-interactive border border-emerald-500/30 hover:border-emerald-500 flex items-center justify-between group cursor-pointer transition-all text-left"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-black text-slate-900 dark:text-white block">
+                      Download PDF File (.pdf)
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      High-resolution document with official logo, KPI metrics & trip logs
+                    </span>
+                  </div>
+                </div>
+                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+                  Save PDF →
+                </span>
+              </button>
+
+              {/* Option 2: Browser Print Dialog */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPrintModalOpen(false);
+                  setTimeout(() => window.print(), 100);
+                }}
+                className="w-full p-3.5 rounded-2xl glass-panel-interactive border border-slate-200/80 dark:border-slate-800 hover:border-slate-400 flex items-center justify-between group cursor-pointer transition-all text-left"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-slate-900/5 dark:bg-white/5 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Printer className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-black text-slate-900 dark:text-white block">
+                      Print via Printer (Browser Dialog)
+                    </span>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Send to local physical printer (AirPrint / Ctrl+P)
+                    </span>
+                  </div>
+                </div>
+                <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400 shrink-0">
+                  Print →
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

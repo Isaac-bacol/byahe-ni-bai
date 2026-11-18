@@ -14,7 +14,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
   if (!currentUser) return null;
 
   return (
-    <div className="bottom-nav-bar md:hidden fixed bottom-2.5 left-2.5 right-2.5 z-40 glass-dock rounded-3xl p-1 safe-area-bottom transition-all max-w-md mx-auto">
+    <div className="bottom-nav-bar md:hidden fixed bottom-2.5 left-2.5 right-2.5 z-40 glass-dock rounded-3xl p-1 safe-area-bottom transition-all max-w-md mx-auto print:hidden">
       <div className="grid grid-cols-7 items-center justify-items-center w-full">
         {/* 1. Home */}
         <button

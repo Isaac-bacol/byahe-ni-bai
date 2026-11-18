@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Bike, Car, Plus, Trash2, Star, Gauge, Fuel, ArrowLeft, Search, Info, CheckCircle2, BookOpen, Sparkles, Filter, Edit3 } from 'lucide-react';
 import { Flaticon } from '../common/Flaticon';
+import { FuelCareTipsCard } from '../common/FuelCareTipsCard';
 import { useData } from '../../context/DataContext';
 import type { FuelType, VehicleType, Vehicle } from '../../types';
 import {
@@ -523,6 +524,11 @@ export const VehicleManager: React.FC<Props> = ({ onBack }) => {
               ))}
             </div>
           )}
+
+          <FuelCareTipsCard
+            vehicle={userVehicles.find(v => v.is_default) || userVehicles[0]}
+            initialTab="checkup"
+          />
         </div>
       )}
 

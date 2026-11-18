@@ -18,6 +18,9 @@ import {
   Eye,
   EyeOff,
   Lock,
+  KeyRound,
+  ArrowLeft,
+  AlertCircle,
 } from 'lucide-react';
 import { Flaticon } from '../common/Flaticon';
 import { ThemeToggleIcon } from '../common/ThemeToggleIcon';
@@ -64,16 +67,29 @@ const INITIAL_REGISTRATION_STATE: DriverRegistrationForm = {
 };
 
 export const UserLandingPage: React.FC = () => {
-  const { allUsers, login, registerUser, isDarkMode, toggleTheme } = useAuth();
+  const { allUsers, login, registerUser, resetUserPassword, isDarkMode, toggleTheme } = useAuth();
   const [, startTransition] = useTransition();
 
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'forgot'>('signin');
   const [formData, setFormData] = useState<DriverRegistrationForm>(INITIAL_REGISTRATION_STATE);
 
   // Sign-in state
   const [signInIdentifier, setSignInIdentifier] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const [showSignInPassword, setShowSignInPassword] = useState(false);
+  const [authFeedback, setAuthFeedback] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
+
+  // Forgot password recovery state
+  const [forgotStep, setForgotStep] = useState<'identify' | 'verify'>('identify');
+  const [recoveryIdentifier, setRecoveryIdentifier] = useState('');
+  const [recoveryUserId, setRecoveryUserId] = useState<string | null>(null);
+  const [recoveryUserLabel, setRecoveryUserLabel] = useState('');
+  const [generatedCode, setGeneratedCode] = useState('');
+  const [recoveryCodeInput, setRecoveryCodeInput] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
 
   // Sign-up password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -191,35 +207,156 @@ export const UserLandingPage: React.FC = () => {
     });
   };
 
-  const handleSignInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const query = signInIdentifier.trim().toLowerCase();
-    if (!query) return;
-
-    // Checks user credentials against user/admin registry by Email or Name/Nickname
-    const match = allUsers.find(
+  const findUserByIdentifier = (identifier: string) => {
+    const query = identifier.trim().toLowerCase();
+    if (!query) return undefined;
+    return allUsers.find(
       u =>
         u.email.toLowerCase() === query ||
         u.name.toLowerCase() === query ||
         u.name.toLowerCase().replace(/\s+/g, '') === query.replace(/\s+/g, '') ||
         u.name.toLowerCase().split(' ')[0] === query
     );
+  };
+
+  const maskEmail = (email: string) => {
+    const [local, domain] = email.split('@');
+    if (!domain) return email;
+    const prefix = local.length <= 2 ? local[0] || '*' : `${local.slice(0, 2)}${'*'.repeat(Math.min(4, local.length - 2))}`;
+    return `${prefix}@${domain}`;
+  };
+
+  const generateSixDigitCode = () =>
+    Math.floor(100000 + Math.random() * 900000).toString();
+
+  const handleOpenForgotPassword = () => {
+    setAuthFeedback(null);
+    setForgotStep('identify');
+    setRecoveryIdentifier(signInIdentifier.trim());
+    setRecoveryUserId(null);
+    setRecoveryUserLabel('');
+    setGeneratedCode('');
+    setRecoveryCodeInput('');
+    setNewPassword('');
+    setConfirmNewPassword('');
+    startTransition(() => setAuthMode('forgot'));
+  };
+
+  const handleForgotIdentifySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setAuthFeedback(null);
+
+    const match = findUserByIdentifier(recoveryIdentifier);
+    if (!match) {
+      setAuthFeedback({
+        type: 'error',
+        message: 'No account found with that email or nickname. Please double-check or create a new account.',
+      });
+      return;
+    }
+
+    const code = generateSixDigitCode();
+    setRecoveryUserId(match.id);
+    setRecoveryUserLabel(`${match.name} (${maskEmail(match.email)})`);
+    setGeneratedCode(code);
+    setRecoveryCodeInput('');
+    setForgotStep('verify');
+  };
+
+  const handleResendRecoveryCode = () => {
+    const code = generateSixDigitCode();
+    setGeneratedCode(code);
+    setRecoveryCodeInput('');
+    setAuthFeedback({
+      type: 'success',
+      message: 'A new 6-digit recovery code has been generated below.',
+    });
+  };
+
+  const handleForgotResetSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setAuthFeedback(null);
+
+    if (!recoveryUserId) {
+      setForgotStep('identify');
+      return;
+    }
+
+    if (recoveryCodeInput.trim() !== generatedCode) {
+      setAuthFeedback({
+        type: 'error',
+        message: 'Invalid verification code. Please enter the 6-digit code shown above.',
+      });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      setAuthFeedback({
+        type: 'error',
+        message: 'New password must be at least 6 characters long.',
+      });
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      setAuthFeedback({
+        type: 'error',
+        message: 'Passwords do not match. Please make sure both new password fields are identical.',
+      });
+      return;
+    }
+
+    const res = resetUserPassword(recoveryUserId, newPassword);
+    if (!res.success) {
+      setAuthFeedback({
+        type: 'error',
+        message: res.error || 'Could not reset password. Please try again.',
+      });
+      return;
+    }
+
+    const updatedUser = allUsers.find(u => u.id === recoveryUserId);
+    if (updatedUser?.email) {
+      setSignInIdentifier(updatedUser.email);
+    }
+    setSignInPassword('');
+    setAuthFeedback({
+      type: 'success',
+      message: 'Password updated! You can now sign in with your new password.',
+    });
+    startTransition(() => setAuthMode('signin'));
+  };
+
+  const handleSignInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setAuthFeedback(null);
+
+    if (!signInIdentifier.trim()) return;
+    const match = findUserByIdentifier(signInIdentifier);
 
     if (match) {
       if (match.password) {
         if (!signInPassword) {
-          alert('Please enter your password to sign in.');
+          setAuthFeedback({
+            type: 'error',
+            message: 'Please enter your password to sign in.',
+          });
           return;
         }
         if (match.password !== signInPassword) {
-          alert('Incorrect password. Please check your password and try again.');
+          setAuthFeedback({
+            type: 'error',
+            message: 'Incorrect password. Click "Forgot password?" below if you need to reset it.',
+          });
           return;
         }
       }
       login(match.id);
     } else {
-      alert('No account found with this email or nickname. Please check your credentials or register a new driver account.');
+      setAuthFeedback({
+        type: 'error',
+        message: 'No account found with this email or nickname. Please check your credentials or create an account.',
+      });
     }
   };
 
@@ -235,7 +372,7 @@ export const UserLandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-sm bg-slate-950 shrink-0 border border-slate-200/60 dark:border-white/15">
-              <img src="/logo.png?v=2" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -370,24 +507,33 @@ export const UserLandingPage: React.FC = () => {
             <div className="glass-panel rounded-3xl p-6 sm:p-8 shadow-xl border border-white/60 dark:border-white/10">
               
               {/* Tabs Switcher */}
-              <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-200/70 dark:border-white/10">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-6 mb-6 border-b border-slate-200/70 dark:border-white/10">
                 <div>
                   <h2 className="text-lg font-black text-slate-900 dark:text-white">
-                    {authMode === 'signup' ? 'Driver Registration' : 'Account Sign In'}
+                    {authMode === 'signup'
+                      ? 'Driver Registration'
+                      : authMode === 'forgot'
+                        ? 'Reset Password'
+                        : 'Account Sign In'}
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     {authMode === 'signup'
                       ? 'Register your motorcycle or tricycle to start calculating'
-                      : 'Access your trip logs, garage, and financial records'}
+                      : authMode === 'forgot'
+                        ? 'Recover your account and create a new password'
+                        : 'Access your trip logs, garage, and financial records'}
                   </p>
                 </div>
 
                 <div className="inline-flex p-1 rounded-2xl glass-panel-subtle border border-slate-200/60 dark:border-white/10">
                   <button
                     type="button"
-                    onClick={() => startTransition(() => setAuthMode('signin'))}
+                    onClick={() => {
+                      setAuthFeedback(null);
+                      startTransition(() => setAuthMode('signin'));
+                    }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      authMode === 'signin'
+                      authMode === 'signin' || authMode === 'forgot'
                         ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs'
                         : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                     }`}
@@ -396,7 +542,10 @@ export const UserLandingPage: React.FC = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => startTransition(() => setAuthMode('signup'))}
+                    onClick={() => {
+                      setAuthFeedback(null);
+                      startTransition(() => setAuthMode('signup'));
+                    }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       authMode === 'signup'
                         ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs'
@@ -407,6 +556,24 @@ export const UserLandingPage: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Inline Error / Success Feedback */}
+              {authFeedback && (
+                <div
+                  className={`mb-5 p-3.5 rounded-2xl border text-xs font-semibold flex items-start gap-2.5 animate-in fade-in duration-150 ${
+                    authFeedback.type === 'error'
+                      ? 'bg-rose-500/10 dark:bg-rose-950/40 border-rose-500/35 text-rose-700 dark:text-rose-300'
+                      : 'bg-emerald-500/10 dark:bg-emerald-950/40 border-emerald-500/35 text-emerald-800 dark:text-emerald-300'
+                  }`}
+                >
+                  {authFeedback.type === 'error' ? (
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+                  )}
+                  <span>{authFeedback.message}</span>
+                </div>
+              )}
 
               {/* AUTH FORM: SIGN IN */}
               {authMode === 'signin' ? (
@@ -428,9 +595,18 @@ export const UserLandingPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label htmlFor={`${formId}-signin-pass`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                        Password
-                      </label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label htmlFor={`${formId}-signin-pass`} className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                          Password
+                        </label>
+                        <button
+                          type="button"
+                          onClick={handleOpenForgotPassword}
+                          className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer"
+                        >
+                          Forgot password?
+                        </button>
+                      </div>
                       <div className="relative">
                         <input
                           id={`${formId}-signin-pass`}
@@ -460,6 +636,169 @@ export const UserLandingPage: React.FC = () => {
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
+              ) : authMode === 'forgot' ? (
+                /* AUTH FORM: FORGOT PASSWORD RECOVERY */
+                forgotStep === 'identify' ? (
+                  <form onSubmit={handleForgotIdentifySubmit} className="space-y-5">
+                    <div className="p-3.5 rounded-2xl glass-panel-subtle flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-300">
+                      <KeyRound className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
+                      <span>
+                        Enter the <strong>email address</strong> or <strong>nickname</strong> linked to your Byahe ni Bai account to generate a recovery verification code.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label htmlFor={`${formId}-forgot-id`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        Email or Nickname
+                      </label>
+                      <input
+                        id={`${formId}-forgot-id`}
+                        type="text"
+                        required
+                        value={recoveryIdentifier}
+                        onChange={e => setRecoveryIdentifier(e.target.value)}
+                        placeholder="user@gmail.com or Juan"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:outline-hidden"
+                      />
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-center gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAuthFeedback(null);
+                          startTransition(() => setAuthMode('signin'));
+                        }}
+                        className="w-full sm:w-auto px-4 py-3 rounded-xl glass-btn text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Back to Sign In</span>
+                      </button>
+                      <button
+                        type="submit"
+                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Send Recovery Code</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <form onSubmit={handleForgotResetSubmit} className="space-y-4">
+                    <div className="p-3.5 rounded-2xl bg-sky-500/10 dark:bg-sky-950/40 border border-sky-500/30 space-y-1.5 text-xs">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-bold text-sky-900 dark:text-sky-200">
+                          Account: {recoveryUserLabel}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleResendRecoveryCode}
+                          className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer"
+                        >
+                          New Code
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-sky-800 dark:text-sky-300">
+                        Your 6-digit recovery code:{' '}
+                        <span className="font-mono font-black tracking-widest px-2 py-0.5 rounded bg-white/70 dark:bg-slate-900 text-sky-700 dark:text-sky-300 border border-sky-400/40 select-all">
+                          {generatedCode}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div>
+                      <label htmlFor={`${formId}-forgot-code`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        6-Digit Verification Code <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        id={`${formId}-forgot-code`}
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={6}
+                        required
+                        value={recoveryCodeInput}
+                        onChange={e => setRecoveryCodeInput(e.target.value)}
+                        placeholder="Enter 6-digit code"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono tracking-widest font-bold focus:outline-hidden"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label htmlFor={`${formId}-forgot-pass`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                          New Password <span className="text-rose-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            id={`${formId}-forgot-pass`}
+                            type={showNewPassword ? 'text' : 'password'}
+                            required
+                            minLength={6}
+                            value={newPassword}
+                            onChange={e => setNewPassword(e.target.value)}
+                            placeholder="Min. 6 characters"
+                            className="glass-input w-full pl-3.5 pr-10 py-2 rounded-xl text-sm font-medium focus:outline-hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowNewPassword(p => !p)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
+                            aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+                          >
+                            {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor={`${formId}-forgot-confirm`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                          Confirm New Password <span className="text-rose-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            id={`${formId}-forgot-confirm`}
+                            type={showConfirmNewPassword ? 'text' : 'password'}
+                            required
+                            minLength={6}
+                            value={confirmNewPassword}
+                            onChange={e => setConfirmNewPassword(e.target.value)}
+                            placeholder="Re-enter new password"
+                            className="glass-input w-full pl-3.5 pr-10 py-2 rounded-xl text-sm font-medium focus:outline-hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowConfirmNewPassword(p => !p)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
+                            aria-label={showConfirmNewPassword ? 'Hide password' : 'Show password'}
+                          >
+                            {showConfirmNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAuthFeedback(null);
+                          setForgotStep('identify');
+                        }}
+                        className="w-full sm:w-auto px-4 py-3 rounded-xl glass-btn text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Change Account</span>
+                      </button>
+                      <button
+                        type="submit"
+                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Lock className="w-4 h-4" />
+                        <span>Save New Password</span>
+                      </button>
+                    </div>
+                  </form>
+                )
               ) : (
                 /* AUTH FORM: REGISTRATION */
                 <form onSubmit={handleSignUpSubmit} className="space-y-4">

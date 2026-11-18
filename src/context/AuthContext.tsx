@@ -26,6 +26,7 @@ interface AuthContextType {
   registerUser: (payload: UserRegistrationPayload) => UserProfile;
   registerAdmin: (payload: AdminRegistrationPayload) => { success: boolean; error?: string; user?: UserProfile };
   updateProfile: (updated: Partial<UserProfile>) => void;
+  resetUserPassword: (userId: string, newPassword: string) => { success: boolean; error?: string };
   acceptTermsAndPrivacy: () => void;
   theme: 'light' | 'dark';
   isDarkMode: boolean;
@@ -363,6 +364,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const resetUserPassword = (userId: string, newPassword: string): { success: boolean; error?: string } => {
+    const trimmed = newPassword.trim();
+    if (trimmed.length < 6) {
+      return { success: false, error: 'Password must be at least 6 characters long.' };
+    }
+
+    const exists = users.some(u => u.id === userId);
+    if (!exists) {
+      return { success: false, error: 'User account not found.' };
+    }
+
+    setUsers(prev =>
+      prev.map(u => (u.id === userId ? { ...u, password: trimmed } : u))
+    );
+
+    const client = getSupabaseClient();
+    if (client) {
+      client
+        .from('users')
+        .update({ password: trimmed })
+        .eq('id', userId)
+        .then(({ error }) => {
+          if (error) console.warn('Supabase password reset notice:', error.message);
+        });
+    }
+
+    return { success: true };
+  };
+
   const acceptTermsAndPrivacy = () => {
     if (!currentUser) return;
     const now = new Date().toISOString();
@@ -388,6 +418,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         registerUser,
         registerAdmin,
         updateProfile,
+        resetUserPassword,
         acceptTermsAndPrivacy,
         theme,
         isDarkMode: theme === 'dark',

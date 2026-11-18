@@ -98,39 +98,39 @@ export const INITIAL_FUEL_STATIONS: FuelStation[] = [
 export const INITIAL_FUEL_PRICES: FuelPriceRecord[] = [
   {
     id: 'bm-gasoline',
-    station_name: 'FuelWatch PH (Bohol Live Feed)',
+    station_name: 'FuelPrice PH (www.fuelprice.ph)',
     municipality: 'Province of Bohol',
     fuel_type: 'Gasoline',
-    price_per_liter: 63.85,
-    date_recorded: '2026-09-20T08:00:00Z',
-    recorded_by: 'FuelWatch PH Live Feed'
+    price_per_liter: 72.29,
+    date_recorded: '2026-11-10T06:00:00Z',
+    recorded_by: 'fuelprice.ph Weekly Feed'
   },
   {
     id: 'bm-diesel',
-    station_name: 'FuelWatch PH (Bohol Live Feed)',
+    station_name: 'FuelPrice PH (www.fuelprice.ph)',
     municipality: 'Province of Bohol',
     fuel_type: 'Diesel',
-    price_per_liter: 58.90,
-    date_recorded: '2026-09-20T08:00:00Z',
-    recorded_by: 'FuelWatch PH Live Feed'
+    price_per_liter: 90.54,
+    date_recorded: '2026-11-10T06:00:00Z',
+    recorded_by: 'fuelprice.ph Weekly Feed'
   },
   {
     id: 'bm-premium',
-    station_name: 'FuelWatch PH (Bohol Live Feed)',
+    station_name: 'FuelPrice PH (www.fuelprice.ph)',
     municipality: 'Province of Bohol',
     fuel_type: 'Premium 95',
-    price_per_liter: 66.50,
-    date_recorded: '2026-09-20T08:00:00Z',
-    recorded_by: 'FuelWatch PH Live Feed'
+    price_per_liter: 73.91,
+    date_recorded: '2026-11-10T06:00:00Z',
+    recorded_by: 'fuelprice.ph Weekly Feed'
   },
   {
     id: 'bm-regular',
-    station_name: 'FuelWatch PH (Bohol Live Feed)',
+    station_name: 'FuelPrice PH (www.fuelprice.ph)',
     municipality: 'Province of Bohol',
     fuel_type: 'Regular',
-    price_per_liter: 62.40,
-    date_recorded: '2026-09-20T08:00:00Z',
-    recorded_by: 'FuelWatch PH Live Feed'
+    price_per_liter: 70.80,
+    date_recorded: '2026-11-10T06:00:00Z',
+    recorded_by: 'fuelprice.ph Weekly Feed'
   }
 ];
 
