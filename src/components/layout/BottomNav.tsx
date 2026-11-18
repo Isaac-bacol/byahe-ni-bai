@@ -59,7 +59,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
         <div className="w-full flex items-center justify-center">
           <button
             onClick={onOpenAddTrip}
-            className="flex items-center justify-center -mt-6 bg-gradient-to-tr from-cyan-600 to-emerald-500 hover:from-cyan-500 hover:to-emerald-400 active:scale-95 text-white w-12 h-12 rounded-full shadow-lg shadow-emerald-600/35 transition-all cursor-pointer ring-4 ring-white/80 dark:ring-slate-900/80 backdrop-blur-md"
+            className="flex items-center justify-center -mt-6 bg-sign hover:bg-sign-dark active:scale-95 text-white w-12 h-12 rounded-full shadow-md shadow-black/20 transition-all cursor-pointer ring-4 ring-white/80 dark:ring-slate-900/80 backdrop-blur-md"
             title="Log New Trip"
           >
             <Flaticon name="add" className="w-5.5 h-5.5 sm:w-6 sm:h-6" />

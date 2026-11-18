@@ -120,8 +120,7 @@ const AppContent: React.FC = () => {
   const safeTab = (currentUser.role !== 'admin' && activeTab === 'admin') ? 'dashboard' : activeTab;
 
   return (
-    <div className="min-h-screen bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors relative">
-      <AmbientGlassBackground />
+    <div className="min-h-screen bg-[#f3f4f5] dark:bg-[#111418] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors relative">
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Top Navbar */}
         <Navbar
@@ -144,8 +143,6 @@ const AppContent: React.FC = () => {
             <DashboardView
               onOpenAddTrip={() => setIsAddTripOpen(true)}
               onNavigate={setActiveTab}
-              onOpenWhatsNew={() => setIsWhatsNewOpen(true)}
-              onOpenSupabaseConfig={() => setIsSupabaseConfigOpen(true)}
             />
           )}
 
