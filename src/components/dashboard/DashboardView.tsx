@@ -286,7 +286,7 @@ export const DashboardView: React.FC<Props> = ({
   const metrics = getMetrics();
 
   return (
-    <div className="space-y-3 sm:space-y-4 pb-20 md:pb-6">
+    <div className="space-y-3 sm:space-y-4 pb-20 lg:pb-6">
       {/* Dynamic 1-Tap Toast Banner */}
       {toastMessage && (
         <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-600 text-white text-xs font-bold flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-3 duration-200">

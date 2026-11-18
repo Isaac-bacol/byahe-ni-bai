@@ -332,7 +332,7 @@ export const VehicleManager: React.FC<Props> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="space-y-4 pb-20 md:pb-6">
+    <div className="space-y-4 pb-20 lg:pb-6">
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 glass-panel p-5 rounded-3xl shadow-xs transition-colors">
         <div className="flex items-center space-x-3">

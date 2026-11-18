@@ -63,7 +63,7 @@ export const TripManager: React.FC<Props> = ({ onOpenAddTrip, onBack }) => {
   }, [userTrips, search]);
 
   return (
-    <div className="space-y-4 pb-24 md:pb-6 text-ink dark:text-[#e6e9ec]">
+    <div className="space-y-4 pb-24 lg:pb-6 text-ink dark:text-[#e6e9ec]">
       <header className="flex items-center gap-2">
         {onBack && (
           <button onClick={onBack} aria-label="Back" className="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer">

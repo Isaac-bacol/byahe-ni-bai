@@ -240,9 +240,9 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
   };
 
   return (
-    <div className="space-y-4 pb-20 md:pb-6 print:p-0">
+    <div className="space-y-4 pb-20 lg:pb-6 print:p-0">
       {/* Top Header */}
-      <div className="glass-panel p-4 sm:p-5 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-3.5 print:hidden">
+      <div className="glass-panel p-4 sm:p-5 rounded-3xl flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 print:hidden">
         <div className="flex items-center space-x-3">
           {onBack && (
             <button
@@ -264,7 +264,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 self-start md:self-auto shrink-0 flex-wrap">
+        <div className="flex items-center gap-2 self-start lg:self-auto shrink-0 flex-wrap">
           <button
             onClick={handleExportPdf}
             disabled={isExportingPdf}

@@ -473,7 +473,10 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     if (route && phaseRef.current === 'plan') {
       const b = new mapboxgl.LngLatBounds();
       route.line.forEach(c => b.extend(c));
-      map.fitBounds(b, { padding: { top: 190, bottom: 250, left: 48, right: 48 }, duration: 700, maxZoom: 16 });
+      // Leave room for the panels: stacked top/bottom in portrait, a left column on short landscape screens.
+      const sideways = window.matchMedia("(max-height: 500px) and (orientation: landscape)").matches;
+      const padding = sideways ? { top: 56, bottom: 24, left: 400, right: 72 } : { top: 190, bottom: 250, left: 48, right: 48 };
+      map.fitBounds(b, { padding, duration: 700, maxZoom: 16 });
     }
   }, [route, mapReady]);
 
@@ -653,7 +656,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       {phase === 'plan' && (
         <>
           <div className="absolute top-0 inset-x-0 p-3 pt-[max(12px,env(safe-area-inset-top))] pointer-events-none">
-            <div className="mx-auto max-w-lg pointer-events-auto">
+            <div className="mx-auto max-w-lg short:mx-0 short:max-w-[360px] pointer-events-auto">
               <div className={`${panel} ${lift} rounded-xl flex items-stretch`}>
                 <button onClick={onClose} aria-label="Close" className="px-3 grid place-items-center text-muted hover:text-ink dark:hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-route rounded-l-xl">
                   <ArrowLeft className="size-5" />
@@ -781,7 +784,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
           {!activeField && (
             <div className="absolute bottom-0 inset-x-0 pointer-events-none">
-              <div className="mx-auto max-w-lg px-3 pb-3 flex justify-end items-center gap-2 pointer-events-auto">
+              <div className="mx-auto max-w-lg px-3 pb-3 flex justify-end items-center gap-2 pointer-events-auto short:absolute short:right-0 short:bottom-0">
                 {fix && (
                   <span className={`${panel} ${lift} rounded-full h-8 px-3 text-xs font-medium flex items-center gap-1.5`} title="How precise your GPS position is right now">
                     <span className={`size-2 rounded-full ${accuracyTone}`} />
@@ -793,7 +796,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 </button>
               </div>
 
-              <div className={`${panel} ${lift} pointer-events-auto mx-auto max-w-lg rounded-t-2xl px-5 pt-4 pb-[max(20px,env(safe-area-inset-bottom))]`}>
+              <div className={`${panel} ${lift} pointer-events-auto mx-auto max-w-lg rounded-t-2xl short:mx-0 short:ml-3 short:mb-3 short:max-w-[360px] short:rounded-2xl short:max-h-[calc(100dvh-148px)] short:overflow-y-auto px-5 pt-4 pb-[max(20px,env(safe-area-inset-bottom))]`}>
                 {!dest && (
                   <div className="py-1">
                     <p className="text-[17px] font-semibold">
@@ -849,7 +852,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       {phase === 'drive' && route && (
         <>
           <div className="absolute top-0 inset-x-0 p-3 pt-[max(12px,env(safe-area-inset-top))]">
-            <div className="mx-auto max-w-lg">
+            <div className="mx-auto max-w-lg short:mx-0 short:max-w-[360px]">
               {/* Guide-sign banner: green plate, white inset border, like a DPWH road sign */}
               <div className="rounded-[10px] bg-sign p-[3px] shadow-[0_8px_24px_-8px_rgba(0,60,40,.55)]" aria-live="polite">
                 <div className="rounded-[8px] border-2 border-white/90 px-4 py-3 flex items-center gap-4 text-white">
@@ -878,7 +881,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           </div>
 
           <div className="absolute bottom-0 inset-x-0">
-            <div className="mx-auto max-w-lg px-3 pb-3 flex justify-between items-end">
+            <div className="mx-auto max-w-lg px-3 pb-3 flex justify-between items-end short:absolute short:right-0 short:bottom-0 short:gap-2 short:flex-row-reverse">
               <div className={`${panel} ${lift} size-[68px] rounded-full grid place-items-center border-[3px] border-[#d9dde2] dark:border-[#333a43]`} aria-label="Current speed">
                 <div className="text-center leading-none">
                   <span className="font-sign text-[26px] font-extrabold block">{speedKmh ?? '–'}</span>
@@ -892,7 +895,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               )}
             </div>
 
-            <div className={`${panel} ${lift} mx-auto max-w-lg rounded-t-2xl px-5 pt-4 pb-[max(18px,env(safe-area-inset-bottom))] flex items-center gap-4`}>
+            <div className={`${panel} ${lift} mx-auto max-w-lg rounded-t-2xl short:mx-0 short:ml-3 short:mb-3 short:max-w-[360px] short:rounded-2xl px-5 pt-4 pb-[max(18px,env(safe-area-inset-bottom))] flex items-center gap-4`}>
               {arrived ? (
                 <div className="flex-1 min-w-0">
                   <p className="font-sign text-[26px] leading-none font-extrabold">{formatDistance(traveledM)} driven</p>

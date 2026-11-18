@@ -80,7 +80,7 @@ export const PriceComparisonView: React.FC<Props> = ({ onOpenWhatsNew, onBack })
   ];
 
   return (
-    <div className="space-y-4 pb-20 md:pb-8">
+    <div className="space-y-4 pb-20 lg:pb-8">
       {onBack && (
         <div className="mb-2">
           <button

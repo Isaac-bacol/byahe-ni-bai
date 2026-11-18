@@ -139,7 +139,7 @@ const AppContent: React.FC = () => {
         <WhatsNewBanner onOpenWhatsNew={() => setIsWhatsNewOpen(true)} />
 
         {/* Main Container */}
-        <main className="app-main flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 pt-3 sm:pt-5 pb-24 md:pb-8 print:p-0 print:pb-0">
+        <main className="app-main flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 pt-3 sm:pt-5 pb-24 lg:pb-8 print:p-0 print:pb-0">
           {safeTab === 'dashboard' && (
             <DashboardView
               onOpenAddTrip={() => setIsAddTripOpen(true)}

@@ -44,7 +44,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
   };
 
   return (
-    <div className="space-y-4 pb-20 md:pb-6">
+    <div className="space-y-4 pb-20 lg:pb-6">
       {/* Header */}
       <div className="glass-panel p-4 sm:p-5 rounded-3xl">
         <div className="flex items-center space-x-3">

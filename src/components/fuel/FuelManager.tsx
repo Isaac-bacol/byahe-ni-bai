@@ -116,7 +116,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
   };
 
   return (
-    <div className="space-y-4 pb-20 md:pb-6">
+    <div className="space-y-4 pb-20 lg:pb-6">
       {/* Top Controls */}
       <div className="glass-panel p-5 rounded-3xl shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">

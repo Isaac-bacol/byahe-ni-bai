@@ -68,17 +68,17 @@ export const Navbar: React.FC<Props> = ({
         {/* Logo & Bohol Branding */}
         <div
           onClick={() => onNavigate('dashboard')}
-          className="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer group shrink-0"
+          className="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer group min-w-0"
         >
           <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-2xl overflow-hidden shadow-md shadow-sky-600/20 group-hover:scale-105 transition-transform bg-slate-900 shrink-0 border border-white/30 dark:border-white/10">
             <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
           </div>
-          <div className="shrink-0">
+          <div className="min-w-0">
             <div className="flex items-center space-x-1.5 whitespace-nowrap">
-              <span className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
+              <span className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white truncate">
                 Byahe ni Bai
               </span>
-              <span className="text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded-lg bg-emerald-500/15 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap backdrop-blur-xs">
+              <span className="hidden sm:inline text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded-lg bg-emerald-500/15 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap backdrop-blur-xs">
                 Bohol
               </span>
             </div>
@@ -202,7 +202,7 @@ export const Navbar: React.FC<Props> = ({
               title={`${currentUser.name} (${roleBadge?.label || 'Driver'})`}
             >
               <Bike className="w-3.5 h-3.5 text-current shrink-0" />
-              <span className="font-extrabold max-w-[90px] sm:max-w-[120px] truncate">{currentUser.name.split(' ')[0]}</span>
+              <span className="hidden sm:inline font-extrabold max-w-[120px] truncate">{currentUser.name.split(' ')[0]}</span>
               <span className="text-[10px] font-medium opacity-80 hidden xl:inline">({roleBadge?.label || 'Driver'})</span>
               <ChevronDown className="w-3 h-3 opacity-60 shrink-0" />
             </button>

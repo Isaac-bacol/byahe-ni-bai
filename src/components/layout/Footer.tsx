@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
   };
 
   return (
-    <footer className="glass-panel border-t border-b-0 border-x-0 rounded-none py-10 px-4 mt-12 pb-24 md:pb-10 transition-colors print:hidden">
+    <footer className="glass-panel border-t border-b-0 border-x-0 rounded-none py-10 px-4 mt-12 pb-24 lg:pb-10 transition-colors print:hidden">
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Centered Logo & Brand Name */}
         <div
