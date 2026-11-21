@@ -269,7 +269,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
             onClick={handleExportPdf}
             disabled={isExportingPdf}
             title="Download PDF document (.pdf) with embedded logo & tables"
-            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60"
+            className="px-3.5 py-2 rounded-xl active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60 bg-sign hover:bg-sign-dark"
           >
             <FileText className="w-4 h-4" />
             <span>{isExportingPdf ? 'Exporting PDF...' : 'Export PDF'}</span>
@@ -278,7 +278,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
             onClick={handleExportExcelWithLogo}
             disabled={isExportingExcel}
             title="Download Excel (.xlsx) with embedded Byahe ni Bai logo"
-            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60"
+            className="px-3.5 py-2 rounded-xl text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer shrink-0 disabled:opacity-60 bg-sign hover:bg-sign-dark"
           >
             <FileSpreadsheet className="w-4 h-4" />
             <span>{isExportingExcel ? 'Exporting...' : 'Export Excel (Logo)'}</span>
@@ -293,7 +293,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
           </button>
           <button
             onClick={() => setIsPrintModalOpen(true)}
-            className="px-3.5 py-2 rounded-xl bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 cursor-pointer shrink-0 active:scale-95"
+            className="px-3.5 py-2 rounded-xl text-white text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 cursor-pointer shrink-0 active:scale-95 bg-sign hover:bg-sign-dark"
           >
             <Printer className="w-4 h-4" />
             <span>Print Report</span>
@@ -346,7 +346,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
               <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-sky-600 dark:text-sky-400">
+              <span className="text-xs font-black text-blue-600 dark:text-blue-400">
                 BYAHE NI BAI • BOHOL TRANSPORT TRACKER (v2.5.0)
               </span>
               <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 uppercase">
@@ -364,23 +364,23 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
 
         {/* Key Summary Cards matching prompt format */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-4 rounded-2xl glass-panel-subtle border-sky-400/30 text-center">
-            <span className="text-[10px] text-sky-600 dark:text-sky-400 uppercase font-bold block">Trips Completed</span>
-            <span className="text-2xl font-black text-sky-950 dark:text-sky-100 mt-1 block">{filteredData.tripCount}</span>
+          <div className="p-4 rounded-2xl glass-panel-subtle border-blue-400/30 text-center">
+            <span className="text-xs text-blue-600 dark:text-blue-400 uppercase font-bold block">Trips Completed</span>
+            <span className="text-2xl font-black text-blue-950 dark:text-blue-100 mt-1 block">{filteredData.tripCount}</span>
           </div>
 
-          <div className="p-4 rounded-2xl glass-panel-subtle border-teal-400/30 text-center">
-            <span className="text-[10px] text-teal-600 dark:text-teal-400 uppercase font-bold block">Total Distance</span>
-            <span className="text-2xl font-black text-teal-950 dark:text-teal-100 mt-1 block">{filteredData.distanceKm} km</span>
+          <div className="p-4 rounded-2xl glass-panel-subtle border-blue-400/30 text-center">
+            <span className="text-xs text-blue-600 dark:text-blue-400 uppercase font-bold block">Total Distance</span>
+            <span className="text-2xl font-black text-blue-950 dark:text-blue-100 mt-1 block">{filteredData.distanceKm} km</span>
           </div>
 
           <div className="p-4 rounded-2xl glass-panel-subtle border-amber-400/30 text-center">
-            <span className="text-[10px] text-amber-600 dark:text-amber-400 uppercase font-bold block">Fuel Spending</span>
+            <span className="text-xs text-amber-600 dark:text-amber-400 uppercase font-bold block">Fuel Spending</span>
             <span className="text-2xl font-black text-amber-950 dark:text-amber-100 mt-1 block">{formatPHP(filteredData.fuelCost)}</span>
           </div>
 
           <div className="p-4 rounded-2xl glass-panel-subtle border-emerald-400/30 text-center">
-            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold block">
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 uppercase font-bold block">
               {userType === 'motorist' ? 'Remaining Allowance' : 'Net Take-Home'}
             </span>
             <span className="text-2xl font-black text-emerald-800 dark:text-emerald-200 mt-1 block">
@@ -394,7 +394,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
         {/* Role-Specific Detail Card */}
         {userType === 'motorist' ? (
           <div className="p-5 rounded-2xl glass-panel-subtle space-y-2 text-xs">
-            <h4 className="font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">Motorist Allowance Summary</h4>
+            <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Motorist Allowance Summary</h4>
             <div className="flex justify-between py-1 border-b border-slate-200/50 dark:border-slate-700/60">
               <span className="text-slate-600 dark:text-slate-400">Total Allowance Budget</span>
               <span className="font-bold text-slate-900 dark:text-slate-100">{formatPHP(financialSummary.allowanceBudget)}</span>
@@ -410,7 +410,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
           </div>
         ) : (
           <div className="p-5 rounded-2xl glass-panel-subtle space-y-2 text-xs">
-            <h4 className="font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">
+            <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">
               Driver Revenue & Operating Tally
             </h4>
             <div className="flex justify-between py-1 border-b border-slate-200/50 dark:border-slate-700/60">
@@ -430,19 +430,19 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
 
         {/* Analytics Highlights Section */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+          <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300">
             Operational Analytics
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div className="p-3 rounded-2xl glass-panel-subtle">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-semibold">Average Fuel Cost / Trip</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 block font-semibold">Average Fuel Cost / Trip</span>
               <span className="text-lg font-bold text-slate-800 dark:text-slate-100 mt-0.5 block">
                 ₱{filteredData.avgFuelPerTrip} / trip
               </span>
             </div>
 
             <div className="p-3 rounded-2xl glass-panel-subtle">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-semibold">Average Trip Distance</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 block font-semibold">Average Trip Distance</span>
               <span className="text-lg font-bold text-slate-800 dark:text-slate-100 mt-0.5 block">
                 {filteredData.tripCount > 0
                   ? (filteredData.distanceKm / filteredData.tripCount).toFixed(1)
@@ -452,7 +452,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
             </div>
 
             <div className="p-3 rounded-2xl glass-panel-subtle">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-semibold">Fuel Efficiency Average</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 block font-semibold">Fuel Efficiency Average</span>
               <span className="text-lg font-bold text-slate-800 dark:text-slate-100 mt-0.5 block">
                 ~38.5 km/L
               </span>
@@ -480,7 +480,7 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
                   <h3 className="text-sm font-black text-slate-900 dark:text-white">
                     Print or Download PDF
                   </h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     {periodLabel}
                   </p>
                 </div>
@@ -516,12 +516,12 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
                     <span className="text-xs font-black text-slate-900 dark:text-white block">
                       Download PDF File (.pdf)
                     </span>
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       High-resolution document with official logo, KPI metrics & trip logs
                     </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
                   Save PDF →
                 </span>
               </button>
@@ -543,12 +543,12 @@ export const ReportsView: React.FC<Props> = ({ onBack }) => {
                     <span className="text-xs font-black text-slate-900 dark:text-white block">
                       Print via Printer (Browser Dialog)
                     </span>
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       Send to local physical printer (AirPrint / Ctrl+P)
                     </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400 shrink-0">
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400 shrink-0">
                   Print →
                 </span>
               </button>

@@ -293,7 +293,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
         {/* Modal Header */}
         <div className="px-6 py-4 flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/60 shrink-0">
           <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-600/20">
+            <div className="w-9 h-9 rounded-xl text-white flex items-center justify-center shadow-md shadow-emerald-600/20 bg-sign hover:bg-sign-dark">
               <Camera className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -301,11 +301,11 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 <h3 className="text-base font-black tracking-tight text-slate-900 dark:text-white">
                   Petron & Fuel Receipt Scanner
                 </h3>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-[10px] font-extrabold border border-emerald-500/30">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-extrabold border border-emerald-500/30">
                   Receipt OCR
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Snap or upload your printed gas receipt to auto-log liters and cost
               </p>
             </div>
@@ -353,10 +353,10 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
 
                 {/* Receipt alignment guide overlay */}
                 <div className="absolute inset-5 border-2 border-dashed border-emerald-400/80 rounded-2xl pointer-events-none flex flex-col justify-between p-3">
-                  <div className="text-[10px] font-bold text-white bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs self-start">
+                  <div className="text-xs font-bold text-white bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs self-start">
                     Align receipt inside frame
                   </div>
-                  <div className="w-full text-center text-[10px] text-white/90 bg-black/60 py-0.5 rounded-md backdrop-blur-xs">
+                  <div className="w-full text-center text-xs text-white/90 bg-black/60 py-0.5 rounded-md backdrop-blur-xs">
                     Hold steady in good light
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 <button
                   type="button"
                   onClick={handleSnapPhoto}
-                  className="flex-1 py-2.5 px-4 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-black shadow-md shadow-emerald-900/30 flex items-center justify-center space-x-2 cursor-pointer transition-all"
+                  className="flex-1 py-2.5 px-4 rounded-xl active:scale-95 text-white text-xs font-black shadow-md shadow-emerald-900/30 flex items-center justify-center space-x-2 cursor-pointer transition-all bg-sign hover:bg-sign-dark"
                 >
                   <Camera className="w-4 h-4" />
                   <span>Snap Receipt Photo</span>
@@ -406,7 +406,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                     <Camera className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-black text-slate-900 dark:text-white">Take Photo</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Snap receipt with your camera
                   </span>
                 </button>
@@ -414,13 +414,13 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-4 rounded-2xl glass-panel-interactive border-2 border-dashed border-cyan-500/40 hover:border-cyan-500 flex flex-col items-center justify-center text-center group cursor-pointer transition-all"
+                  className="p-4 rounded-2xl glass-panel-interactive border-2 border-dashed border-blue-500/40 hover:border-blue-500 flex flex-col items-center justify-center text-center group cursor-pointer transition-all"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                     <Upload className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-black text-slate-900 dark:text-white">Upload Receipt Image</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Select PNG, JPG, or screenshot
                   </span>
                 </button>
@@ -455,11 +455,11 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
               {/* Progress Bar */}
               <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-cyan-500 to-emerald-500 h-2 rounded-full transition-all duration-300"
+                  className="h-2 rounded-full transition-all duration-300 bg-sign hover:bg-sign-dark"
                   style={{ width: `${scanProgress}%` }}
                 />
               </div>
-              <span className="text-[11px] font-bold text-slate-400">{scanProgress}%</span>
+              <span className="text-xs font-bold text-slate-400">{scanProgress}%</span>
             </div>
           )}
 
@@ -469,7 +469,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-bold">Scan Incomplete</p>
-                <p className="text-[11px] opacity-90">{errorMessage}</p>
+                <p className="text-xs opacity-90">{errorMessage}</p>
               </div>
             </div>
           )}
@@ -488,7 +488,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 <button
                   type="button"
                   onClick={resetState}
-                  className="text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 flex items-center space-x-1 cursor-pointer"
+                  className="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 flex items-center space-x-1 cursor-pointer"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>Scan Another</span>
@@ -499,7 +499,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
               {(parsedData.isPriceEstimated || parsedData.isLitersEstimated) && (
                 <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs flex items-start space-x-2">
                   <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
-                  <p className="text-[11px] leading-relaxed">
+                  <p className="text-xs leading-relaxed">
                     {parsedData.isLitersEstimated && parsedData.isPriceEstimated
                       ? 'Liters and Price/L were estimated from the detected total. Please verify the numbers against your receipt.'
                       : parsedData.isLitersEstimated
@@ -603,7 +603,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
               {/* Total Calculation Display */}
               <div className="p-3.5 rounded-2xl glass-panel-subtle border border-emerald-500/30 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 block">
                     Formula: Price/L × Liters
                   </span>
                   <span className="text-xs text-slate-600 dark:text-slate-400">
@@ -611,7 +611,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold block uppercase">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-bold block uppercase">
                     Total Fuel Cost
                   </span>
                   <span className="text-xl font-black text-emerald-700 dark:text-emerald-300">
@@ -668,14 +668,14 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 <button
                   type="button"
                   onClick={() => setShowRawText(!showRawText)}
-                  className="text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center space-x-1 cursor-pointer"
+                  className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center space-x-1 cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>{showRawText ? 'Hide' : 'View'} scanned receipt text</span>
                   {showRawText ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                 </button>
                 {showRawText && (
-                  <pre className="mt-2 p-3 rounded-xl bg-slate-900 text-slate-200 text-[10px] font-mono whitespace-pre-wrap max-h-36 overflow-y-auto">
+                  <pre className="mt-2 p-3 rounded-xl bg-slate-900 text-slate-200 text-xs font-mono whitespace-pre-wrap max-h-36 overflow-y-auto">
                     {parsedData.rawText}
                   </pre>
                 )}
@@ -692,7 +692,7 @@ export const ReceiptScannerModal: React.FC<Props> = ({ isOpen, onClose, onSavePu
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 cursor-pointer flex items-center space-x-1.5 transition-all"
+                  className="px-5 py-2 rounded-xl active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 cursor-pointer flex items-center space-x-1.5 transition-all bg-sign hover:bg-sign-dark"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Save to Fuel Log</span>

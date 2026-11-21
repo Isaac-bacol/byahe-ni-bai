@@ -83,8 +83,8 @@ export const TutorialModal: React.FC<Props> = ({
       stepLabel: 'Step 1 of 4',
       title: 'Add Your Vehicle in Garage',
       subtitle: 'Accurate vehicle info gives accurate fuel estimates.',
-      icon: <Bike className="w-6 h-6 text-sky-600 dark:text-sky-400" />,
-      accentClass: 'bg-sky-500/15 border-sky-500/30',
+      icon: <Bike className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
+      accentClass: 'bg-blue-500/15 border-blue-500/30',
       points: [
         'Open the Garage tab and tap "Add Vehicle" to pick your motorcycle or tricycle.',
         'Set your default vehicle so new trips automatically use its km/L efficiency and fuel type.',
@@ -99,8 +99,8 @@ export const TutorialModal: React.FC<Props> = ({
       stepLabel: 'Step 2 of 4',
       title: 'Log Your Trips',
       subtitle: 'Record routes, distance, fuel cost, and fares.',
-      icon: <Route className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />,
-      accentClass: 'bg-cyan-500/15 border-cyan-500/30',
+      icon: <Route className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
+      accentClass: 'bg-blue-500/15 border-blue-500/30',
       points: [
         'Tap "+ Log Trip" on the Dashboard (or the center "+" button on mobile).',
         'Pick your origin and destination in Bohol to auto-calculate route distance and estimated fuel.',
@@ -178,7 +178,7 @@ export const TutorialModal: React.FC<Props> = ({
         {/* Header */}
         <div className="px-6 py-3.5 flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/60 shrink-0">
           <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-[11px] font-extrabold border border-emerald-500/30 uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-extrabold border border-emerald-500/30">
               How to Use
             </span>
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400">

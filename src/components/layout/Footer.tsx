@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
             onNavigate ? 'cursor-pointer' : ''
           }`}
         >
-          <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-md shadow-sky-600/20 group-hover:scale-105 transition-transform bg-slate-900 border border-slate-200 dark:border-slate-700">
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-md shadow-blue-600/20 group-hover:scale-105 transition-transform bg-slate-900 border border-slate-200 dark:border-slate-700">
             <img
               src="/logo.png?v=3"
               alt="Byahe ni Bai Logo"
@@ -55,12 +55,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
             <span className="text-base font-black tracking-tight text-slate-900 dark:text-white">
               Byahe ni Bai
             </span>
-            <span className="text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+            <span className="text-xs uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
               Bohol
             </span>
           </div>
           {/* Prominent Version & System Badge */}
-          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 text-[11px] font-bold text-slate-700 dark:text-slate-300 shadow-2xs">
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 text-xs font-bold text-slate-700 dark:text-slate-300 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span>Version {APP_VERSION} ({APP_BUILD_NAME})</span>
           </div>
@@ -123,14 +123,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
         {/* Support / Donate Banner Callout (Harmonized with Logo Palette) */}
         <div className="mt-4 mb-2 p-3 sm:p-4 rounded-2xl glass-panel-subtle border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-2xl w-full shadow-xs">
           <div className="flex items-center space-x-3 text-left">
-            <div className="p-2.5 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-600 text-white shrink-0 shadow-sm shadow-emerald-500/20">
+            <div className="p-2.5 rounded-xl text-white shrink-0 shadow-sm shadow-emerald-500/20 bg-sign hover:bg-sign-dark">
               <Heart className="w-4 h-4 fill-white" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-slate-900 dark:text-white">
                 Support Byahe ni Bai (Donate)
               </h4>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Help keep our Bohol transport servers & live fuel monitor running free for all drivers.
               </p>
             </div>
@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
 
           <button
             onClick={() => setActiveModal('donate')}
-            className="w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center justify-center space-x-1.5"
+            className="w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-xl active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center justify-center space-x-1.5 bg-sign hover:bg-sign-dark"
           >
             <Heart className="w-3.5 h-3.5 fill-white" />
             <span>Donate via QR</span>
@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
         </div>
 
         {/* Copyright Footnote */}
-        <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 text-[11px] text-slate-400 dark:text-slate-500 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-center">
+        <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 text-xs text-slate-400 dark:text-slate-500 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-center">
           <span>© 2026 Byahe ni Bai • System Release {APP_REVISION_LABEL} ({APP_BUILD_DATE})</span>
           <span className="hidden sm:inline">•</span>
           <span>Daghang Salamat sa tanang mga drayber sa Bohol!</span>
@@ -163,7 +163,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
                   activeModal === 'donate'
                     ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400'
-                    : 'bg-sky-100 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400'
+                    : 'bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'
                 }`}>
                   {activeModal === 'about' && <Info className="w-4 h-4" />}
                   {activeModal === 'terms' && <FileText className="w-4 h-4" />}
@@ -206,7 +206,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   <p>
                     From Tagbilaran City to Tubigon, Panglao to Ubay, drivers can record their actual mileage, log passenger fares, track daily fuel consumption, and monitor real-time Bohol fuel prices with weekly integration from <strong>FuelPrice PH (fuelprice.ph)</strong>.
                   </p>
-                  <div className="p-3 bg-sky-500/10 dark:bg-sky-950/40 rounded-2xl border border-sky-500/30 text-sky-900 dark:text-sky-300">
+                  <div className="p-3 bg-blue-500/10 dark:bg-blue-950/40 rounded-2xl border border-blue-500/30 text-blue-900 dark:text-blue-300">
                     <p className="font-semibold">Our Mission:</p>
                     <p className="mt-1">
                       To promote economic transparency, fuel savings, and fair commuter rates for every driver and rider in Bohol.
@@ -222,21 +222,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   </p>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 font-black text-[10px]">01</span>
+                      <span className="px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-700 dark:text-blue-300 font-black text-xs">01</span>
                       <strong className="text-slate-900 dark:text-white">Accurate Data</strong>
                     </div>
                     <p>Record authentic mileage, passenger fares, and fuel receipts so your daily expense and trip reports stay reliable.</p>
                   </div>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 font-black text-[10px]">02</span>
+                      <span className="px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-700 dark:text-blue-300 font-black text-xs">02</span>
                       <strong className="text-slate-900 dark:text-white">Fuel Price Estimates Disclaimer</strong>
                     </div>
                     <p>Weekly fuel prices synced from <strong>FuelPrice PH (fuelprice.ph)</strong> and community benchmarks are reference estimates. Actual station pump rates in Bohol may vary based on local barge delivery timing.</p>
                   </div>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 font-black text-[10px]">03</span>
+                      <span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 font-black text-xs">03</span>
                       <strong className="text-slate-900 dark:text-white">Safe Driving</strong>
                     </div>
                     <p>Do not operate the app while in motion. Always pull over safely before recording trips or logging fuel purchases.</p>
@@ -251,21 +251,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   </p>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">01</span>
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-xs">01</span>
                       <strong className="text-slate-900 dark:text-white">Local-First Storage</strong>
                     </div>
                     <p>Your vehicle garage, trip histories, fuel receipts, and daily fare finances are saved locally on your device or in your secure driver session.</p>
                   </div>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">02</span>
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-xs">02</span>
                       <strong className="text-slate-900 dark:text-white">No Commercial Selling</strong>
                     </div>
                     <p>We never sell personal driver information, travel routes, or contact numbers to third-party advertisers.</p>
                   </div>
                   <div className="p-3 rounded-2xl glass-panel-subtle space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px]">03</span>
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-xs">03</span>
                       <strong className="text-slate-900 dark:text-white">Full Data Control</strong>
                     </div>
                     <p>You can edit, export, or delete your vehicle logs and trip records at any time under Republic Act 10173.</p>
@@ -280,7 +280,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   </p>
                   <div className="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
                     <div className="flex items-center space-x-2">
-                      <Mail className="w-4 h-4 text-sky-500" />
+                      <Mail className="w-4 h-4 text-blue-500" />
                       <span><strong>Email:</strong> support@byahenibai.ph</span>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -288,7 +288,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                       <span><strong>Coverage:</strong> Province of Bohol, Central Visayas, Philippines</span>
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-xs text-slate-400">
                     You can also coordinate with your local municipality TODA president or transport office for official routing and fare guidelines.
                   </p>
                 </>
@@ -299,7 +299,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   <p className="mb-2">
                     Byahe ni Bai covers all 47 municipalities and 1 component city across the island province of Bohol:
                   </p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-56 overflow-y-auto p-2 glass-panel-subtle rounded-2xl border border-white/20 dark:border-white/10 text-[11px]">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-56 overflow-y-auto p-2 glass-panel-subtle rounded-2xl border border-white/20 dark:border-white/10 text-xs">
                     {BOHOL_MUNICIPALITIES.map(m => (
                       <span
                         key={m}
@@ -314,7 +314,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
 
               {activeModal === 'donate' && (
                 <div className="space-y-4">
-                  <div className="p-3 bg-gradient-to-r from-rose-50 via-amber-50 to-sky-50 dark:from-rose-950/30 dark:via-amber-950/20 dark:to-sky-950/30 rounded-2xl border border-rose-200/60 dark:border-rose-900/40 text-slate-700 dark:text-slate-200">
+                  <div className="p-3 rounded-2xl border border-rose-200/60 dark:border-rose-900/40 text-slate-700 dark:text-slate-200 bg-sign hover:bg-sign-dark">
                     <p className="text-xs leading-relaxed">
                       Daghang salamat sa pagsuporta sa <strong>Byahe ni Bai</strong>! Your contribution directly funds Bohol transport server uptime, database hosting, and keeping the platform free and accessible for all drivers and commuters across Bohol.
                     </p>
@@ -378,10 +378,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                     {(selectedChannel === 'all' || selectedChannel === 'gcash') && (
                       <div className="glass-panel-subtle rounded-2xl border border-blue-500/30 dark:border-blue-500/20 p-3.5 flex flex-col items-center text-center shadow-xs hover:border-blue-400 transition-colors">
                         <div className="w-full flex items-center justify-between mb-2">
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-blue-600 text-white">
+                          <span className="px-2 py-0.5 rounded-full text-xs font-extrabold uppercase bg-blue-600 text-white">
                             GCash
                           </span>
-                          <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                             QR Ph / InstaPay
                           </span>
                         </div>
@@ -395,13 +395,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                         </div>
 
                         <div className="w-full text-left space-y-1 mb-3 glass-panel-subtle p-2.5 rounded-xl border border-white/20 dark:border-white/10">
-                          <div className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                          <div className="text-xs font-bold text-slate-900 dark:text-white truncate">
                             LA**E IS**C B.
                           </div>
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                          <div className="text-xs text-slate-500 dark:text-slate-400">
                             Account: +63 910 886 ••••
                           </div>
-                          <div className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">
+                          <div className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
                             Accepts any PH banking app
                           </div>
                         </div>
@@ -421,10 +421,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                     {(selectedChannel === 'all' || selectedChannel === 'bpi') && (
                       <div className="glass-panel-subtle rounded-2xl border border-rose-500/30 dark:border-rose-500/20 p-3.5 flex flex-col items-center text-center shadow-xs hover:border-rose-400 transition-colors">
                         <div className="w-full flex items-center justify-between mb-2">
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-rose-700 text-white">
+                          <span className="px-2 py-0.5 rounded-full text-xs font-extrabold uppercase bg-rose-700 text-white">
                             BPI
                           </span>
-                          <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                             QR Ph / InstaPay
                           </span>
                         </div>
@@ -438,13 +438,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                         </div>
 
                         <div className="w-full text-left space-y-1 mb-3 glass-panel-subtle p-2.5 rounded-xl border border-white/20 dark:border-white/10">
-                          <div className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                          <div className="text-xs font-bold text-slate-900 dark:text-white truncate">
                             Isaac (Lance Isaac S. Bacol)
                           </div>
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                          <div className="text-xs text-slate-500 dark:text-slate-400">
                             BPI Savings ending in ...556
                           </div>
-                          <div className="text-[10px] text-rose-600 dark:text-rose-400 font-semibold">
+                          <div className="text-xs text-rose-600 dark:text-rose-400 font-semibold">
                             Accepts any PH banking app
                           </div>
                         </div>
@@ -464,10 +464,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                     {(selectedChannel === 'all' || selectedChannel === 'maribank') && (
                       <div className="glass-panel-subtle rounded-2xl border border-orange-500/30 dark:border-orange-500/20 p-3.5 flex flex-col items-center text-center shadow-xs hover:border-orange-400 transition-colors">
                         <div className="w-full flex items-center justify-between mb-2">
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-orange-600 text-white">
+                          <span className="px-2 py-0.5 rounded-full text-xs font-extrabold uppercase bg-orange-600 text-white">
                             MariBank
                           </span>
-                          <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                             QR Ph / InstaPay
                           </span>
                         </div>
@@ -481,15 +481,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                         </div>
 
                         <div className="w-full text-left space-y-1 mb-3 glass-panel-subtle p-2.5 rounded-xl border border-white/20 dark:border-white/10">
-                          <div className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+                          <div className="text-xs font-bold text-slate-900 dark:text-white truncate">
                             LANCE ISAAC BACOL
                           </div>
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                          <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
                             <span>MariBank (****8172)</span>
                             <button
                               type="button"
                               onClick={() => handleCopy('LB837796', 'maribank')}
-                              className="text-[10px] text-orange-600 dark:text-orange-400 hover:underline flex items-center space-x-1 cursor-pointer"
+                              className="text-xs text-orange-600 dark:text-orange-400 hover:underline flex items-center space-x-1 cursor-pointer"
                               title="Copy Referral / Code"
                             >
                               {copiedKey === 'maribank' ? (
@@ -505,7 +505,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                               )}
                             </button>
                           </div>
-                          <div className="text-[10px] text-orange-600 dark:text-orange-400 font-semibold">
+                          <div className="text-xs text-orange-600 dark:text-orange-400 font-semibold">
                             Accepts any PH banking app
                           </div>
                         </div>
@@ -523,7 +523,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenTutorial }) =>
                   </div>
 
                   {/* Universal QR Ph Notice */}
-                  <div className="p-3 glass-panel-subtle rounded-2xl border border-white/20 dark:border-white/10 flex items-start space-x-2.5 text-[11px] text-slate-700 dark:text-slate-300">
+                  <div className="p-3 glass-panel-subtle rounded-2xl border border-white/20 dark:border-white/10 flex items-start space-x-2.5 text-xs text-slate-700 dark:text-slate-300">
                     <QrCode className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-slate-900 dark:text-white">Interoperable QR Ph:</strong> You can scan any of these QR codes using your favorite Philippine banking or e-wallet app, including <strong>Maya, BDO Pay, UnionBank, SeaBank, LandBank, RCBC Pulz, GoTyme</strong>, or any InstaPay-enabled mobile app.

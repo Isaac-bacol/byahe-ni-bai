@@ -79,12 +79,12 @@ export const AdminLoginPage: React.FC = () => {
   };
 
   return (
-    <div className="admin-login-root min-h-screen bg-transparent text-slate-900 dark:text-slate-100 transition-colors flex flex-col selection:bg-cyan-500 selection:text-white">
+    <div className="admin-login-root min-h-screen bg-transparent text-slate-900 dark:text-slate-100 transition-colors flex flex-col selection:bg-blue-500 selection:text-white">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-50 glass-header border-b border-cyan-500/20 dark:border-cyan-500/10">
+      <header className="sticky top-0 z-50 glass-header border-b border-blue-500/20 dark:border-blue-500/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-cyan-900/30 bg-slate-950 shrink-0 border border-cyan-500/30">
+            <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-blue-900/30 bg-slate-950 shrink-0 border border-blue-500/30">
               <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
@@ -92,11 +92,11 @@ export const AdminLoginPage: React.FC = () => {
                 <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
                   Byahe ni Bai
                 </span>
-                <span className="text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full bg-cyan-500/15 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-400/30 backdrop-blur-xs">
+                <span className="text-xs uppercase font-extrabold px-2 py-0.5 rounded-full bg-blue-500/15 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-400/30 backdrop-blur-xs">
                   ADMIN PORTAL
                 </span>
               </div>
-              <p className="text-[10px] text-cyan-600 dark:text-cyan-400 font-medium hidden sm:block">
+              <p className="text-xs text-blue-600 dark:text-blue-400 font-medium hidden sm:block">
                 Provincial Benchmark Calibration & System Administration
               </p>
             </div>
@@ -137,22 +137,22 @@ export const AdminLoginPage: React.FC = () => {
               <ArrowLeft className="w-4 h-4" />
               <span>Return to Bohol Motorist App</span>
             </a>
-            <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-1">
+            <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1">
               <Lock className="w-3 h-3" /> Secure Gateway
             </span>
           </div>
 
-          <div className="glass-panel rounded-3xl overflow-hidden shadow-2xl border border-cyan-500/30">
+          <div className="glass-panel rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30">
             {/* Header / Crest */}
-            <div className="p-6 sm:p-7 bg-gradient-to-r from-cyan-900/40 via-sky-900/30 to-slate-900/40 border-b border-cyan-500/20">
+            <div className="p-6 sm:p-7 border-b border-blue-500/20">
               <div className="flex items-center space-x-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 flex items-center justify-center font-bold text-xl border border-cyan-500/40 shadow-inner">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-600 dark:text-blue-300 flex items-center justify-center font-bold text-xl border border-blue-500/40 shadow-inner">
                   <Shield className="w-6 h-6" />
                 </div>
                 <div>
                   <h1 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <span>Administrator Console</span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-500/40">
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-500/40">
                       Bohol Hub
                     </span>
                   </h1>
@@ -163,7 +163,7 @@ export const AdminLoginPage: React.FC = () => {
               </div>
 
               {/* Submode Switcher: Admin Sign In vs Register Admin */}
-              <div className="mt-5 inline-flex p-1 rounded-xl glass-panel-subtle border border-cyan-500/20 w-full grid grid-cols-2">
+              <div className="mt-5 inline-flex p-1 rounded-xl glass-panel-subtle border border-blue-500/20 w-full grid grid-cols-2">
                 <button
                   onClick={() => {
                     setAdminMode('signin');
@@ -171,7 +171,7 @@ export const AdminLoginPage: React.FC = () => {
                   }}
                   className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
                     adminMode === 'signin'
-                      ? 'bg-cyan-600 text-white shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -184,7 +184,7 @@ export const AdminLoginPage: React.FC = () => {
                   }}
                   className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
                     adminMode === 'signup'
-                      ? 'bg-cyan-600 text-white shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -219,18 +219,18 @@ export const AdminLoginPage: React.FC = () => {
                           }}
                           className={`w-full p-3.5 rounded-2xl border text-left flex items-center space-x-3 transition-all cursor-pointer ${
                             selectedAdminId === u.id || (adminUsers.length === 1 && !selectedAdminId)
-                              ? 'glass-panel border-cyan-500 bg-cyan-500/15 ring-2 ring-cyan-500/30'
+                              ? 'glass-panel border-blue-500 bg-blue-500/15 ring-2 ring-blue-500/30'
                               : 'glass-panel-interactive border-white/20 dark:border-white/10'
                           }`}
                         >
-                          <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-700 dark:text-cyan-300 font-bold shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold shrink-0">
                             <Shield className="w-5 h-5" />
                           </div>
                           <div className="overflow-hidden">
                             <div className="text-xs font-black text-slate-900 dark:text-white">
                               {u.name}
                             </div>
-                            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                            <div className="text-xs text-slate-500 dark:text-slate-400">
                               {u.email} • {u.municipality === 'Tagbilaran City' ? 'System Administrator' : (u.municipality || 'System Administrator')}
                             </div>
                           </div>
@@ -257,12 +257,12 @@ export const AdminLoginPage: React.FC = () => {
                         setSelectedAdminId('');
                       }}
                       placeholder="e.g. admin@byahenibai.ph"
-                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
-                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-cyan-500/30 text-xs text-cyan-900 dark:text-cyan-200 flex items-center space-x-2.5">
-                    <Lock className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-blue-500/30 text-xs text-blue-900 dark:text-blue-200 flex items-center space-x-2.5">
+                    <Lock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span>
                       Access allows full management of provincial fuel benchmarks, TODA fare metrics, motorist accounts, and database sync.
                     </span>
@@ -270,7 +270,7 @@ export const AdminLoginPage: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-cyan-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Enter Administrator Console</span>
                     <ArrowRight className="w-4 h-4" />
@@ -290,7 +290,7 @@ export const AdminLoginPage: React.FC = () => {
                         value={adminName}
                         onChange={e => setAdminName(e.target.value)}
                         placeholder="e.g. Maria Santos"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
 
@@ -303,7 +303,7 @@ export const AdminLoginPage: React.FC = () => {
                         value={adminEmail}
                         onChange={e => setAdminEmail(e.target.value)}
                         placeholder="admin@byahenibai.ph"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -317,7 +317,7 @@ export const AdminLoginPage: React.FC = () => {
                         required
                         value={adminMuni}
                         onChange={e => setAdminMuni(e.target.value)}
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500 cursor-pointer"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 cursor-pointer"
                       >
                         {BOHOL_MUNICIPALITIES.map(m => (
                           <option key={m} value={m} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
@@ -336,19 +336,19 @@ export const AdminLoginPage: React.FC = () => {
                         value={adminAgency}
                         onChange={e => setAdminAgency(e.target.value)}
                         placeholder="e.g. System Administrator, Webmaster"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
                   {/* Security Passkey */}
-                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-cyan-500/30">
+                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-blue-500/30">
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-cyan-900 dark:text-cyan-200 flex items-center gap-1.5">
-                        <Lock className="w-3.5 h-3.5 text-cyan-600" />
+                      <label className="text-xs font-bold text-blue-900 dark:text-blue-200 flex items-center gap-1.5">
+                        <Lock className="w-3.5 h-3.5 text-blue-600" />
                         <span>Master Security Passkey <span className="text-red-500 font-bold ml-0.5">*</span></span>
                       </label>
-                      <span className="text-[10px] font-mono font-bold bg-cyan-200 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-300 px-2 py-0.5 rounded">
+                      <span className="text-xs font-mono font-bold bg-blue-200 dark:bg-blue-900 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded">
                         Key: {ADMIN_SECURITY_PASSKEY}
                       </span>
                     </div>
@@ -358,15 +358,15 @@ export const AdminLoginPage: React.FC = () => {
                       value={adminPasskey}
                       onChange={e => setAdminPasskey(e.target.value)}
                       placeholder={`Enter master passkey (${ADMIN_SECURITY_PASSKEY})`}
-                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono focus:ring-2 focus:ring-cyan-500"
+                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono focus:ring-2 focus:ring-blue-500"
                     />
-                    <p className="text-[11px] text-cyan-600/80 dark:text-cyan-400/80 mt-1">
+                    <p className="text-xs text-blue-600/80 dark:text-blue-400/80 mt-1">
                       This security passkey ensures only authorized administrators can create admin credentials.
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-2xl glass-panel-subtle border border-cyan-500/30 flex items-start space-x-2.5 text-[11px] text-cyan-900 dark:text-cyan-300">
-                    <Shield className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
+                  <div className="p-3 rounded-2xl glass-panel-subtle border border-blue-500/30 flex items-start space-x-2.5 text-xs text-blue-900 dark:text-blue-300">
+                    <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                     <span>
                       As an authorized administrator, you will review and accept the <strong>Data Privacy Act (RA 10173)</strong> & <strong>Terms of Service</strong> compliance upon creation.
                     </span>
@@ -374,7 +374,7 @@ export const AdminLoginPage: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-cyan-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Verify Passkey & Create Admin Account</span>
                     <ArrowRight className="w-4 h-4" />

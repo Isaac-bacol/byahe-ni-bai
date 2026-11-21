@@ -27,7 +27,7 @@ export const AdminNavbar: React.FC<Props> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         {/* Brand & Admin Badge */}
         <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl overflow-hidden shadow-md shadow-cyan-900/20 bg-slate-900 dark:bg-slate-950 shrink-0 border border-slate-200/60 dark:border-slate-800/80">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl overflow-hidden shadow-md shadow-blue-900/20 bg-slate-900 dark:bg-slate-950 shrink-0 border border-slate-200/60 dark:border-slate-800/80">
             <img src="/logo.png?v=3" alt="Byahe ni Bai" className="w-full h-full object-cover" />
           </div>
           <div className="min-w-0">
@@ -35,11 +35,11 @@ export const AdminNavbar: React.FC<Props> = ({
               <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white truncate">
                 Byahe ni Bai
               </span>
-              <span className="hidden lg:inline text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full bg-cyan-500/15 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-400/30 backdrop-blur-xs">
+              <span className="hidden lg:inline text-xs uppercase font-extrabold px-2 py-0.5 rounded-full bg-blue-500/15 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-400/30 backdrop-blur-xs">
                 ADMIN CONSOLE v2.5.0
               </span>
             </div>
-            <p className="text-[10px] text-cyan-600 dark:text-cyan-400 font-medium hidden sm:block whitespace-nowrap">
+            <p className="text-xs text-blue-600 dark:text-blue-400 font-medium hidden sm:block whitespace-nowrap">
               Website Administration & System Control
             </p>
           </div>
@@ -65,7 +65,7 @@ export const AdminNavbar: React.FC<Props> = ({
             className="p-2 rounded-xl glass-btn text-slate-700 dark:text-slate-200 transition-all cursor-pointer disabled:opacity-50 flex items-center space-x-1 text-xs"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-            <span className="hidden lg:inline text-[11px] font-bold">Sync</span>
+            <span className="hidden lg:inline text-xs font-bold">Sync</span>
           </button>
 
           {/* Edit Profile button */}
@@ -73,9 +73,9 @@ export const AdminNavbar: React.FC<Props> = ({
             <button
               onClick={onOpenEditProfile}
               title="Edit Profile"
-              className="w-[34px] h-[34px] flex items-center justify-center rounded-xl glass-btn text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all cursor-pointer active:scale-90 hover:scale-105"
+              className="w-[34px] h-[34px] flex items-center justify-center rounded-xl glass-btn text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer active:scale-90 hover:scale-105"
             >
-              <UserCog className="w-4 h-4 text-cyan-500" />
+              <UserCog className="w-4 h-4 text-blue-500" />
             </button>
           )}
 
@@ -90,16 +90,16 @@ export const AdminNavbar: React.FC<Props> = ({
           </button>
 
           {/* Admin User Badge */}
-          <div className="hidden xl:flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-cyan-400/30 glass-panel-subtle text-slate-800 dark:text-slate-200 text-xs font-bold shadow-xs">
-            <Shield className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+          <div className="hidden xl:flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-blue-400/30 glass-panel-subtle text-slate-800 dark:text-slate-200 text-xs font-bold shadow-xs">
+            <Shield className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span className="truncate max-w-[120px]">{currentUser.name.split(' ')[0]}</span>
-            <span className="text-[10px] opacity-75">({currentUser.municipality})</span>
+            <span className="text-xs opacity-75">({currentUser.municipality})</span>
           </div>
 
           <button
             onClick={logout}
             title="Sign Out from Admin Portal"
-            className="px-3 py-1.5 rounded-xl bg-linear-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-red-900/20 transition-all cursor-pointer active:scale-95"
+            className="px-3 py-1.5 rounded-xl text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-red-900/20 transition-all cursor-pointer active:scale-95 bg-sign hover:bg-sign-dark"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden md:inline">Sign Out</span>

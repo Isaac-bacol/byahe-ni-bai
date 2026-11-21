@@ -26,7 +26,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="home" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Home</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Home</span>
         </button>
 
         {/* 2. Trips */}
@@ -39,7 +39,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="route" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Trips</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Trips</span>
         </button>
 
         {/* 3. Garage */}
@@ -52,7 +52,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="motorcycle" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Garage</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Garage</span>
         </button>
 
         {/* 4. DEAD CENTER: Quick Add Trip Button */}
@@ -76,7 +76,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="fuel" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Fuel</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Fuel</span>
         </button>
 
         {/* 6. Budget */}
@@ -89,7 +89,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="wallet" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Budget</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Budget</span>
         </button>
 
         {/* 7. Reports */}
@@ -102,7 +102,7 @@ export const BottomNav: React.FC<Props> = ({ activeTab, onNavigate, onOpenAddTri
           }`}
         >
           <Flaticon name="reports" className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-          <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">Reports</span>
+          <span className="text-[11px] sm:text-[11px] mt-0.5 tracking-tight font-medium">Reports</span>
         </button>
       </div>
     </div>

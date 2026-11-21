@@ -7,7 +7,6 @@ import {
   TrendingUp,
   Shield,
   ArrowRight,
-  Sparkles,
   Gauge,
   MapPin,
   ChevronRight,
@@ -366,9 +365,9 @@ export const UserLandingPage: React.FC = () => {
   const previewTripCost = (Number(previewLitersBurned) * 68.5).toFixed(0);
 
   return (
-    <div className="min-h-screen text-slate-900 dark:text-slate-100 flex flex-col selection:bg-cyan-500 selection:text-white transition-colors duration-300">
+    <div className="min-h-screen text-slate-900 dark:text-slate-100 flex flex-col selection:bg-blue-500 selection:text-white transition-colors duration-300">
       {/* Semantic Top Header */}
-      <header className="sticky top-0 z-50 glass-header border-b border-white/60 dark:border-white/10">
+      <header className="sticky top-0 z-50 bg-white dark:bg-[#161a20] border-b border-[#e3e6ea] dark:border-[#2a3038]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-sm bg-slate-950 shrink-0 border border-slate-200/60 dark:border-white/15">
@@ -379,11 +378,11 @@ export const UserLandingPage: React.FC = () => {
                 <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">
                   Byahe ni Bai
                 </span>
-                <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
+                <span className="text-xs uppercase font-black px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
                   Bohol
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
                 Provincial Transport & Vehicle Fuel Intelligence
               </p>
             </div>
@@ -402,7 +401,7 @@ export const UserLandingPage: React.FC = () => {
 
             <a
               href="#auth-portal"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-xs shadow-md shadow-sky-900/15 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sign hover:bg-sign-dark text-white font-bold text-xs shadow-md shadow-blue-900/15 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
             >
               <span>{authMode === 'signup' ? 'Create Account' : 'Sign In'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -417,14 +416,10 @@ export const UserLandingPage: React.FC = () => {
           
           {/* Column 1: Contextual Hero & Dynamic Vehicle Spec Preview (5 Cols) */}
           <section className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>Gidisenyo alang sa mga Drayber ug Katawhan sa Bohol</span>
-            </div>
 
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-                Subaya Imong <span className="text-brand-gradient">Biyahe, Gasolina</span>, ug Kita sa Bohol
+                Subaya Imong Biyahe, Gasolina, ug Kita sa Bohol
               </h1>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                 Accurate fuel metrics for <strong>Personal Motorists</strong>, <strong>Habal-Habal</strong> riders, and <strong>Tricycle TODA</strong> operators across all 48 Bohol municipalities.
@@ -432,52 +427,52 @@ export const UserLandingPage: React.FC = () => {
             </div>
 
             {/* Interactive Live Spec Badge Card */}
-            <div className="glass-panel p-5 rounded-3xl space-y-4 border border-slate-200/80 dark:border-white/10 shadow-lg">
+            <div className="bg-white dark:bg-[#1b2027] p-5 rounded-2xl space-y-4 border border-[#e3e6ea] dark:border-[#2a3038]">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-8 h-8 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
                     {formData.driverType === 'tricycle' ? (
                       <Bike className="w-4 h-4 text-amber-500" />
                     ) : (
-                      <Bike className="w-4 h-4 text-sky-500" />
+                      <Bike className="w-4 h-4 text-blue-500" />
                     )}
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Selected Profile</span>
+                    <span className="text-xs text-muted">Fuel estimate for a 24 km trip</span>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white capitalize">
                       {formData.brand} {formData.model}
                     </h3>
                   </div>
                 </div>
-                <span className="text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                <span className="text-sm font-semibold text-muted">
                   {formData.efficiencyKmPerL} km/L
                 </span>
               </div>
 
               {/* Dynamic Metrics */}
               <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-2xl glass-panel-subtle">
-                  <span className="text-slate-500 dark:text-slate-400 text-[11px] font-medium flex items-center gap-1">
-                    <Fuel className="w-3 h-3 text-amber-500" /> Fuel Burn (24 km trip)
+                <div className="p-3 rounded-xl bg-[#f5f6f7] dark:bg-[#151a20]">
+                  <span className="text-slate-500 dark:text-slate-400 text-xs font-medium flex items-center gap-1">
+                    <Fuel className="w-3 h-3 text-amber-500" /> Fuel used
                   </span>
-                  <p className="text-base font-black text-slate-900 dark:text-white mt-0.5">
+                  <p className="font-sign text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">
                     ~{previewLitersBurned} <span className="text-xs font-semibold text-slate-400">Liters</span>
                   </p>
                 </div>
 
-                <div className="p-3 rounded-2xl glass-panel-subtle">
-                  <span className="text-slate-500 dark:text-slate-400 text-[11px] font-medium flex items-center gap-1">
-                    <TrendingUp className="w-3 h-3 text-emerald-500" /> Est. Bohol Gasoline Cost
+                <div className="p-3 rounded-xl bg-[#f5f6f7] dark:bg-[#151a20]">
+                  <span className="text-slate-500 dark:text-slate-400 text-xs font-medium flex items-center gap-1">
+                    <TrendingUp className="w-3 h-3 text-emerald-500" /> Estimated cost
                   </span>
-                  <p className="text-base font-black text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  <p className="font-sign text-xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">
                     ₱{previewTripCost} <span className="text-xs font-semibold text-slate-400">PHP</span>
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 pt-1">
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-1">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-cyan-500" /> {formData.municipality} Benchmark
+                  <MapPin className="w-3 h-3 text-blue-500" /> {formData.municipality} Benchmark
                 </span>
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                   {formData.fuelType} Fuel System
@@ -504,7 +499,7 @@ export const UserLandingPage: React.FC = () => {
 
           {/* Column 2: Authentic Web Form Console (7 Cols) */}
           <section id="auth-portal" className="lg:col-span-7">
-            <div className="glass-panel rounded-3xl p-6 sm:p-8 shadow-xl border border-white/60 dark:border-white/10">
+            <div className="bg-white dark:bg-[#1b2027] rounded-2xl p-6 sm:p-8 border border-[#e3e6ea] dark:border-[#2a3038]">
               
               {/* Tabs Switcher */}
               <div className="flex flex-wrap items-center justify-between gap-3 pb-6 mb-6 border-b border-slate-200/70 dark:border-white/10">
@@ -525,7 +520,7 @@ export const UserLandingPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="inline-flex p-1 rounded-2xl glass-panel-subtle border border-slate-200/60 dark:border-white/10">
+                <div className="inline-flex p-1 rounded-xl bg-[#e7e9ec] dark:bg-[#20262e]">
                   <button
                     type="button"
                     onClick={() => {
@@ -534,7 +529,7 @@ export const UserLandingPage: React.FC = () => {
                     }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       authMode === 'signin' || authMode === 'forgot'
-                        ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs'
+                        ? 'bg-white dark:bg-[#2f363f] text-slate-900 dark:text-white shadow-[0_1px_2px_rgba(16,24,40,.12)]'
                         : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -548,7 +543,7 @@ export const UserLandingPage: React.FC = () => {
                     }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       authMode === 'signup'
-                        ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs'
+                        ? 'bg-white dark:bg-[#2f363f] text-slate-900 dark:text-white shadow-[0_1px_2px_rgba(16,24,40,.12)]'
                         : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -602,7 +597,7 @@ export const UserLandingPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleOpenForgotPassword}
-                          className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer"
+                          className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                         >
                           Forgot password?
                         </button>
@@ -630,7 +625,7 @@ export const UserLandingPage: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl bg-sign hover:bg-sign-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Sign In to Account</span>
                     <ArrowRight className="w-4 h-4" />
@@ -641,7 +636,7 @@ export const UserLandingPage: React.FC = () => {
                 forgotStep === 'identify' ? (
                   <form onSubmit={handleForgotIdentifySubmit} className="space-y-5">
                     <div className="p-3.5 rounded-2xl glass-panel-subtle flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-300">
-                      <KeyRound className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
+                      <KeyRound className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                       <span>
                         Enter the <strong>email address</strong> or <strong>nickname</strong> linked to your Byahe ni Bai account to generate a recovery verification code.
                       </span>
@@ -676,7 +671,7 @@ export const UserLandingPage: React.FC = () => {
                       </button>
                       <button
                         type="submit"
-                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-sign hover:bg-sign-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                       >
                         <span>Send Recovery Code</span>
                         <ArrowRight className="w-4 h-4" />
@@ -685,22 +680,22 @@ export const UserLandingPage: React.FC = () => {
                   </form>
                 ) : (
                   <form onSubmit={handleForgotResetSubmit} className="space-y-4">
-                    <div className="p-3.5 rounded-2xl bg-sky-500/10 dark:bg-sky-950/40 border border-sky-500/30 space-y-1.5 text-xs">
+                    <div className="p-3.5 rounded-2xl bg-blue-500/10 dark:bg-blue-950/40 border border-blue-500/30 space-y-1.5 text-xs">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-bold text-sky-900 dark:text-sky-200">
+                        <span className="font-bold text-blue-900 dark:text-blue-200">
                           Account: {recoveryUserLabel}
                         </span>
                         <button
                           type="button"
                           onClick={handleResendRecoveryCode}
-                          className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer"
+                          className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                         >
                           New Code
                         </button>
                       </div>
-                      <p className="text-[11px] text-sky-800 dark:text-sky-300">
+                      <p className="text-xs text-blue-800 dark:text-blue-300">
                         Your 6-digit recovery code:{' '}
-                        <span className="font-mono font-black tracking-widest px-2 py-0.5 rounded bg-white/70 dark:bg-slate-900 text-sky-700 dark:text-sky-300 border border-sky-400/40 select-all">
+                        <span className="font-mono font-black tracking-widest px-2 py-0.5 rounded bg-white/70 dark:bg-slate-900 text-blue-700 dark:text-blue-300 border border-blue-400/40 select-all">
                           {generatedCode}
                         </span>
                       </p>
@@ -791,7 +786,7 @@ export const UserLandingPage: React.FC = () => {
                       </button>
                       <button
                         type="submit"
-                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                        className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-sign hover:bg-sign-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                       >
                         <Lock className="w-4 h-4" />
                         <span>Save New Password</span>
@@ -943,15 +938,15 @@ export const UserLandingPage: React.FC = () => {
                             onClick={() => handleDriverCategoryChange(cat.type as Exclude<UserType, 'admin'>)}
                             className={`p-2.5 rounded-2xl border text-center transition-all cursor-pointer ${
                               isSelected
-                                ? 'border-sky-500 bg-sky-500/10 ring-2 ring-sky-500/30'
+                                ? 'border-blue-500 bg-blue-500/10 ring-2 ring-blue-500/30'
                                 : 'glass-panel-subtle hover:border-slate-300 dark:hover:border-white/15'
                             }`}
                           >
-                            <Bike className={`w-4 h-4 mx-auto mb-1 ${isSelected ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400'}`} />
+                            <Bike className={`w-4 h-4 mx-auto mb-1 ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />
                             <span className="block text-xs font-extrabold text-slate-900 dark:text-white">
                               {cat.label}
                             </span>
-                            <span className="block text-[10px] text-slate-400 font-medium">
+                            <span className="block text-xs text-slate-400 font-medium">
                               {cat.desc}
                             </span>
                           </button>
@@ -962,18 +957,18 @@ export const UserLandingPage: React.FC = () => {
 
                   {/* Vehicle Specs Fieldset */}
                   <fieldset className="p-3.5 rounded-2xl glass-panel-subtle border border-slate-200/80 dark:border-white/10 space-y-3">
-                    <legend className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
+                    <legend className="text-xs font-black text-slate-500 dark:text-slate-400 px-1">
                       Initial Garage Vehicle Configuration
                     </legend>
 
                     {/* Quick Search Bar for Vehicle Models */}
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label htmlFor={`${formId}-vehicle-search`} className="block text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                        <label htmlFor={`${formId}-vehicle-search`} className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                           Search Vehicle Model
                         </label>
                         {vehicleSearchQuery && (
-                          <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                             {filteredVehicles.length} {filteredVehicles.length === 1 ? 'model' : 'models'} found
                           </span>
                         )}
@@ -1023,14 +1018,14 @@ export const UserLandingPage: React.FC = () => {
                                   <span className="font-extrabold truncate block">
                                     {cat.brand} {cat.model}
                                   </span>
-                                  <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate block">
+                                  <span className="text-xs text-slate-500 dark:text-slate-400 truncate block">
                                     {cat.version} ({cat.fuel_efficiency_km_per_l} km/L • {cat.fuel_type})
                                   </span>
                                 </div>
                                 {isSelected ? (
                                   <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                                 ) : (
-                                  <span className="text-[10px] text-sky-600 dark:text-sky-400 font-bold shrink-0">Select</span>
+                                  <span className="text-xs text-blue-600 dark:text-blue-400 font-bold shrink-0">Select</span>
                                 )}
                               </button>
                             );
@@ -1040,13 +1035,13 @@ export const UserLandingPage: React.FC = () => {
 
                       {vehicleSearchQuery && filteredVehicles.length === 0 && (
                         <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-500/30 text-center">
-                          <p className="text-[11px] text-amber-800 dark:text-amber-200 font-medium">
+                          <p className="text-xs text-amber-800 dark:text-amber-200 font-medium">
                             No matching models found for "{vehicleSearchQuery}".
                           </p>
                           <button
                             type="button"
                             onClick={() => handleCatalogSelection('__custom__')}
-                            className="mt-1 text-[11px] font-bold text-sky-600 dark:text-sky-400 underline cursor-pointer"
+                            className="mt-1 text-xs font-bold text-blue-600 dark:text-blue-400 underline cursor-pointer"
                           >
                             Click here to configure a Custom / Unlisted Vehicle
                           </button>
@@ -1056,11 +1051,11 @@ export const UserLandingPage: React.FC = () => {
 
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <label htmlFor={`${formId}-catalog`} className="block text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                        <label htmlFor={`${formId}-catalog`} className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                           Selected Model & Catalog Generation
                         </label>
                         {!formData.isCustom && (
-                          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
+                          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
                             <Check className="w-3 h-3 text-emerald-500" />
                             <span>{formData.efficiencyKmPerL} km/L</span>
                           </span>
@@ -1087,7 +1082,7 @@ export const UserLandingPage: React.FC = () => {
                     {formData.isCustom && (
                       <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Brand</label>
+                          <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Brand</label>
                           <input
                             type="text"
                             required
@@ -1097,7 +1092,7 @@ export const UserLandingPage: React.FC = () => {
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">Model</label>
+                          <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Model</label>
                           <input
                             type="text"
                             required
@@ -1107,7 +1102,7 @@ export const UserLandingPage: React.FC = () => {
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-bold text-slate-600 dark:text-slate-400 mb-1">km/L</label>
+                          <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">km/L</label>
                           <input
                             type="number"
                             step="0.5"
@@ -1121,7 +1116,7 @@ export const UserLandingPage: React.FC = () => {
 
                     <div className="grid grid-cols-2 gap-2.5">
                       <div>
-                        <label htmlFor={`${formId}-fuel`} className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label htmlFor={`${formId}-fuel`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                           Fuel Grade
                         </label>
                         <select
@@ -1138,7 +1133,7 @@ export const UserLandingPage: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor={`${formId}-plate`} className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label htmlFor={`${formId}-plate`} className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                           {formData.driverType === 'tricycle' ? 'TODA Body / Plate' : 'Plate / MV File'}
                         </label>
                         <input
@@ -1153,7 +1148,7 @@ export const UserLandingPage: React.FC = () => {
                     </div>
                   </fieldset>
 
-                  <div className="p-3 rounded-2xl glass-panel-subtle flex items-start gap-2.5 text-[11px] text-slate-600 dark:text-slate-400">
+                  <div className="p-3 rounded-2xl glass-panel-subtle flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
                     <Shield className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                     <span>
                       Registration is protected under <strong>Republic Act 10173 (Data Privacy Act)</strong>. Your location logs and boundary metrics remain confidential.
@@ -1162,7 +1157,7 @@ export const UserLandingPage: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl bg-sign hover:bg-sign-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Complete Driver Registration</span>
                     <ArrowRight className="w-4 h-4" />

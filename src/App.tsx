@@ -61,8 +61,7 @@ const AppContent: React.FC = () => {
   // 1. Unauthenticated: Clean public landing page
   if (!isAuthenticated || !currentUser) {
     return (
-      <div className="min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 relative">
-        <AmbientGlassBackground />
+      <div className="min-h-screen flex flex-col bg-[#f3f4f5] dark:bg-[#111418] text-slate-900 dark:text-slate-100 relative">
         <div className="relative z-10 flex flex-col min-h-screen">
           <UserLandingPage />
         </div>
@@ -73,7 +72,7 @@ const AppContent: React.FC = () => {
   // 2. Authenticated as Admin: Full Admin Console View
   if (currentUser.role === 'admin' && activeTab === 'dashboard') {
     return (
-      <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors relative">
+      <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-blue-500 selection:text-white transition-colors relative">
         <AmbientGlassBackground />
         <div className="relative z-10 flex flex-col min-h-screen">
           <AdminNavbar

@@ -22,7 +22,7 @@ const AdminAppContent: React.FC = () => {
   // If not logged in as Admin, show Admin Login Page
   if (!isAuthenticated || !currentUser || !isAdmin) {
     return (
-      <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors relative">
+      <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-blue-500 selection:text-white transition-colors relative">
         <AmbientGlassBackground />
         <div className="relative z-10 flex flex-col min-h-screen">
           <AdminLoginPage />
@@ -33,7 +33,7 @@ const AdminAppContent: React.FC = () => {
 
   // Authenticated as Admin: Full Admin Console View
   return (
-    <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors relative">
+    <div className="admin-app-root min-h-screen flex flex-col bg-slate-50/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 selection:bg-blue-500 selection:text-white transition-colors relative">
       <AmbientGlassBackground />
       <div className="relative z-10 flex flex-col min-h-screen">
         <AdminNavbar onOpenSupabaseConfig={() => setIsSupabaseConfigOpen(true)} />

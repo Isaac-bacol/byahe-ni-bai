@@ -74,7 +74,7 @@ export const SupabaseConfigModal: React.FC<Props> = ({ isOpen, onClose }) => {
               {supabaseConnected ? 'Supabase Connected & Active' : 'Offline Mode (Local Storage)'}
             </span>
           </div>
-          <span className="text-[11px] font-mono">
+          <span className="text-xs font-mono">
             {supabaseConnected ? 'PostgreSQL Live' : 'Browser Indexed'}
           </span>
         </div>
@@ -91,7 +91,7 @@ export const SupabaseConfigModal: React.FC<Props> = ({ isOpen, onClose }) => {
               onChange={e => setUrl(e.target.value)}
               className="glass-input w-full px-3 py-2 rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400"
             />
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Find this in your Supabase Dashboard: <strong>Project Settings → API → Project URL</strong>.
             </p>
           </div>
@@ -108,17 +108,17 @@ export const SupabaseConfigModal: React.FC<Props> = ({ isOpen, onClose }) => {
               className="glass-input w-full px-3 py-2 rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400"
             />
             {anonKey.startsWith('sb_publishable_') && (
-              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-semibold flex items-center gap-1">
+              <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 font-semibold flex items-center gap-1">
                 <Check className="w-3 h-3 text-emerald-500" />
                 <span>Verified Supabase Publishable Key active</span>
               </p>
             )}
           </div>
 
-          <div className="p-3 rounded-2xl glass-panel-subtle space-y-1 text-[11px] text-slate-600 dark:text-slate-400">
+          <div className="p-3 rounded-2xl glass-panel-subtle space-y-1 text-xs text-slate-600 dark:text-slate-400">
             <span className="font-bold text-slate-800 dark:text-slate-200 block">Database Migration Schema:</span>
             <p>
-              The full PostgreSQL migration file is ready at <code className="glass-btn px-1 py-0.5 rounded text-[10px]">supabase/schema.sql</code>. Copy and run it in your Supabase SQL Editor to create all tables (users, vehicles, trips, fuel stations, purchases, allowances).
+              The full PostgreSQL migration file is ready at <code className="glass-btn px-1 py-0.5 rounded text-xs">supabase/schema.sql</code>. Copy and run it in your Supabase SQL Editor to create all tables (users, vehicles, trips, fuel stations, purchases, allowances).
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export const SupabaseConfigModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={isSyncing}
-                className="px-4 py-2 rounded-xl bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold shadow-md cursor-pointer flex items-center space-x-1 transition-all"
+                className="px-4 py-2 rounded-xl text-white font-bold shadow-md cursor-pointer flex items-center space-x-1 transition-all bg-sign hover:bg-sign-dark"
               >
                 {savedSuccess ? (
                   <>

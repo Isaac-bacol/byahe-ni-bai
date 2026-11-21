@@ -164,22 +164,22 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
   return (
     <div className="space-y-4 pb-20 md:pb-6">
       {/* 1. Header Hero Crest with Visual Hierarchy */}
-      <div className="rounded-3xl p-6 shadow-2xl border border-cyan-500/30 backdrop-blur-xl bg-gradient-to-r from-[#071324] via-[#0b223d] to-[#062420] text-white">
+      <div className="rounded-3xl p-6 shadow-2xl border border-blue-500/30 backdrop-blur-xl text-white bg-sign hover:bg-sign-dark">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
           <div className="flex items-center space-x-3.5">
-            <div className="p-3 bg-cyan-500/20 rounded-2xl border border-cyan-400/40 shadow-inner backdrop-blur-xs">
-              <ShieldAlert className="w-7 h-7 text-cyan-300" />
+            <div className="p-3 bg-blue-500/20 rounded-2xl border border-blue-400/40 shadow-inner backdrop-blur-xs">
+              <ShieldAlert className="w-7 h-7 text-blue-300" />
             </div>
             <div>
               <div className="flex items-center space-x-2 flex-wrap">
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                   Byahe ni Bai Admin Console
                 </h1>
-                <span className="bg-cyan-500/25 text-cyan-300 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-cyan-400/30 backdrop-blur-xs">
+                <span className="bg-blue-500/25 text-blue-300 text-xs font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-blue-400/30 backdrop-blur-xs">
                   Website Control
                 </span>
               </div>
-              <p className="text-xs text-cyan-200/90 mt-1 max-w-xl leading-relaxed">
+              <p className="text-xs text-blue-200/90 mt-1 max-w-xl leading-relaxed">
                 Centralized website governance for Bohol drivers, FuelWatch PH pump rates, provincial benchmarks, and database health.
               </p>
             </div>
@@ -202,15 +202,15 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           {/* Stat 1: Registered Users */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+              <span className="text-xs uppercase font-bold text-blue-300 tracking-wider">
                 Driver Accounts
               </span>
-              <Users className="w-4 h-4 text-cyan-300/80" />
+              <Users className="w-4 h-4 text-blue-300/80" />
             </div>
             <div className="text-2xl sm:text-3xl font-black text-white">
               {allUsers.length}
             </div>
-            <span className="text-[10px] text-cyan-200/70 mt-1">
+            <span className="text-xs text-blue-200/70 mt-1">
               {motoristCount} Motorists • {habalCount + tricycleCount} Commercial
             </span>
           </div>
@@ -218,7 +218,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           {/* Stat 2: FuelWatch Live Stream */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+              <span className="text-xs uppercase font-bold text-blue-300 tracking-wider">
                 FuelWatch PH
               </span>
               <Globe className="w-4 h-4 text-emerald-400" />
@@ -227,7 +227,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Live Bohol</span>
             </div>
-            <span className="text-[10px] text-cyan-200/70 mt-1">
+            <span className="text-xs text-blue-200/70 mt-1">
               Crowdsourced Pump Feed
             </span>
           </div>
@@ -235,15 +235,15 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           {/* Stat 3: Total Island Trips */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+              <span className="text-xs uppercase font-bold text-blue-300 tracking-wider">
                 Trips Recorded
               </span>
-              <Activity className="w-4 h-4 text-cyan-300/80" />
+              <Activity className="w-4 h-4 text-blue-300/80" />
             </div>
             <div className="text-2xl sm:text-3xl font-black text-white">
               {trips.length}
             </div>
-            <span className="text-[10px] text-cyan-200/70 mt-1">
+            <span className="text-xs text-blue-200/70 mt-1">
               Across 48 Municipalities
             </span>
           </div>
@@ -251,7 +251,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           {/* Stat 4: Gasoline Benchmark */}
           <div className="p-4 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+              <span className="text-xs uppercase font-bold text-blue-300 tracking-wider">
                 Gas Benchmark
               </span>
               <Fuel className="w-4 h-4 text-amber-400" />
@@ -259,7 +259,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
             <div className="text-2xl sm:text-3xl font-black text-emerald-400">
               ₱{fuelPrices.find(p => p.fuel_type === 'Gasoline')?.price_per_liter.toFixed(2) || '63.85'}
             </div>
-            <span className="text-[10px] text-cyan-200/70 mt-1">
+            <span className="text-xs text-blue-200/70 mt-1">
               Ref: www.fuelprice.ph
             </span>
           </div>
@@ -272,7 +272,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           onClick={() => setActiveAdminTab('users')}
           className={`py-2.5 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2 ${
             activeAdminTab === 'users'
-              ? 'bg-white dark:bg-cyan-500/20 text-cyan-950 dark:text-cyan-200 shadow-sm border border-cyan-500/30 dark:border-cyan-400/40 font-black'
+              ? 'bg-white dark:bg-blue-500/20 text-blue-950 dark:text-blue-200 shadow-sm border border-blue-500/30 dark:border-blue-400/40 font-black'
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/40 dark:hover:bg-white/5'
           }`}
         >
@@ -284,7 +284,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           onClick={() => setActiveAdminTab('fuelwatch')}
           className={`py-2.5 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2 ${
             activeAdminTab === 'fuelwatch'
-              ? 'bg-white dark:bg-cyan-500/20 text-cyan-950 dark:text-cyan-200 shadow-sm border border-cyan-500/30 dark:border-cyan-400/40 font-black'
+              ? 'bg-white dark:bg-blue-500/20 text-blue-950 dark:text-blue-200 shadow-sm border border-blue-500/30 dark:border-blue-400/40 font-black'
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/40 dark:hover:bg-white/5'
           }`}
         >
@@ -296,7 +296,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           onClick={() => setActiveAdminTab('prices')}
           className={`py-2.5 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2 ${
             activeAdminTab === 'prices'
-              ? 'bg-white dark:bg-cyan-500/20 text-cyan-950 dark:text-cyan-200 shadow-sm border border-cyan-500/30 dark:border-cyan-400/40 font-black'
+              ? 'bg-white dark:bg-blue-500/20 text-blue-950 dark:text-blue-200 shadow-sm border border-blue-500/30 dark:border-blue-400/40 font-black'
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/40 dark:hover:bg-white/5'
           }`}
         >
@@ -308,11 +308,11 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           onClick={() => setActiveAdminTab('system')}
           className={`py-2.5 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2 ${
             activeAdminTab === 'system'
-              ? 'bg-white dark:bg-cyan-500/20 text-cyan-950 dark:text-cyan-200 shadow-sm border border-cyan-500/30 dark:border-cyan-400/40 font-black'
+              ? 'bg-white dark:bg-blue-500/20 text-blue-950 dark:text-blue-200 shadow-sm border border-blue-500/30 dark:border-blue-400/40 font-black'
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/40 dark:hover:bg-white/5'
           }`}
         >
-          <Database className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <Database className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span>System Health</span>
         </button>
       </div>
@@ -326,7 +326,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/60 dark:border-slate-800/80">
             <div>
               <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-                <Users className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <span>Registered Bohol Motorists & Drivers</span>
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -334,7 +334,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               </p>
             </div>
             <div className="flex items-center space-x-2 shrink-0">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border border-cyan-500/30">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/15 text-blue-800 dark:text-blue-300 border border-blue-500/30">
                 {filteredUsers.length} of {allUsers.length} Accounts
               </span>
             </div>
@@ -356,8 +356,8 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               onClick={() => setRoleFilter('motorist')}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 roleFilter === 'motorist'
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'glass-panel-subtle text-slate-600 dark:text-slate-400 hover:text-sky-600'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'glass-panel-subtle text-slate-600 dark:text-slate-400 hover:text-blue-600'
               }`}
             >
               Motorists ({motoristCount})
@@ -386,8 +386,8 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               onClick={() => setRoleFilter('admin')}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 roleFilter === 'admin'
-                  ? 'bg-purple-600 text-white shadow-xs'
-                  : 'glass-panel-subtle text-slate-600 dark:text-slate-400 hover:text-purple-600'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'glass-panel-subtle text-slate-600 dark:text-slate-400 hover:text-blue-600'
               }`}
             >
               Admins ({adminCount})
@@ -421,12 +421,12 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
                 No users match "{userSearchTerm}"
               </p>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-400 mt-0.5">
                 Try searching for another name, role, or Bohol town.
               </p>
               <button
                 onClick={() => { setUserSearchTerm(''); setRoleFilter('all'); }}
-                className="mt-3 px-3 py-1.5 rounded-xl glass-btn text-xs font-semibold text-cyan-600 dark:text-cyan-400 cursor-pointer"
+                className="mt-3 px-3 py-1.5 rounded-xl glass-btn text-xs font-semibold text-blue-600 dark:text-blue-400 cursor-pointer"
               >
                 Reset Filter
               </button>
@@ -436,7 +436,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               {filteredUsers.map(u => (
                 <div
                   key={u.id}
-                  className="rounded-2xl glass-panel-subtle p-4 border border-slate-200/70 dark:border-slate-800/80 hover:border-cyan-500/40 transition-all shadow-xs flex flex-col justify-between space-y-3"
+                  className="rounded-2xl glass-panel-subtle p-4 border border-slate-200/70 dark:border-slate-800/80 hover:border-blue-500/40 transition-all shadow-xs flex flex-col justify-between space-y-3"
                 >
                   <div className="flex items-start justify-between gap-2.5">
                     <div className="flex items-center space-x-3 min-w-0">
@@ -454,7 +454,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                             {u.name}
                           </h3>
                           {u.role === 'admin' && (
-                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-400/30">
+                            <span className="text-xs font-extrabold uppercase px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-400/30">
                               Admin
                             </span>
                           )}
@@ -466,14 +466,14 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                     </div>
 
                     <span
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase shrink-0 ${
+                      className={`px-2.5 py-1 rounded-full text-xs font-extrabold uppercase shrink-0 ${
                         u.user_type === 'motorist'
-                          ? 'bg-sky-500/15 text-sky-800 dark:text-sky-300 border border-sky-400/30'
+                          ? 'bg-blue-500/15 text-blue-800 dark:text-blue-300 border border-blue-400/30'
                           : u.user_type === 'habal_habal'
                           ? 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-400/30'
                           : u.user_type === 'tricycle'
                           ? 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30'
-                          : 'bg-purple-500/15 text-purple-800 dark:text-purple-300 border border-purple-400/30'
+                          : 'bg-blue-500/15 text-blue-800 dark:text-blue-300 border border-blue-400/30'
                       }`}
                     >
                       {u.user_type.replace('_', ' ')}
@@ -482,13 +482,13 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
 
                   <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <div className="flex items-center space-x-1.5 truncate">
-                      <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                       <span className="font-semibold text-slate-700 dark:text-slate-300 truncate">
                         {u.municipality}, Bohol
                       </span>
                     </div>
 
-                    <div className="flex items-center space-x-1 text-[11px] font-mono shrink-0">
+                    <div className="flex items-center space-x-1 text-xs font-mono shrink-0">
                       <ShieldCheck className="w-3 h-3 text-emerald-500" />
                       <span>Verified Driver</span>
                     </div>
@@ -513,14 +513,14 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
       {activeAdminTab === 'prices' && (
         <div className="space-y-4">
           {/* FuelWatch PH Official Live Bohol Feed Banner */}
-          <div className="glass-panel p-5 rounded-3xl bg-linear-to-r from-amber-500/15 via-amber-500/10 to-orange-500/10 border border-amber-400/30 backdrop-blur-md flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xs">
+          <div className="glass-panel p-5 rounded-3xl border border-amber-400/30 backdrop-blur-md flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-xs">
             <div className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
                 <div className="flex items-center space-x-1.5 text-amber-900 dark:text-amber-300 font-black text-sm">
                   <Fuel className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   <span>Bohol Provincial Fuel Benchmarks</span>
                 </div>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-600 text-white shadow-xs">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-600 text-white shadow-xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-white mr-1.5 animate-pulse" />
                   FuelWatch PH Bohol Feed
                 </span>
@@ -534,7 +534,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               <button
                 type="button"
                 onClick={() => setActiveAdminTab('fuelwatch')}
-                className="px-3.5 py-2 rounded-xl bg-linear-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 active:scale-95 text-white font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer shadow-xs"
+                className="px-3.5 py-2 rounded-xl active:scale-95 text-white font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer shadow-xs bg-sign hover:bg-sign-dark"
               >
                 <span>Live Bohol Monitor</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -565,7 +565,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100">
                 1-Click Benchmark Calibration
               </h4>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Synchronize with live crowdsourced Bohol averages or preview Tuesday price adjustments
               </p>
             </div>
@@ -593,7 +593,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
 
               <button
                 onClick={() => handleOpenUpdateModal('Gasoline', 63.85)}
-                className="px-3.5 py-1.5 rounded-xl bg-linear-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-bold flex items-center space-x-1 cursor-pointer transition-colors shadow-xs"
+                className="px-3.5 py-1.5 rounded-xl text-white text-xs font-bold flex items-center space-x-1 cursor-pointer transition-colors shadow-xs bg-sign hover:bg-sign-dark"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Custom Benchmark</span>
@@ -616,7 +616,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 defaultPrice: 58.90,
                 grade: 'Euro 4 / Euro 5',
                 tuesdayHike: '+₱2.20 / L projected Tue',
-                accentColor: 'border-cyan-500/30',
+                accentColor: 'border-blue-500/30',
               },
               {
                 type: 'Premium 95' as FuelType,
@@ -630,7 +630,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 defaultPrice: 62.40,
                 grade: 'Regular 91 RON',
                 tuesdayHike: '+₱1.60 / L projected Tue',
-                accentColor: 'border-sky-500/30',
+                accentColor: 'border-blue-500/30',
               },
             ].map(item => {
               const current = fuelPrices.find(p => p.fuel_type === item.type);
@@ -644,9 +644,9 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="text-sm font-black text-slate-800 dark:text-slate-100">{item.type}</h4>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{item.grade}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">{item.grade}</span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 backdrop-blur-xs">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 backdrop-blur-xs">
                       FuelWatch Ref
                     </span>
                   </div>
@@ -658,7 +658,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                       </span>
                       <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">/ Liter</span>
                     </div>
-                    <div className="mt-1 flex items-center space-x-1 text-[10px] font-semibold text-red-600 dark:text-red-400">
+                    <div className="mt-1 flex items-center space-x-1 text-xs font-semibold text-red-600 dark:text-red-400">
                       <TrendingUp className="w-3 h-3 shrink-0" />
                       <span>{item.tuesdayHike}</span>
                     </div>
@@ -670,7 +670,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                       <button
                         type="button"
                         onClick={() => handleQuickAdjust(item.type, -0.50)}
-                        className="px-2 py-1 rounded-lg glass-btn text-[10px] font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer hover:border-amber-400"
+                        className="px-2 py-1 rounded-lg glass-btn text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer hover:border-amber-400"
                         title="Decrease by ₱0.50"
                       >
                         -0.50
@@ -678,7 +678,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                       <button
                         type="button"
                         onClick={() => handleQuickAdjust(item.type, 0.50)}
-                        className="px-2 py-1 rounded-lg glass-btn text-[10px] font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer hover:border-amber-400"
+                        className="px-2 py-1 rounded-lg glass-btn text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer hover:border-amber-400"
                         title="Increase by ₱0.50"
                       >
                         +0.50
@@ -688,7 +688,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                     <button
                       type="button"
                       onClick={() => handleOpenUpdateModal(item.type, price)}
-                      className="px-3 py-1 rounded-lg bg-linear-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-[11px] font-bold transition-all cursor-pointer shadow-xs active:scale-95"
+                      className="px-3 py-1 rounded-lg text-white text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95 bg-sign hover:bg-sign-dark"
                     >
                       Calibrate
                     </button>
@@ -710,7 +710,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                   Synchronized against FuelWatch PH Bohol crowdsourced monitor
                 </p>
               </div>
-              <span className="text-[11px] font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-400">
                 Scope: All 48 Municipalities
               </span>
             </div>
@@ -718,7 +718,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-slate-200/50 dark:border-slate-800/60 text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="border-b border-slate-200/50 dark:border-slate-800/60 text-slate-400 font-bold text-xs">
                     <th className="py-2.5 px-3">Fuel Type</th>
                     <th className="py-2.5 px-3">Provincial Benchmark</th>
                     <th className="py-2.5 px-3">Reference Source</th>
@@ -744,11 +744,11 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                           ₱{price.toFixed(2)} / L
                         </td>
                         <td className="py-3 px-3">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-400/30 backdrop-blur-xs">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-400/30 backdrop-blur-xs">
                             FuelWatch PH (Bohol Live)
                           </span>
                         </td>
-                        <td className="py-3 px-3 text-red-600 dark:text-red-400 font-semibold text-[11px]">
+                        <td className="py-3 px-3 text-red-600 dark:text-red-400 font-semibold text-xs">
                           {f.trend}
                         </td>
                         <td className="py-3 px-3 text-right">
@@ -789,7 +789,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <div>
                   <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center space-x-2">
                     <span>Database Status & Telemetry</span>
-                    <span className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border ${
+                    <span className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase border ${
                       supabaseConnected
                         ? 'bg-emerald-500/15 border-emerald-400/40 text-emerald-700 dark:text-emerald-300'
                         : 'bg-amber-500/15 border-amber-400/40 text-amber-700 dark:text-amber-300'
@@ -809,7 +809,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
               <button
                 onClick={syncWithSupabase}
                 disabled={isSyncing}
-                className="px-3.5 py-2 rounded-xl glass-btn text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-cyan-600 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto shrink-0"
+                className="px-3.5 py-2 rounded-xl glass-btn text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto shrink-0"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
                 <span>Sync Now</span>
@@ -819,27 +819,27 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
             {/* Telemetry Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="p-3.5 rounded-2xl glass-panel-subtle text-center">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Total Users</span>
+                <span className="text-xs uppercase font-bold text-slate-400 block mb-0.5">Total Users</span>
                 <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{allUsers.length}</span>
-                <span className="text-[10px] text-cyan-600 dark:text-cyan-400 block mt-0.5">Accounts</span>
+                <span className="text-xs text-blue-600 dark:text-blue-400 block mt-0.5">Accounts</span>
               </div>
 
               <div className="p-3.5 rounded-2xl glass-panel-subtle text-center">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Trips Logged</span>
+                <span className="text-xs uppercase font-bold text-slate-400 block mb-0.5">Trips Logged</span>
                 <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{trips.length}</span>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block mt-0.5">Island-wide</span>
+                <span className="text-xs text-emerald-600 dark:text-emerald-400 block mt-0.5">Island-wide</span>
               </div>
 
               <div className="p-3.5 rounded-2xl glass-panel-subtle text-center">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Fuel Receipts</span>
+                <span className="text-xs uppercase font-bold text-slate-400 block mb-0.5">Fuel Receipts</span>
                 <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">{fuelPurchases.length}</span>
-                <span className="text-[10px] text-amber-600 dark:text-amber-400 block mt-0.5">Purchases</span>
+                <span className="text-xs text-amber-600 dark:text-amber-400 block mt-0.5">Purchases</span>
               </div>
 
               <div className="p-3.5 rounded-2xl glass-panel-subtle text-center">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Gas Stations</span>
+                <span className="text-xs uppercase font-bold text-slate-400 block mb-0.5">Gas Stations</span>
                 <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">9 Active</span>
-                <span className="text-[10px] text-sky-600 dark:text-sky-400 block mt-0.5">Bohol Feed</span>
+                <span className="text-xs text-blue-600 dark:text-blue-400 block mt-0.5">Bohol Feed</span>
               </div>
             </div>
           </div>
@@ -885,7 +885,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <h3 className="text-base font-bold text-slate-800 dark:text-slate-100">
                   Calibrate Fuel Price Benchmark
                 </h3>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 backdrop-blur-xs">
+                <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 backdrop-blur-xs">
                   Ref: FuelWatch PH
                 </span>
               </div>
@@ -904,7 +904,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                   href="https://www.fuelprice.ph"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:underline flex items-center space-x-0.5"
+                  className="text-xs font-semibold text-amber-700 dark:text-amber-400 hover:underline flex items-center space-x-0.5"
                 >
                   <span>Verify on fuelprice.ph</span>
                   <ExternalLink className="w-2.5 h-2.5" />
@@ -915,7 +915,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => { setPriceFuelType('Gasoline'); setPriceValue(63.85); }}
-                  className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-medium transition-colors cursor-pointer text-left ${
+                  className={`px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer text-left ${
                     priceFuelType === 'Gasoline' && priceValue === 63.85
                       ? 'bg-amber-600 text-white border-amber-600 font-bold'
                       : 'glass-panel-subtle text-slate-700 dark:text-slate-200 hover:border-amber-500'
@@ -926,7 +926,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => { setPriceFuelType('Diesel'); setPriceValue(58.90); }}
-                  className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-medium transition-colors cursor-pointer text-left ${
+                  className={`px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer text-left ${
                     priceFuelType === 'Diesel' && priceValue === 58.90
                       ? 'bg-amber-600 text-white border-amber-600 font-bold'
                       : 'glass-panel-subtle text-slate-700 dark:text-slate-200 hover:border-amber-500'
@@ -937,7 +937,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => { setPriceFuelType('Premium 95'); setPriceValue(66.50); }}
-                  className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-medium transition-colors cursor-pointer text-left ${
+                  className={`px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer text-left ${
                     priceFuelType === 'Premium 95' && priceValue === 66.50
                       ? 'bg-amber-600 text-white border-amber-600 font-bold'
                       : 'glass-panel-subtle text-slate-700 dark:text-slate-200 hover:border-amber-500'
@@ -948,7 +948,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => { setPriceFuelType('Regular'); setPriceValue(62.40); }}
-                  className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-medium transition-colors cursor-pointer text-left ${
+                  className={`px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer text-left ${
                     priceFuelType === 'Regular' && priceValue === 62.40
                       ? 'bg-amber-600 text-white border-amber-600 font-bold'
                       : 'glass-panel-subtle text-slate-700 dark:text-slate-200 hover:border-amber-500'
@@ -1003,7 +1003,7 @@ export const AdminDashboard: React.FC<Props> = ({ onNavigate }) => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-linear-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold cursor-pointer transition-all shadow-xs"
+                  className="px-4 py-2 rounded-xl text-white font-bold cursor-pointer transition-all shadow-xs bg-sign hover:bg-sign-dark"
                 >
                   Save Benchmark
                 </button>

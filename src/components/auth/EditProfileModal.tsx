@@ -131,7 +131,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/60 dark:border-white/10">
           <div className="flex items-center space-x-3">
-            <div className="p-2.5 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30">
+            <div className="p-2.5 rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
@@ -255,7 +255,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 onClick={() => setUserType('motorist')}
                 className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                   userType === 'motorist'
-                    ? 'border-sky-500 bg-sky-500/15 text-sky-700 dark:text-sky-300 shadow-xs'
+                    ? 'border-blue-500 bg-blue-500/15 text-blue-700 dark:text-blue-300 shadow-xs'
                     : 'glass-btn text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -263,7 +263,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <Bike className="w-4 h-4" />
                   <span className="text-xs font-bold">Motorist</span>
                 </div>
-                <p className="text-[10px] opacity-75">Personal Commute</p>
+                <p className="text-xs opacity-75">Personal Commute</p>
               </button>
 
               <button
@@ -279,7 +279,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <Bike className="w-4 h-4" />
                   <span className="text-xs font-bold">Habal-Habal</span>
                 </div>
-                <p className="text-[10px] opacity-75">Commercial Rider</p>
+                <p className="text-xs opacity-75">Commercial Rider</p>
               </button>
 
               <button
@@ -295,7 +295,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <Bike className="w-4 h-4" />
                   <span className="text-xs font-bold">Tricycle</span>
                 </div>
-                <p className="text-[10px] opacity-75">TODA Operator</p>
+                <p className="text-xs opacity-75">TODA Operator</p>
               </button>
             </div>
           </div>
@@ -308,22 +308,22 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   type="checkbox"
                   checked={changePassword}
                   onChange={e => setChangePassword(e.target.checked)}
-                  className="rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+                  className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="flex items-center space-x-1">
-                  <Lock className="w-3.5 h-3.5 text-cyan-500" />
+                  <Lock className="w-3.5 h-3.5 text-blue-500" />
                   <span>Change Password</span>
                 </span>
               </label>
               {changePassword && (
-                <span className="text-[10px] text-slate-400">Min. 6 characters</span>
+                <span className="text-xs text-slate-400">Min. 6 characters</span>
               )}
             </div>
 
             {changePassword && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1 animate-in slide-in-from-top-2">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">
                     New Password
                   </label>
                   <div className="relative">
@@ -347,7 +347,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">
                     Confirm New Password
                   </label>
                   <div className="relative">
@@ -386,7 +386,7 @@ export const EditProfileModal: React.FC<Props> = ({ isOpen, onClose }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 rounded-xl bg-linear-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-bold text-xs shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center space-x-1.5 cursor-pointer disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-white font-bold text-xs shadow-md hover:shadow-lg transition-all active:scale-98 flex items-center space-x-1.5 cursor-pointer disabled:opacity-50 bg-sign hover:bg-sign-dark"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{isSubmitting ? 'Saving...' : 'Save Profile Changes'}</span>

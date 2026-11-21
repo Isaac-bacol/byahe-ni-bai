@@ -229,7 +229,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
       <header className="sticky top-0 z-50 glass-header">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-sky-600/20 bg-slate-900 shrink-0 border border-slate-200/50 dark:border-slate-700/50">
+            <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-blue-600/20 bg-slate-900 shrink-0 border border-slate-200/50 dark:border-slate-700/50">
               <img src="/logo.png?v=3" alt="Byahe ni Bai Logo" className="w-full h-full object-cover" />
             </div>
             <div>
@@ -237,11 +237,11 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                 <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
                   Byahe ni Bai
                 </span>
-                <span className="text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                <span className="text-xs uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
                   Bohol
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
                 Vehicle Trip, Fuel & Income Management System
               </p>
             </div>
@@ -260,7 +260,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
             <a
               href="#portal-access"
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white font-bold text-xs shadow-md shadow-emerald-900/20 transition-all cursor-pointer flex items-center space-x-1.5"
+              className="px-4 py-2 rounded-xl active:scale-95 text-white font-bold text-xs shadow-md shadow-emerald-900/20 transition-all cursor-pointer flex items-center space-x-1.5 bg-sign hover:bg-sign-dark"
             >
               <span>Get Started</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -272,7 +272,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-12 pb-16 px-4 sm:px-6">
         {/* Background glow ornaments */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-40 right-10 w-72 h-72 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -292,11 +292,11 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
           {/* Quick value props */}
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto text-left">
             <div className="p-3.5 rounded-2xl glass-panel-interactive shadow-xs">
-              <div className="text-sky-600 dark:text-sky-400 mb-1.5 font-black text-xs flex items-center gap-1">
+              <div className="text-blue-600 dark:text-blue-400 mb-1.5 font-black text-xs flex items-center gap-1">
                 <Fuel className="w-3.5 h-3.5" /> 48 Municipalities
               </div>
               <p className="text-xs font-bold text-slate-900 dark:text-white">Live Fuel Prices</p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Petron, Shell, Caltex</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Petron, Shell, Caltex</p>
             </div>
 
             <div className="p-3.5 rounded-2xl glass-panel-interactive shadow-xs">
@@ -304,7 +304,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                 <Bike className="w-3.5 h-3.5" /> Motorists & Drivers
               </div>
               <p className="text-xs font-bold text-slate-900 dark:text-white">Trip & Fare Log</p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Habal-Habal & TODA</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Habal-Habal & TODA</p>
             </div>
 
             <div className="p-3.5 rounded-2xl glass-panel-interactive shadow-xs">
@@ -312,15 +312,15 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                 <TrendingUp className="w-3.5 h-3.5" /> Budget & Boundary
               </div>
               <p className="text-xs font-bold text-slate-900 dark:text-white">Net Income Calc</p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Allowances & targets</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Allowances & targets</p>
             </div>
 
             <div className="p-3.5 rounded-2xl glass-panel-interactive shadow-xs">
-              <div className="text-cyan-600 dark:text-cyan-400 mb-1.5 font-black text-xs flex items-center gap-1">
+              <div className="text-blue-600 dark:text-blue-400 mb-1.5 font-black text-xs flex items-center gap-1">
                 <Shield className="w-3.5 h-3.5" /> Website Admin
               </div>
               <p className="text-xs font-bold text-slate-900 dark:text-white">Admin Console</p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Control & Settings</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Control & Settings</p>
             </div>
           </div>
         </div>
@@ -347,11 +347,11 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
               onClick={() => setActivePortal('admin')}
               className={`py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all cursor-pointer ${
                 activePortal === 'admin'
-                  ? 'glass-btn bg-white/80 dark:bg-white/15 text-cyan-800 dark:text-cyan-300 shadow-md'
+                  ? 'glass-btn bg-white/80 dark:bg-white/15 text-blue-800 dark:text-blue-300 shadow-md'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Shield className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span>Admin Side (Website Admin)</span>
             </button>
           </div>
@@ -378,7 +378,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     onClick={() => setUserMode('signup')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       userMode === 'signup'
-                        ? 'bg-gradient-to-r from-cyan-600 to-emerald-600 text-white shadow-xs'
+                        ? 'text-white shadow-xs bg-sign hover:bg-sign-dark'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -388,7 +388,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     onClick={() => setUserMode('signin')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       userMode === 'signin'
-                        ? 'bg-gradient-to-r from-cyan-600 to-emerald-600 text-white shadow-xs'
+                        ? 'text-white shadow-xs bg-sign hover:bg-sign-dark'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -473,13 +473,13 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         onClick={() => handleDriverTypeChange('motorist')}
                         className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                           userDriverType === 'motorist'
-                            ? 'glass-panel border-sky-500 bg-sky-500/15 ring-2 ring-sky-500/30'
+                            ? 'glass-panel border-blue-500 bg-blue-500/15 ring-2 ring-blue-500/30'
                             : 'glass-panel-interactive border-white/20 dark:border-white/10'
                         }`}
                       >
                         <div className="text-xl mb-1">🏍️</div>
                         <div className="text-xs font-black text-slate-900 dark:text-white">Personal Motorist</div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           Daily commute, errand trips, allowance & fuel tracker
                         </div>
                       </button>
@@ -495,7 +495,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                       >
                         <div className="text-xl mb-1">🛵</div>
                         <div className="text-xs font-black text-slate-900 dark:text-white">Habal-Habal Driver</div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           Passenger fares, route logs, and daily net profit
                         </div>
                       </button>
@@ -511,7 +511,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                       >
                         <div className="text-xl mb-1">🛺</div>
                         <div className="text-xs font-black text-slate-900 dark:text-white">Tricycle TODA</div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           Boundary deduction, TODA fares, and net income
                         </div>
                       </button>
@@ -521,18 +521,18 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                   {/* Initial Vehicle Setup */}
                   <div className="p-4 rounded-2xl glass-panel-subtle border border-white/20 dark:border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                        <Bike className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                      <h3 className="text-xs font-extrabold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                        <Bike className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>Initial Vehicle in Your Garage</span>
                       </h3>
-                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
                         Philippine Vehicle Catalog
                       </span>
                     </div>
 
                     {/* Catalog Model & Version Selector */}
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                         Select Model & Version Generation <span className="text-red-500 font-bold ml-0.5">*</span>
                       </label>
                       <select
@@ -553,18 +553,18 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                     {!isCustomVehicle ? (
                       <div className="p-2.5 rounded-xl glass-panel-subtle border border-emerald-500/30 flex items-center justify-between text-xs">
-                        <div className="text-[11px] text-emerald-900 dark:text-emerald-300">
+                        <div className="text-xs text-emerald-900 dark:text-emerald-300">
                           <span className="font-bold">{vehicleBrand} {vehicleModel}</span>
                           <span className="text-emerald-600 dark:text-emerald-400 ml-1.5 font-medium">{vehicleVersion}</span>
                         </div>
-                        <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-[10px]">
+                        <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-extrabold text-xs">
                           {vehicleEfficiency} km/L ({vehicleFuel})
                         </span>
                       </div>
                     ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             Brand <span className="text-red-500 font-bold ml-0.5">*</span>
                           </label>
                           <input
@@ -578,7 +578,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             Model <span className="text-red-500 font-bold ml-0.5">*</span>
                           </label>
                           <input
@@ -592,7 +592,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             Efficiency (km/L)
                           </label>
                           <input
@@ -608,7 +608,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                           Fuel Type <span className="text-red-500 font-bold ml-0.5">*</span>
                         </label>
                         <select
@@ -625,7 +625,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                           {userDriverType === 'tricycle' ? 'TODA Body / Plate #' : 'Plate / MV File No.'}
                         </label>
                         <input
@@ -639,7 +639,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-2xl glass-panel-subtle border border-emerald-500/30 flex items-start space-x-2.5 text-[11px] text-emerald-900 dark:text-emerald-300">
+                  <div className="p-3 rounded-2xl glass-panel-subtle border border-emerald-500/30 flex items-start space-x-2.5 text-xs text-emerald-900 dark:text-emerald-300">
                     <Shield className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>
                       Pagkahuman sa pagrehistro, pagadawaton ang <strong>Republic Act 10173 (Data Privacy Act)</strong> ug <strong>Terms of Service</strong> aron mapanalipdan ang inyong biyahe ug datos.
@@ -648,7 +648,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Create Driver Account & Enter Byahe ni Bai</span>
                     <ArrowRight className="w-4 h-4" />
@@ -683,7 +683,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                             <div className="text-xs font-black text-slate-900 dark:text-white truncate">
                               {u.name}
                             </div>
-                            <div className="text-[11px] text-slate-500 dark:text-slate-400 capitalize">
+                            <div className="text-xs text-slate-500 dark:text-slate-400 capitalize">
                               {u.user_type.replace('_', '-')} • {u.municipality}
                             </div>
                           </div>
@@ -716,7 +716,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Sign In to User Side</span>
                     <ArrowRight className="w-4 h-4" />
@@ -728,12 +728,12 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
           {/* PORTAL 2: ADMIN SIDE (WEBSITE ADMINISTRATOR) */}
           {activePortal === 'admin' && (
-            <div className="p-6 sm:p-8 bg-linear-to-b from-cyan-950/20 to-transparent">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-cyan-200/40 dark:border-cyan-900/40">
+            <div className="p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-blue-200/40 dark:border-blue-900/40">
                 <div>
                   <h2 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <span>Website Administrator</span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-cyan-500/10 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-500/10 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-500/30">
                       Website Control
                     </span>
                   </h2>
@@ -751,7 +751,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       adminMode === 'signin'
-                        ? 'bg-cyan-600 text-white shadow-xs'
+                        ? 'bg-blue-600 text-white shadow-xs'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -764,7 +764,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       adminMode === 'signup'
-                        ? 'bg-cyan-600 text-white shadow-xs'
+                        ? 'bg-blue-600 text-white shadow-xs'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -798,18 +798,18 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                           }}
                           className={`w-full p-3.5 rounded-2xl border text-left flex items-center space-x-3 transition-all cursor-pointer ${
                             selectedAdminId === u.id || (adminUsers.length === 1 && !selectedAdminId)
-                              ? 'glass-panel border-cyan-500 bg-cyan-500/15 ring-2 ring-cyan-500/30'
+                              ? 'glass-panel border-blue-500 bg-blue-500/15 ring-2 ring-blue-500/30'
                               : 'glass-panel-interactive border-white/20 dark:border-white/10'
                           }`}
                         >
-                          <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-700 dark:text-cyan-300 font-bold shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold shrink-0">
                             <Shield className="w-5 h-5" />
                           </div>
                           <div className="overflow-hidden">
                             <div className="text-xs font-black text-slate-900 dark:text-white">
                               {u.name}
                             </div>
-                            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                            <div className="text-xs text-slate-500 dark:text-slate-400">
                               {u.email} • {u.municipality === 'Tagbilaran City' ? 'System Administrator' : (u.municipality || 'System Administrator')}
                             </div>
                           </div>
@@ -818,8 +818,8 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-cyan-500/30 text-xs text-cyan-900 dark:text-cyan-200 flex items-center space-x-2.5">
-                    <Lock className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                  <div className="p-3.5 rounded-2xl glass-panel-subtle border border-blue-500/30 text-xs text-blue-900 dark:text-blue-200 flex items-center space-x-2.5">
+                    <Lock className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span>
                       The Admin Side gives full control over website settings, registered driver accounts, fuel price benchmarks, and database synchronizations.
                     </span>
@@ -827,7 +827,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-cyan-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Enter Admin Console</span>
                     <ArrowRight className="w-4 h-4" />
@@ -847,7 +847,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         value={adminName}
                         onChange={e => setAdminName(e.target.value)}
                         placeholder="e.g. Maria Santos"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
 
@@ -860,7 +860,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         value={adminEmail}
                         onChange={e => setAdminEmail(e.target.value)}
                         placeholder="admin@byahenibai.ph"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -874,7 +874,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         required
                         value={adminMuni}
                         onChange={e => setAdminMuni(e.target.value)}
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500 cursor-pointer"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 cursor-pointer"
                       >
                         {BOHOL_MUNICIPALITIES.map(m => (
                           <option key={m} value={m} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
@@ -893,19 +893,19 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                         value={adminAgency}
                         onChange={e => setAdminAgency(e.target.value)}
                         placeholder="e.g. System Administrator, Webmaster, Support"
-                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-cyan-500"
+                        className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
                   {/* Security Passkey */}
-                  <div className="p-4 rounded-2xl glass-panel-subtle border border-cyan-500/30">
+                  <div className="p-4 rounded-2xl glass-panel-subtle border border-blue-500/30">
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-cyan-900 dark:text-cyan-200 flex items-center gap-1.5">
-                        <Lock className="w-3.5 h-3.5 text-cyan-600" />
+                      <label className="text-xs font-bold text-blue-900 dark:text-blue-200 flex items-center gap-1.5">
+                        <Lock className="w-3.5 h-3.5 text-blue-600" />
                         <span>Master Security Passkey <span className="text-red-500 font-bold ml-0.5">*</span></span>
                       </label>
-                      <span className="text-[10px] font-mono font-bold bg-cyan-200 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-300 px-2 py-0.5 rounded">
+                      <span className="text-xs font-mono font-bold bg-blue-200 dark:bg-blue-900 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded">
                         Key: {ADMIN_SECURITY_PASSKEY}
                       </span>
                     </div>
@@ -915,15 +915,15 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
                       value={adminPasskey}
                       onChange={e => setAdminPasskey(e.target.value)}
                       placeholder={`Enter master passkey (${ADMIN_SECURITY_PASSKEY})`}
-                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono focus:ring-2 focus:ring-cyan-500"
+                      className="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono focus:ring-2 focus:ring-blue-500"
                     />
-                    <p className="text-[11px] text-cyan-600/80 dark:text-cyan-400/80 mt-1.5">
+                    <p className="text-xs text-blue-600/80 dark:text-blue-400/80 mt-1.5">
                       This security passkey ensures only authorized administrators can create admin accounts and manage the website.
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-2xl glass-panel-subtle border border-cyan-500/30 flex items-start space-x-2.5 text-[11px] text-cyan-900 dark:text-cyan-300">
-                    <Shield className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
+                  <div className="p-3 rounded-2xl glass-panel-subtle border border-blue-500/30 flex items-start space-x-2.5 text-xs text-blue-900 dark:text-blue-300">
+                    <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                     <span>
                       As an authorized administrator, you will also review and accept the <strong>Data Privacy Act (RA 10173)</strong> & <strong>Terms of Service</strong> governance compliance upon creation.
                     </span>
@@ -931,7 +931,7 @@ export const LandingPage: React.FC<Props> = ({ onToggleSimulator }) => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-98 text-white font-bold text-sm shadow-lg shadow-cyan-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl active:scale-98 text-white font-bold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center space-x-2 cursor-pointer bg-sign hover:bg-sign-dark"
                   >
                     <span>Verify Passkey & Create Admin Account</span>
                     <ArrowRight className="w-4 h-4" />

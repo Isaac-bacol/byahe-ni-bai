@@ -153,7 +153,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
 
             <button
               onClick={handleOpenAddModal}
-              className="flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 transition-all cursor-pointer"
+              className="flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 transition-all cursor-pointer bg-sign hover:bg-sign-dark"
             >
               <Flaticon name="add" className="w-4 h-4" />
               <span>MANUAL LOG</span>
@@ -241,7 +241,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                       </div>
                       <div>
                         <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100">{purchase.station_name}</h4>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400">{purchase.municipality}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{purchase.municipality}</p>
                       </div>
                     </div>
 
@@ -249,7 +249,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                       <span className="text-sm font-black text-rose-600 dark:text-rose-400 block">
                         {formatPHP(purchase.total_cost)}
                       </span>
-                      <span className="text-[10px] text-slate-400 dark:text-slate-500">
+                      <span className="text-xs text-slate-400 dark:text-slate-500">
                         {new Date(purchase.date).toLocaleDateString('en-PH', {
                           month: 'short',
                           day: 'numeric',
@@ -262,17 +262,17 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                   {/* Math Formula breakdown as in prompt: Total = Price per Liter × Liters */}
                   <div className="grid grid-cols-3 gap-2 mt-3 text-xs">
                     <div className="p-2 rounded-xl glass-panel-subtle text-center">
-                      <span className="text-[10px] text-slate-400 dark:text-slate-400 font-bold block uppercase">Fuel Type</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-400 font-bold block uppercase">Fuel Type</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{purchase.fuel_type}</span>
                     </div>
 
                     <div className="p-2 rounded-xl glass-panel-subtle text-center">
-                      <span className="text-[10px] text-slate-400 dark:text-slate-400 font-bold block uppercase">Price / L</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-400 font-bold block uppercase">Price / L</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">₱{purchase.price_per_liter.toFixed(2)}</span>
                     </div>
 
                     <div className="p-2 rounded-xl glass-panel-subtle text-center">
-                      <span className="text-[10px] text-slate-400 dark:text-slate-400 font-bold block uppercase">Volume</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-400 font-bold block uppercase">Volume</span>
                       <span className="font-bold text-emerald-700 dark:text-emerald-400">{purchase.liters} Liters</span>
                     </div>
                   </div>
@@ -287,7 +287,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                     <button
                       type="button"
                       onClick={() => handleOpenEditModal(purchase)}
-                      className="text-xs font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 flex items-center space-x-1 cursor-pointer transition-colors"
+                      className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center space-x-1 cursor-pointer transition-colors"
                       title="Edit fuel purchase details"
                     >
                       <Pencil className="w-3.5 h-3.5" />
@@ -360,7 +360,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                     setIsPurchaseModalOpen(false);
                     setIsScannerOpen(true);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-extrabold text-[11px] border border-emerald-500/30 cursor-pointer transition-all active:scale-95"
+                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs border border-emerald-500/30 cursor-pointer transition-all active:scale-95"
                 >
                   Scan Receipt Photo
                 </button>
@@ -443,7 +443,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
               {/* AUTO-COMPUTED TOTAL FORMULA CARD */}
               <div className="p-3.5 rounded-2xl glass-panel-subtle border border-emerald-500/30 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 block">
                     Formula: Total = Price/L × Liters
                   </span>
                   <span className="text-xs text-slate-600 dark:text-slate-400">
@@ -451,7 +451,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold block uppercase">Total Fuel Cost</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-bold block uppercase">Total Fuel Cost</span>
                   <span className="text-xl font-black text-emerald-700 dark:text-emerald-300">₱{totalCost.toFixed(2)}</span>
                 </div>
               </div>
@@ -505,7 +505,7 @@ export const FuelManager: React.FC<Props> = ({ initialTab = 'compare', onOpenWha
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 cursor-pointer flex items-center space-x-1.5 transition-all"
+                  className="px-5 py-2 rounded-xl active:scale-95 text-white text-xs font-bold shadow-md shadow-emerald-900/20 cursor-pointer flex items-center space-x-1.5 transition-all bg-sign hover:bg-sign-dark"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>{editingPurchase ? 'Update Purchase' : 'Save Purchase'}</span>

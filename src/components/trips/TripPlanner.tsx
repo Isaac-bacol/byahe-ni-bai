@@ -885,7 +885,7 @@ const Planner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               <div className={`${panel} ${lift} size-[68px] rounded-full grid place-items-center border-[3px] border-[#d9dde2] dark:border-[#333a43]`} aria-label="Current speed">
                 <div className="text-center leading-none">
                   <span className="font-sign text-[26px] font-extrabold block">{speedKmh ?? '–'}</span>
-                  <span className="text-[11px] text-muted">km/h</span>
+                  <span className="text-xs text-muted">km/h</span>
                 </div>
               </div>
               {!follow && (

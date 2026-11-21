@@ -36,18 +36,18 @@ export const WhatsNewBanner: React.FC<Props> = ({ onOpenWhatsNew }) => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onClick={onOpenWhatsNew}
-      className="advisory-banner hidden md:block shrink-0 w-full bg-sky-50/90 dark:bg-slate-950/95 border-b border-sky-200/80 dark:border-sky-950/60 text-slate-900 dark:text-white py-2 px-3.5 sm:px-6 cursor-pointer select-none transition-colors hover:bg-sky-100/90 dark:hover:bg-slate-900 group print:hidden"
+      className="advisory-banner hidden md:block shrink-0 w-full bg-blue-50/90 dark:bg-slate-950/95 border-b border-blue-200/80 dark:border-blue-950/60 text-slate-900 dark:text-white py-2 px-3.5 sm:px-6 cursor-pointer select-none transition-colors hover:bg-blue-100/90 dark:hover:bg-slate-900 group print:hidden"
       title="Click to view full advisory and What's New"
     >
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-3 text-xs sm:text-sm">
         {/* Left Side: Badge + Headline */}
         <div className="flex items-center space-x-2.5 sm:space-x-3 overflow-hidden">
           {currentItem.type === 'alert' ? (
-            <span className="shrink-0 px-2 py-0.5 rounded-sm bg-red-500 text-white text-[10px] font-black uppercase tracking-wider shadow-xs shadow-red-500/40 animate-pulse">
+            <span className="shrink-0 px-2 py-0.5 rounded-sm bg-red-500 text-white text-xs font-black shadow-xs shadow-red-500/40 animate-pulse">
               {currentItem.badgeText}
             </span>
           ) : (
-            <span className="shrink-0 px-2 py-0.5 rounded-sm bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider shadow-xs shadow-emerald-500/40">
+            <span className="shrink-0 px-2 py-0.5 rounded-sm bg-emerald-500 text-white text-xs font-black shadow-xs shadow-emerald-500/40">
               {currentItem.badgeText}
             </span>
           )}
@@ -67,7 +67,7 @@ export const WhatsNewBanner: React.FC<Props> = ({ onOpenWhatsNew }) => {
               <span
                 key={item.id}
                 className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  idx === currentIndex ? 'bg-sky-500 dark:bg-sky-400 w-3' : 'bg-slate-300 dark:bg-slate-700'
+                  idx === currentIndex ? 'bg-blue-500 dark:bg-blue-400 w-3' : 'bg-slate-300 dark:bg-slate-700'
                 }`}
               />
             ))}

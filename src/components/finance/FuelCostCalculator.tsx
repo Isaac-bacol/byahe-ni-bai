@@ -174,23 +174,23 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
   return (
     <div className="glass-panel rounded-3xl overflow-hidden transition-colors">
       {/* Header Banner */}
-      <div className="p-5 sm:p-6 bg-linear-to-r from-[#0a192f]/90 via-[#0d2a4a]/85 to-[#0a3832]/90 text-white relative overflow-hidden backdrop-blur-md border-b border-white/10">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="p-5 sm:p-6 text-white relative overflow-hidden backdrop-blur-md border-b border-white/10 bg-sign hover:bg-sign-dark">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-20 w-60 h-60 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3.5">
           <div className="flex items-start space-x-3 min-w-0">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-linear-to-tr from-cyan-600 to-emerald-500 p-2 sm:p-2.5 text-white flex items-center justify-center shadow-md shadow-emerald-900/30 shrink-0 mt-0.5">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl p-2 sm:p-2.5 text-white flex items-center justify-center shadow-md shadow-emerald-900/30 shrink-0 mt-0.5 bg-sign hover:bg-sign-dark">
               <Flaticon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center flex-wrap gap-1.5">
                 <h3 className="text-base sm:text-xl font-black tracking-tight text-white">Fuel Cost Calculator</h3>
-                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0 backdrop-blur-xs">
+                <span className="text-xs font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0 backdrop-blur-xs">
                   Tantiya sa Gasolina
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-300 mt-1 leading-snug">
+              <p className="text-xs sm:text-xs text-slate-300 mt-1 leading-snug">
                 Calculate expected fuel consumption, trip expenses, and budget impact with live Bohol benchmarks
               </p>
             </div>
@@ -226,7 +226,7 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
               <Compass className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Popular Bohol Route Presets:</span>
             </span>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">Tap for instant distance</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Tap for instant distance</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -241,13 +241,13 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                   }}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 ${
                     isSelected
-                      ? 'bg-linear-to-r from-cyan-600 to-emerald-600 text-white shadow-md'
+                      ? 'text-white shadow-md bg-sign hover:bg-sign-dark'
                       : 'glass-btn text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
                   }`}
                   title={preset.description}
                 >
                   <span>{preset.name}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'}`}>
+                  <span className={`text-xs px-1.5 py-0.2 rounded-md ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700/60 text-slate-600 dark:text-slate-400'}`}>
                     {preset.distanceKm} km
                   </span>
                 </button>
@@ -270,7 +270,7 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
               <button
                 type="button"
                 onClick={() => setIsRoundTrip(!isRoundTrip)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer flex items-center space-x-1 ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1 ${
                   isRoundTrip
                     ? 'bg-emerald-600 text-white shadow-xs'
                     : 'glass-btn text-slate-700 dark:text-slate-300'
@@ -312,7 +312,7 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                 className="w-full accent-emerald-600 cursor-pointer"
               />
 
-              <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+              <div className="flex justify-between text-xs text-slate-400 font-medium">
                 <span>1 km</span>
                 <span>Total Calculated: <strong className="text-emerald-600 dark:text-emerald-400">{effectiveDistance} km</strong></span>
                 <span>150 km</span>
@@ -328,13 +328,13 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                 <span>Vehicle & Model</span>
               </label>
 
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 rounded-full">
                 {vehicleSelectionSource === 'garage' ? 'From Garage' : vehicleSelectionSource === 'catalog' ? 'Catalog Model' : 'Custom'}
               </span>
             </div>
 
             {/* Source Switcher */}
-            <div className="flex rounded-xl glass-panel-subtle p-1 text-[10px] font-bold">
+            <div className="flex rounded-xl glass-panel-subtle p-1 text-xs font-bold">
               {userVehicles.length > 0 && (
                 <button
                   type="button"
@@ -434,14 +434,14 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                       setFuelEfficiency(vp.efficiency);
                       setVehicleSelectionSource('custom');
                     }}
-                    className={`px-2 py-1 rounded-lg text-[10px] font-bold text-left transition-colors cursor-pointer border ${
+                    className={`px-2 py-1 rounded-lg text-xs font-bold text-left transition-colors cursor-pointer border ${
                       fuelEfficiency === vp.efficiency && vehicleSelectionSource === 'custom'
                         ? 'border-emerald-500 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
                         : 'border-slate-200/60 dark:border-slate-700/60 glass-panel-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <div className="truncate">{vp.label}</div>
-                    <div className="text-[9px] text-slate-400">{vp.efficiency} km/L</div>
+                    <div className="text-xs text-slate-400">{vp.efficiency} km/L</div>
                   </button>
                 ))}
               </div>
@@ -463,12 +463,12 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                     setIsCustomPrice(false);
                     setFuelPrice(liveBenchmarkPrice);
                   }}
-                  className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer"
+                  className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                 >
                   Reset to Bohol Feed
                 </button>
               ) : (
-                <span className="text-[10px] text-slate-400 font-medium">FuelWatch PH</span>
+                <span className="text-xs text-slate-400 font-medium">FuelWatch PH</span>
               )}
             </div>
 
@@ -482,7 +482,7 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                     setFuelType(ft);
                     setIsCustomPrice(false);
                   }}
-                  className={`py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all cursor-pointer text-center ${
+                  className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
                     fuelType === ft
                       ? 'glass-btn bg-white/70 dark:bg-slate-800/80 text-slate-900 dark:text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -514,7 +514,7 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0">/ Liter</span>
               </div>
 
-              <p className="text-[10px] text-slate-400 flex items-center justify-between pt-0.5">
+              <p className="text-xs text-slate-400 flex items-center justify-between pt-0.5">
                 <span>Bohol Benchmark: <strong>₱{liveBenchmarkPrice.toFixed(2)}/L</strong></span>
                 {isCustomPrice && <span className="text-amber-500 font-bold">Custom Pump Price</span>}
               </p>
@@ -525,56 +525,56 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
         {/* ------------------------------------------------------------- */}
         {/* Results Banner: Reactive Outputs                              */}
         {/* ------------------------------------------------------------- */}
-        <div className="p-4 sm:p-6 rounded-3xl glass-panel bg-linear-to-br from-emerald-500/10 via-cyan-500/10 to-teal-500/10 border border-emerald-400/30 backdrop-blur-xl">
+        <div className="p-4 sm:p-6 rounded-3xl glass-panel border border-emerald-400/30 backdrop-blur-xl">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
             {/* 1. Estimated Total Cost */}
             <div className="p-3 sm:p-4 rounded-2xl glass-panel-subtle border border-emerald-400/30 shadow-xs overflow-hidden">
-              <span className="text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block truncate">
+              <span className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 block truncate">
                 Estimated Fuel Cost
               </span>
               <div className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white mt-1 truncate">
                 {formatPHP(totalFuelCost)}
               </div>
-              <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
+              <span className="text-xs sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
                 Total peso spend
               </span>
             </div>
 
             {/* 2. Fuel Volume (Liters) */}
             <div className="p-3 sm:p-4 rounded-2xl glass-panel-subtle border border-slate-200/50 dark:border-slate-800/60 shadow-xs overflow-hidden">
-              <span className="text-[10px] font-extrabold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider block truncate">
+              <span className="text-xs font-extrabold text-blue-600 dark:text-blue-400 block truncate">
                 Fuel Needed
               </span>
               <div className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white mt-1 truncate">
                 {litersNeeded.toFixed(2)} <span className="text-xs sm:text-sm font-bold text-slate-400">L</span>
               </div>
-              <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
+              <span className="text-xs sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
                 at {fuelEfficiency} km/L
               </span>
             </div>
 
             {/* 3. Cost Per Kilometer */}
             <div className="p-3 sm:p-4 rounded-2xl glass-panel-subtle border border-slate-200/50 dark:border-slate-800/60 shadow-xs overflow-hidden">
-              <span className="text-[10px] font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wider block truncate">
+              <span className="text-xs font-extrabold text-slate-600 dark:text-slate-300 block truncate">
                 Cost Per Km
               </span>
               <div className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white mt-1 truncate">
                 ₱{costPerKm.toFixed(2)}
               </div>
-              <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
+              <span className="text-xs sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
                 Vehicle operating rate
               </span>
             </div>
 
             {/* 4. Travel Duration */}
             <div className="p-3 sm:p-4 rounded-2xl glass-panel-subtle border border-slate-200/50 dark:border-slate-800/60 shadow-xs overflow-hidden">
-              <span className="text-[10px] font-extrabold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider block truncate">
+              <span className="text-xs font-extrabold text-blue-600 dark:text-blue-400 block truncate">
                 Travel Time
               </span>
               <div className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white mt-1 truncate">
                 ~{travelTimeEstimate}
               </div>
-              <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
+              <span className="text-xs sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 block truncate">
                 Bohol road conditions
               </span>
             </div>
@@ -609,14 +609,14 @@ Calculated via Byahe ni Bai (FuelWatch PH Benchmark)`;
 
             {userType === 'admin' && (
               <div className="flex items-center space-x-2 text-slate-700 dark:text-slate-200">
-                <Info className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                 <span>
                   <strong>Island Fuel Economic Ratio:</strong> Gasoline benchmark at ₱{liveBenchmarkPrice.toFixed(2)}/L yielding ₱{costPerKm.toFixed(2)}/km operating base.
                 </span>
               </div>
             )}
 
-            <div className="text-[11px] text-slate-400 italic shrink-0 self-start md:self-auto">
+            <div className="text-xs text-slate-400 italic shrink-0 self-start md:self-auto">
               Formula: (Distance ÷ km/L) × Price
             </div>
           </div>

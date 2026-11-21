@@ -183,7 +183,7 @@ export const FuelCareTipsCard: React.FC<Props> = ({
             <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
               Fuel Saving, Vehicle Optimization & Check-Up Guide
             </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
               {vehicle
                 ? `Tailored care tips for ${vehicle.brand} ${vehicle.model} (${vehicle.fuel_efficiency_km_per_l} km/L)`
                 : 'Practical eco-driving & preventive maintenance habits for Bohol roads'}
@@ -195,7 +195,7 @@ export const FuelCareTipsCard: React.FC<Props> = ({
           <button
             type="button"
             onClick={onOpenGarage}
-            className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer shrink-0"
+            className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer shrink-0"
           >
             Manage Garage
           </button>
@@ -203,7 +203,7 @@ export const FuelCareTipsCard: React.FC<Props> = ({
       </div>
 
       {/* 3-Tab Switcher */}
-      <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl glass-panel-subtle text-[11px] font-extrabold">
+      <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl glass-panel-subtle text-xs font-extrabold">
         <button
           type="button"
           onClick={() => setActiveTab('save')}
@@ -222,7 +222,7 @@ export const FuelCareTipsCard: React.FC<Props> = ({
           onClick={() => setActiveTab('optimize')}
           className={`py-2 px-2 rounded-xl flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
             activeTab === 'optimize'
-              ? 'glass-btn bg-cyan-500/15 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border-cyan-500/40 shadow-xs'
+              ? 'glass-btn bg-blue-500/15 dark:bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-500/40 shadow-xs'
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
           }`}
         >
@@ -258,11 +258,11 @@ export const FuelCareTipsCard: React.FC<Props> = ({
                 <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">
                   {tip.title}
                 </h4>
-                <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                <span className="shrink-0 px-2 py-0.5 rounded-full text-xs font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
                   {tip.badge}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 {tip.description}
               </p>
             </div>
@@ -281,11 +281,11 @@ export const FuelCareTipsCard: React.FC<Props> = ({
                 <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">
                   {tip.title}
                 </h4>
-                <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
+                <span className="shrink-0 px-2 py-0.5 rounded-full text-xs font-extrabold bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30">
                   {tip.badge}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 {tip.description}
               </p>
             </div>
@@ -295,7 +295,7 @@ export const FuelCareTipsCard: React.FC<Props> = ({
 
       {activeTab === 'checkup' && (
         <div className="space-y-2.5 animate-in fade-in duration-150">
-          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-0.5">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-0.5">
             <span>
               Tap each routine check-up item once inspected ({completedCount}/{CHECKUP_SCHEDULE.length} completed):
             </span>
@@ -344,11 +344,11 @@ export const FuelCareTipsCard: React.FC<Props> = ({
                       >
                         {item.title}
                       </span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30">
                         {isDone ? `Checked ${checkedDate}` : item.interval}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                       {item.note}
                     </p>
                   </div>

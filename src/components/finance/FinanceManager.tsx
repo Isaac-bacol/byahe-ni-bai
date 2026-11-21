@@ -78,15 +78,15 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
       {userType === 'motorist' && (
         <div className="space-y-4">
           {/* Allowance Master Card */}
-          <div className="rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-200 dark:border-cyan-400/30 backdrop-blur-xl transition-colors relative overflow-hidden bg-white dark:bg-slate-900">
+          <div className="rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-200 dark:border-blue-400/30 backdrop-blur-xl transition-colors relative overflow-hidden bg-white dark:bg-slate-900">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
               <div className="flex items-center space-x-2.5 min-w-0">
-                <div className="p-2.5 rounded-xl bg-sky-100 dark:bg-sky-500/20 text-sky-900 dark:text-sky-300 border border-sky-300 dark:border-sky-400/30 shrink-0">
+                <div className="p-2.5 rounded-xl bg-blue-100 dark:bg-blue-500/20 text-blue-900 dark:text-blue-300 border border-blue-300 dark:border-blue-400/30 shrink-0">
                   <PiggyBank className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-sm font-black tracking-tight text-slate-950 dark:text-white truncate">ALLOWANCE PROGRESS</h3>
-                  <p className="text-[11px] text-slate-700 dark:text-sky-200 truncate font-bold">Remaining = Allowance − Expenses</p>
+                  <p className="text-xs text-slate-700 dark:text-blue-200 truncate font-bold">Remaining = Allowance − Expenses</p>
                 </div>
               </div>
 
@@ -96,7 +96,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
                     setNewAllowanceAmount(userAllowance?.amount || 3000);
                     setIsEditingAllowance(true);
                   }}
-                  className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-xs font-bold text-slate-900 dark:text-white hover:text-sky-700 dark:hover:text-sky-300 border border-slate-300 dark:border-white/20 shadow-xs cursor-pointer shrink-0 active:scale-95 transition-all flex items-center space-x-1.5"
+                  className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-xs font-bold text-slate-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-300 border border-slate-300 dark:border-white/20 shadow-xs cursor-pointer shrink-0 active:scale-95 transition-all flex items-center space-x-1.5"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   <span>Adjust Budget</span>
@@ -106,8 +106,8 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
             {/* Editing Box */}
             {isEditingAllowance && (
-              <div className="mb-4 p-3.5 rounded-2xl bg-sky-50 dark:bg-slate-800 border border-sky-300 dark:border-white/20 flex items-center space-x-2">
-                <span className="text-xs font-bold text-slate-800 dark:text-sky-200">₱</span>
+              <div className="mb-4 p-3.5 rounded-2xl bg-blue-50 dark:bg-slate-800 border border-blue-300 dark:border-white/20 flex items-center space-x-2">
+                <span className="text-xs font-bold text-slate-800 dark:text-blue-200">₱</span>
                 <input
                   type="number"
                   min="0"
@@ -125,7 +125,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
                 </button>
                 <button
                   onClick={() => setIsEditingAllowance(false)}
-                  className="px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 dark:text-sky-200 dark:hover:text-white shrink-0 cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 dark:text-blue-200 dark:hover:text-white shrink-0 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -134,18 +134,18 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
             {/* Formula visualization Cards (Zero decimal places and responsive sizing to prevent overlap) */}
             <div className="grid grid-cols-3 gap-2 text-center my-4">
-              <div className="p-2.5 sm:p-3 bg-sky-100/90 dark:bg-sky-950/60 rounded-2xl border border-sky-300 dark:border-sky-400/40 overflow-hidden shadow-2xs">
-                <span className="text-[10px] text-sky-950 dark:text-sky-300 font-black uppercase block truncate">Allowance</span>
+              <div className="p-2.5 sm:p-3 bg-blue-100/90 dark:bg-blue-950/60 rounded-2xl border border-blue-300 dark:border-blue-400/40 overflow-hidden shadow-2xs">
+                <span className="text-xs text-blue-950 dark:text-blue-300 font-black uppercase block truncate">Allowance</span>
                 <span className="text-sm sm:text-lg font-black text-slate-950 dark:text-white truncate block mt-0.5">{formatPHP(financialSummary.allowanceBudget)}</span>
               </div>
 
               <div className="p-2.5 sm:p-3 bg-rose-100/90 dark:bg-rose-950/60 rounded-2xl border border-rose-300 dark:border-rose-400/40 overflow-hidden shadow-2xs">
-                <span className="text-[10px] text-rose-950 dark:text-rose-300 font-black uppercase block truncate">- Expenses</span>
+                <span className="text-xs text-rose-950 dark:text-rose-300 font-black uppercase block truncate">- Expenses</span>
                 <span className="text-sm sm:text-lg font-black text-rose-700 dark:text-rose-400 truncate block mt-0.5">{formatPHP(financialSummary.allowanceUsed)}</span>
               </div>
 
               <div className="p-2.5 sm:p-3 bg-emerald-100/90 dark:bg-emerald-950/60 rounded-2xl border border-emerald-300 dark:border-emerald-400/50 overflow-hidden shadow-2xs">
-                <span className="text-[10px] text-emerald-950 dark:text-emerald-300 font-black uppercase block truncate">= Remaining</span>
+                <span className="text-xs text-emerald-950 dark:text-emerald-300 font-black uppercase block truncate">= Remaining</span>
                 <span className="text-sm sm:text-lg font-black text-emerald-800 dark:text-emerald-400 truncate block mt-0.5">{formatPHP(financialSummary.allowanceRemaining)}</span>
               </div>
             </div>
@@ -160,7 +160,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
               </div>
               <div className="w-full bg-slate-200 dark:bg-slate-800 h-3 rounded-full overflow-hidden border border-slate-300/60 dark:border-white/10">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 dark:from-emerald-400 dark:to-teal-400 rounded-full transition-all duration-500"
+                  className="h-full rounded-full transition-all duration-500 bg-sign hover:bg-sign-dark"
                   style={{
                     width: `${Math.min(100, (financialSummary.allowanceUsed / (financialSummary.allowanceBudget || 1)) * 100)}%`,
                   }}
@@ -171,7 +171,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
           {/* Expense Breakdown */}
           <div className="glass-panel rounded-3xl p-5 space-y-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10">
-            <h4 className="text-xs font-black text-slate-950 dark:text-slate-100 uppercase tracking-wider">
+            <h4 className="text-xs font-black text-slate-950 dark:text-slate-100">
               Monthly Transportation Spending Breakdown
             </h4>
 
@@ -188,7 +188,7 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
               <div className="py-2.5 flex justify-between items-center text-xs">
                 <span className="text-slate-700 dark:text-slate-300 flex items-center gap-1.5 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                  <span className="w-2 h-2 rounded-full bg-blue-500" />
                   Trip Fuel Cost Allocations
                 </span>
                 <span className="font-extrabold text-slate-950 dark:text-slate-100">
@@ -223,19 +223,19 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
             <div className="grid grid-cols-3 gap-2 text-center my-4">
               <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 rounded-2xl border border-emerald-200 dark:border-emerald-400/30">
-                <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">Fares (Plete)</span>
+                <span className="text-xs text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">Fares (Plete)</span>
                 <span className="text-base sm:text-xl font-black text-slate-900 dark:text-white">{formatPHP(financialSummary.totalFares)}</span>
               </div>
 
               <div className="p-3 bg-rose-50 dark:bg-rose-950/50 rounded-2xl border border-rose-200 dark:border-rose-400/30">
-                <span className="text-[10px] text-rose-800 dark:text-rose-300 font-extrabold uppercase block">- Expenses</span>
+                <span className="text-xs text-rose-800 dark:text-rose-300 font-extrabold uppercase block">- Expenses</span>
                 <span className="text-base sm:text-xl font-black text-rose-600 dark:text-rose-400">
                   {formatPHP(financialSummary.fuelExpenses + financialSummary.otherExpenses)}
                 </span>
               </div>
 
               <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 rounded-2xl border border-emerald-200 dark:border-emerald-400/40">
-                <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">= Net Take-Home</span>
+                <span className="text-xs text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">= Net Take-Home</span>
                 <span className="text-base sm:text-xl font-black text-emerald-700 dark:text-emerald-400">{formatPHP(financialSummary.netEarnings)}</span>
               </div>
             </div>
@@ -263,22 +263,22 @@ export const FinanceManager: React.FC<Props> = ({ onBack }) => {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center my-4">
               <div className="p-3 bg-amber-50 dark:bg-amber-950/50 rounded-2xl border border-amber-200 dark:border-amber-400/30">
-                <span className="text-[10px] text-amber-800 dark:text-amber-300 font-extrabold uppercase block">Fares</span>
+                <span className="text-xs text-amber-800 dark:text-amber-300 font-extrabold uppercase block">Fares</span>
                 <span className="text-base font-black text-slate-900 dark:text-white">{formatPHP(financialSummary.tricycleFares)}</span>
               </div>
 
               <div className="p-3 bg-rose-50 dark:bg-rose-950/50 rounded-2xl border border-rose-200 dark:border-rose-400/30">
-                <span className="text-[10px] text-rose-800 dark:text-rose-300 font-extrabold uppercase block">Fuel</span>
+                <span className="text-xs text-rose-800 dark:text-rose-300 font-extrabold uppercase block">Fuel</span>
                 <span className="text-base font-black text-rose-600 dark:text-rose-400">{formatPHP(financialSummary.tricycleFuel)}</span>
               </div>
 
               <div className="p-3 bg-rose-50 dark:bg-rose-950/50 rounded-2xl border border-rose-200 dark:border-rose-400/30">
-                <span className="text-[10px] text-rose-800 dark:text-rose-300 font-extrabold uppercase block">Boundary</span>
+                <span className="text-xs text-rose-800 dark:text-rose-300 font-extrabold uppercase block">Boundary</span>
                 <span className="text-base font-black text-rose-600 dark:text-rose-400">{formatPHP(financialSummary.boundaryExpenses)}</span>
               </div>
 
               <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 rounded-2xl border border-emerald-200 dark:border-emerald-400/40">
-                <span className="text-[10px] text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">= Take-Home</span>
+                <span className="text-xs text-emerald-800 dark:text-emerald-300 font-extrabold uppercase block">= Take-Home</span>
                 <span className="text-base font-black text-emerald-700 dark:text-emerald-400">{formatPHP(financialSummary.tricycleNetEarnings)}</span>
               </div>
             </div>
